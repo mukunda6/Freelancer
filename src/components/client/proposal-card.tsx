@@ -1,12 +1,37 @@
 
+"use client";
+
 import type { Proposal } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Check, MessageCircle, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
-export function ProposalCard({ proposal }: { proposal: Proposal }) {
+export function ProposalCard({ proposal: initialProposal }: { proposal: Proposal }) {
+  const [proposal, setProposal] = useState(initialProposal);
+  const { toast } = useToast();
+
+  const handleAccept = () => {
+    setProposal({ ...proposal, status: 'Accepted' });
+    toast({
+      title: "Proposal Accepted!",
+      description: `You have accepted the proposal from ${proposal.freelancerName}.`,
+    });
+  };
+
+  const handleDecline = () => {
+    setProposal({ ...proposal, status: 'Declined' });
+     toast({
+      title: "Proposal Declined",
+      description: `You have declined the proposal from ${proposal.freelancerName}.`,
+      variant: 'destructive'
+    });
+  };
+
+
   return (
     <Card className="shadow-md">
       <CardHeader className="flex flex-row items-start gap-4">
@@ -22,7 +47,7 @@ export function ProposalCard({ proposal }: { proposal: Proposal }) {
         </div>
         <div className="text-right">
             <div className="text-xl font-bold text-primary">${proposal.bid.toLocaleString()}</div>
-            <Badge variant="secondary" className="mt-1">
+            <Badge variant={proposal.status === 'Accepted' ? 'default' : proposal.status === 'Declined' ? 'destructive' : 'secondary'} className="mt-1">
                 {proposal.status}
             </Badge>
         </div>
@@ -35,10 +60,10 @@ export function ProposalCard({ proposal }: { proposal: Proposal }) {
            <Button variant="outline" size="sm">
             <MessageCircle className="mr-2 h-4 w-4" /> Message
           </Button>
-          <Button variant="destructive" size="sm">
+          <Button variant="destructive" size="sm" onClick={handleDecline}>
             <X className="mr-2 h-4 w-4" /> Decline
           </Button>
-          <Button size="sm" className="bg-accent hover:bg-accent/90">
+          <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={handleAccept}>
             <Check className="mr-2 h-4 w-4" /> Accept
           </Button>
         </CardFooter>
