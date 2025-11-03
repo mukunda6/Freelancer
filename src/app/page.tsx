@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Users, Building } from 'lucide-react';
@@ -8,23 +9,25 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        <div className="container mx-auto flex h-16 items-center px-4 md:px-6">
           <Logo />
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="hidden items-center gap-6 md:flex mx-auto">
             <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
               Features
-            </Link>
-            <Link href="/login" className="text-sm font-medium hover:text-primary transition-colors">
-              Freelancer Login
-            </Link>
-             <Link href="/client/login" className="text-sm font-medium hover:text-primary transition-colors">
-              Client Login
             </Link>
             <Link href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
               Contact
             </Link>
           </nav>
           <div className="flex items-center gap-4">
+             <nav className="hidden items-center gap-6 md:flex">
+                <Link href="/login" className="text-sm font-medium hover:text-primary transition-colors">
+                  Freelancer Login
+                </Link>
+                <Link href="/client/login" className="text-sm font-medium hover:text-primary transition-colors">
+                  Client Login
+                </Link>
+             </nav>
             <Button asChild>
               <Link href="/signup">
                 Get Started <ArrowRight className="ml-2" />
