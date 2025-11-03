@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,12 +13,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
+  DropdownMenuSubContent
 } from "@/components/ui/dropdown-menu";
-import { CreditCard, LogOut, Settings, User } from "lucide-react";
+import { CreditCard, LogOut, Settings, User, Monitor, Moon, Sun } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export function UserNav() {
   const router = useRouter();
+  const { setTheme } = useTheme();
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
 
   return (
@@ -54,6 +60,29 @@ export function UserNav() {
             <span>Settings</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+         <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+                <Monitor className="mr-2 h-4 w-4" />
+                <span>Theme</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                    <DropdownMenuItem onClick={() => setTheme("light")}>
+                        <Sun className="mr-2 h-4 w-4" />
+                        <span>Light</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("dark")}>
+                        <Moon className="mr-2 h-4 w-4" />
+                        <span>Dark</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("system")}>
+                        <Monitor className="mr-2 h-4 w-4" />
+                        <span>System</span>
+                    </DropdownMenuItem>
+                </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+        </DropdownMenuSub>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push('/')}>
           <LogOut className="mr-2 h-4 w-4" />
