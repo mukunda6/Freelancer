@@ -18,7 +18,7 @@ import {
   DropdownMenuPortal,
   DropdownMenuSubContent
 } from "@/components/ui/dropdown-menu";
-import { CreditCard, LogOut, Settings, User, Monitor, Moon, Sun } from "lucide-react";
+import { LogOut, Settings, User, Monitor, Moon, Sun } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export function UserNav() {
@@ -50,10 +50,6 @@ export function UserNav() {
           <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Settings className="mr-2 h-4 w-4" />
