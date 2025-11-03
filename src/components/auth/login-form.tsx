@@ -28,6 +28,16 @@ export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
     e.preventDefault();
     setIsLoading(true);
 
+    if (!auth) {
+      toast({
+        title: "Authentication Error",
+        description: "Firebase Auth is not available. Please check your setup.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
     const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
     const password = (e.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
 
