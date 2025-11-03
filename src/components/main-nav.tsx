@@ -9,12 +9,14 @@ import {
   Briefcase,
   User,
   GitPullRequestArrow,
+  Search,
 } from 'lucide-react';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/dashboard/projects', label: 'Projects', icon: Briefcase },
+  { href: '/dashboard/projects', label: 'My Projects', icon: Briefcase },
+  { href: '/dashboard/freelancer-projects', label: 'Browse Projects', icon: Search },
   { href: '/dashboard/referrals', label: 'Referrals', icon: GitPullRequestArrow },
   { href: '/dashboard/profile', label: 'Profile', icon: User },
 ];
