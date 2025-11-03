@@ -29,7 +29,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
   return (
     <nav className={cn('flex flex-col', className)} {...props}>
       <SidebarMenu>
-        {navItems.map((item) => (
+        {navItems.filter(item => item.href !== '/dashboard/profile').map((item) => (
           <SidebarMenuItem key={item.href}>
              <SidebarMenuButton
               asChild
@@ -39,7 +39,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
             >
               <Link href={item.href}>
                 <item.icon />
-                {item.href !== '/dashboard/profile' && <span>{item.label}</span>}
+                <span>{item.label}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
