@@ -67,12 +67,6 @@ export default function ProjectsPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-            <Button asChild>
-                <Link href="/dashboard/projects/new">
-                    <PlusCircle className="mr-2" />
-                    New Project
-                </Link>
-            </Button>
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="outline">
