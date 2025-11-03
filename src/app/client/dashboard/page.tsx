@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,8 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Briefcase, FilePlus, Users } from "lucide-react";
+import { Briefcase, FilePlus, Users, Trophy } from "lucide-react";
 import Link from 'next/link';
+import { competitions } from "@/lib/data";
+import { CompetitionCard } from "@/components/client/competition-card";
 
 export default function ClientDashboardPage() {
   return (
@@ -54,6 +57,23 @@ export default function ClientDashboardPage() {
           </CardContent>
         </Card>
       </div>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Trophy className="w-6 h-6 text-accent" />
+            <CardTitle className="font-headline">Active Competitions</CardTitle>
+          </div>
+          <CardDescription>
+            Manage your ongoing project competitions.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-2">
+          {competitions.map((competition) => (
+            <CompetitionCard key={competition.id} competition={competition} />
+          ))}
+        </CardContent>
+       </Card>
 
        <Card>
         <CardHeader>

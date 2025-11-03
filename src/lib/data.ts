@@ -264,3 +264,31 @@ export const testimonials: Testimonial[] = [
         quote: "This freelancer is our go-to partner for critical projects. Their ability to quickly understand our needs and deliver high-quality results is unmatched. Highly recommended."
     },
 ];
+
+export type Competition = {
+  id: string;
+  title: string;
+  prize: number;
+  deadline: string;
+  entries: number;
+  status: 'Live' | 'Judging' | 'Completed';
+};
+
+export const competitions: Competition[] = [
+  {
+    id: 'comp1',
+    title: 'Design a new company logo',
+    prize: 1000,
+    deadline: '2024-08-15',
+    entries: 25,
+    status: 'Live'
+  },
+    {
+    id: 'comp2',
+    title: 'Explainer Video Animation',
+    prize: 2500,
+    deadline: '2024-08-10',
+    entries: 12,
+    status: 'Judging'
+  }
+];
