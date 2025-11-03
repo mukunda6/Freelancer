@@ -20,6 +20,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Filter } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const allCategories = [...new Set(projects.map((p) => p.category))];
 const allSkills = [...new Set(projects.flatMap((p) => p.skills))];
@@ -32,6 +34,7 @@ export default function ProjectsPage() {
   const [category, setCategory] = useState('all');
   const [skill, setSkill] = useState('all');
   const [budget, setBudget] = useState([0, 10000]);
+  const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
 
   const filteredProjects = useMemo(() => {
     return freelancerPortfolioProjects.filter((project) => {
@@ -46,15 +49,21 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between gap-4">
-        <div className="space-y-1">
-          <h1 className="text-3xl font-headline font-bold tracking-tight">
-            My Projects
-          </h1>
-          <p className="text-muted-foreground max-w-2xl">
-            Here is a selection of my recent work. Each project highlights my
-            ability to deliver tangible results and create value for my clients.
-          </p>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-center gap-4">
+           <Avatar className="h-20 w-20 border-2 border-primary">
+            <AvatarImage src={userAvatar?.imageUrl} alt="User avatar" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          <div className="space-y-1">
+            <h1 className="text-3xl font-headline font-bold tracking-tight">
+              My Projects
+            </h1>
+            <p className="text-muted-foreground max-w-2xl">
+              Here is a selection of my recent work. Each project highlights my
+              ability to deliver tangible results and create value for my clients.
+            </p>
+          </div>
         </div>
         <Popover>
           <PopoverTrigger asChild>
