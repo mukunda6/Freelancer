@@ -303,7 +303,7 @@ let competitionsData: Competition[] = [
     prize: 2500,
     deadline: '2024-08-10',
     entries: 12,
-    status: 'Judging'
+    status: 'Live'
   }
 ];
 
@@ -340,6 +340,8 @@ export const competitors: Competitor[] = [
   { id: 'c9', name: 'Ivy Jones', avatar: 'https://picsum.photos/seed/ivyjones/100/100', specialty: 'Full-Stack Developer', rank: 9, earnings: 88000, tags: ['Rising Talent'] },
   { id: 'c10', name: 'Jack King', avatar: 'https://picsum.photos/seed/jackking/100/100', specialty: 'Marketing Automation Specialist', rank: 10, earnings: 85000, tags: [] },
 ];
+    
+
     
 
     
