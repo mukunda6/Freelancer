@@ -22,9 +22,6 @@ export default function LandingPage() {
             </Link>
           </nav>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" asChild>
-              <Link href="/login">Freelancer Login</Link>
-            </Button>
             <Button asChild>
               <Link href="/signup">
                 Get Started <ArrowRight className="ml-2" />
