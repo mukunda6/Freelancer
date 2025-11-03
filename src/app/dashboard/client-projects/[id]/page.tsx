@@ -18,11 +18,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload, Building, Star, DollarSign, Wrench } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { ApplyProjectForm } from '@/components/freelancer/apply-project-form';
+import React from 'react';
 
 export default function ClientProjectDetailPage() {
   const params = useParams();
   const projectId = params.id as string;
   const project = projects.find((p) => p.id === projectId);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   if (!project) {
     return (
@@ -40,6 +44,10 @@ export default function ClientProjectDetailPage() {
   }
   
   const clientAvatarUrl = `https://picsum.photos/seed/${project.postedBy.replace(/\s+/g, '')}/100/100`;
+  
+  const handleSuccess = () => {
+    setIsDialogOpen(false);
+  };
 
   return (
     <div className="container mx-auto max-w-6xl py-8">
@@ -147,11 +155,22 @@ export default function ClientProjectDetailPage() {
 
             </CardContent>
             <CardFooter>
-                 <Button className="w-full" asChild>
-                    <Link href="https://docs.google.com/forms/d/e/1FAIpQLSe_D-yM-1Vf1i1l-3A4t_5k9f6p8c_7X_7W_6Q/viewform" target="_blank">
-                        Apply Now
-                    </Link>
-                 </Button>
+                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                        <Button className="w-full">
+                            Apply Now
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                        <DialogHeader>
+                            <DialogTitle>Apply to: {project.title}</DialogTitle>
+                            <DialogDescription>
+                                Submit your proposal and files to apply for this project. Good luck!
+                            </DialogDescription>
+                        </DialogHeader>
+                        <ApplyProjectForm project={project} onSubmissionSuccess={handleSuccess} />
+                    </DialogContent>
+                </Dialog>
             </CardFooter>
           </Card>
         </div>
@@ -159,5 +178,3 @@ export default function ClientProjectDetailPage() {
     </div>
   );
 }
-
-
