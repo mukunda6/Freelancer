@@ -7,10 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Briefcase, FilePlus, Users, Trophy } from "lucide-react";
+import { Briefcase, FilePlus, Users, Trophy, ArrowRight } from "lucide-react";
 import Link from 'next/link';
 import { competitions } from "@/lib/data";
 import { CompetitionCard } from "@/components/client/competition-card";
+import { TopCompetitors } from "@/components/dashboard/top-competitors";
 
 export default function ClientDashboardPage() {
   return (
@@ -58,34 +59,55 @@ export default function ClientDashboardPage() {
         </Card>
       </div>
 
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-2">
-            <Trophy className="w-6 h-6 text-accent" />
-            <CardTitle className="font-headline">Active Competitions</CardTitle>
-          </div>
-          <CardDescription>
-            Manage your ongoing project competitions.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid gap-4 md:grid-cols-2">
-          {competitions.map((competition) => (
-            <CompetitionCard key={competition.id} competition={competition} />
-          ))}
-        </CardContent>
-       </Card>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Trophy className="w-6 h-6 text-accent" />
+              <CardTitle className="font-headline">Active Competitions</CardTitle>
+            </div>
+            <CardDescription>
+              Manage your ongoing project competitions.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4 md:grid-cols-1">
+            {competitions.map((competition) => (
+              <CompetitionCard key={competition.id} competition={competition} />
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Recent Activity</CardTitle>
+            <CardDescription>
+              Latest proposals and messages on your projects.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">Activity feed coming soon...</p>
+          </CardContent>
+        </Card>
+      </div>
 
        <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Recent Activity</CardTitle>
-          <CardDescription>
-            Latest proposals and messages on your projects.
-          </CardDescription>
+          <div className="flex justify-between items-center">
+            <div>
+              <CardTitle className="font-headline">Top Freelancers</CardTitle>
+              <CardDescription>Discover top-rated talent for your next project.</CardDescription>
+            </div>
+             <Button variant="link" asChild>
+                <Link href="/client/dashboard/freelancer-projects">
+                    Browse All <ArrowRight className="ml-2" />
+                </Link>
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-muted-foreground">Activity feed coming soon...</p>
+          <TopCompetitors />
         </CardContent>
-       </Card>
+      </Card>
     </div>
   );
 }

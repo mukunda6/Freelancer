@@ -97,15 +97,6 @@ export default function DashboardPage() {
                 <ClientCommunication />
             </CardContent>
         </Card>
-         <Card className="col-span-full lg:col-span-7">
-          <CardHeader>
-            <CardTitle className="font-headline">Top Competitors</CardTitle>
-            <CardDescription>See how you stack up against other freelancers.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <TopCompetitors />
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
