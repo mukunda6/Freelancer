@@ -28,7 +28,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
           <SidebarMenuItem key={item.href}>
              <SidebarMenuButton
               asChild
-              isActive={pathname === item.href}
+              isActive={pathname.startsWith(item.href) && (item.href === '/dashboard' ? pathname === item.href : true)}
               className="justify-start"
               tooltip={item.label}
             >
