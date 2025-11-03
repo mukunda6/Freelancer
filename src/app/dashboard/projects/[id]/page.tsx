@@ -4,27 +4,36 @@
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import { projects, testimonials } from '@/lib/data';
+import React, { useState } from 'react';
+import { projects } from '@/lib/data';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Mail, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Sparkles } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useToast } from '@/hooks/use-toast';
+import { generateVideoScript } from '@/ai/flows/generate-video-flow';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProjectDetailPage() {
   const params = useParams();
   const projectId = params.id as string;
+  const { toast } = useToast();
+
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [videoScript, setVideoScript] = useState<string | null>(null);
 
   const project = projects.find((p) => p.id === projectId);
-  const testimonial = testimonials.find((t) => t.projectId === projectId);
+  const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
   
   if (!project) {
     return (
@@ -41,7 +50,31 @@ export default function ProjectDetailPage() {
     );
   }
 
-  const clientAvatar = testimonials.find(t => t.projectId === project.id)?.clientAvatar || `https://picsum.photos/seed/${project.postedBy.replace(/\s+/g, '')}/100/100`;
+  const handleGenerateScript = async () => {
+    setIsGenerating(true);
+    setVideoScript(null);
+    try {
+      const result = await generateVideoScript({
+        title: project.title,
+        description: project.description,
+        features: project.features,
+      });
+      setVideoScript(result.script);
+      toast({
+        title: 'Script Generated!',
+        description: 'Your AI-powered video script is ready.',
+      });
+    } catch (error) {
+      console.error('Failed to generate video script:', error);
+      toast({
+        title: 'Generation Failed',
+        description: 'Could not generate the video script. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   return (
     <div className="container mx-auto max-w-6xl py-8">
@@ -63,9 +96,6 @@ export default function ProjectDetailPage() {
             <h1 className="text-4xl font-headline font-bold tracking-tight text-foreground">
               {project.title}
             </h1>
-            <p className="mt-2 text-lg text-muted-foreground">
-              For <span className="font-semibold text-foreground">{project.postedBy}</span>
-            </p>
           </div>
 
           {/* Project Image */}
@@ -81,24 +111,38 @@ export default function ProjectDetailPage() {
             </div>
           </Card>
           
-           {/* Testimonial */}
-           {testimonial && (
-            <Card className="bg-secondary/50">
-              <CardHeader className="flex flex-row items-start gap-4">
-                 <Avatar className="h-12 w-12 border">
-                    <AvatarImage src={testimonial.clientAvatar} alt={testimonial.clientName} />
-                    <AvatarFallback>{testimonial.clientName.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <CardTitle className="text-base font-semibold">{testimonial.clientName}</CardTitle>
-                  <CardDescription>{testimonial.clientTitle}</CardDescription>
+           {/* AI-Powered Demo Video Card */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-6 h-6 text-primary" />
+                <CardTitle className="font-headline">AI-Powered Demo Video</CardTitle>
+              </div>
+              <CardDescription>
+                Generate a short, engaging video script for your project using AI.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isGenerating && (
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-1/4" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-3/4" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <blockquote className="text-foreground italic">"{testimonial.quote}"</blockquote>
-              </CardContent>
-            </Card>
-          )}
+              )}
+              {videoScript && (
+                <blockquote className="italic border-l-4 pl-4 text-muted-foreground">
+                  {videoScript}
+                </blockquote>
+              )}
+            </CardContent>
+            <CardFooter>
+              <Button onClick={handleGenerateScript} disabled={isGenerating}>
+                <Video className="mr-2" />
+                {isGenerating ? 'Generating Script...' : 'Generate Video Script'}
+              </Button>
+            </CardFooter>
+          </Card>
 
           {/* Project Description */}
           <Card>
@@ -140,18 +184,18 @@ export default function ProjectDetailPage() {
         <div className="lg:col-span-1 space-y-6">
            <Card className="sticky top-24">
              <CardHeader className="text-center items-center">
-                <Avatar className="h-24 w-24 mb-4 border-2 border-accent">
-                    <AvatarImage src={clientAvatar} alt={project.postedBy} />
-                    <AvatarFallback>{project.postedBy.charAt(0)}</AvatarFallback>
+                <Avatar className="h-24 w-24 mb-4 border-2 border-primary">
+                    <AvatarImage src={userAvatar?.imageUrl} alt="Jane Doe" />
+                    <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
-                <CardTitle className="font-headline text-2xl">{project.postedBy}</CardTitle>
-                <CardDescription>Client</CardDescription>
+                <CardTitle className="font-headline text-2xl">Jane Doe</CardTitle>
+                <CardDescription>Full-Stack Developer</CardDescription>
              </CardHeader>
             <CardContent className="space-y-4 text-sm">
                 <div className="space-y-2">
                     <h4 className="font-semibold text-muted-foreground">Project Summary</h4>
                     <p className="text-sm text-foreground">
-                      This {project.duration} project was completed within a budget of ${project.budget.toLocaleString()} and delivered key features for the client's {project.category.toLowerCase()} needs.
+                      This {project.duration} project for {project.postedBy} was completed within a budget of ${project.budget.toLocaleString()} and delivered key features for their {project.category.toLowerCase()} needs.
                     </p>
                 </div>
                 <div className="flex items-center justify-between text-sm">
@@ -169,9 +213,9 @@ export default function ProjectDetailPage() {
                 </div>
 
                  <Button className="w-full" asChild>
-                    <Link href={`mailto:contact@${project.postedBy.replace(/\s+/g, '').toLowerCase()}.com`}>
+                    <Link href="/dashboard/profile">
                       <Mail className="mr-2" />
-                      Contact Client
+                      View My Profile
                     </Link>
                  </Button>
             </CardContent>
