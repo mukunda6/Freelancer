@@ -4,7 +4,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ProjectCard } from '@/components/projects/project-card';
-import { type Project } from '@/lib/data';
+import { projects, type Project } from '@/lib/data';
 import {
   Select,
   SelectContent,
@@ -23,24 +23,22 @@ import {
 import { Filter, PlusCircle } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useCollection, useFirebase, useMemoFirebase } from '@/firebase';
-import { collection, query } from 'firebase/firestore';
+import { useFirebase } from '@/firebase';
 import { Skeleton } from '@/components/ui/skeleton';
-
 
 export default function ProjectsPage() {
   const [category, setCategory] = useState('all');
   const [skill, setSkill] = useState('all');
-  const [budget, setBudget] = useState([0, 10000]);
+  const [budget, setBudget] = useState([0, 15000]);
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
-  const { firestore, user } = useFirebase();
+  const { user } = useFirebase();
 
-  const portfolioProjectsQuery = useMemoFirebase(() => {
-    if (!firestore || !user) return null;
-    return query(collection(firestore, `users/${user.uid}/portfolioProjects`));
-  }, [firestore, user]);
-
-  const { data: freelancerPortfolioProjects, isLoading } = useCollection<Project>(portfolioProjectsQuery);
+  // For this demo, we'll show the projects assigned to "Jane Doe" from the mock data.
+  // In a real app with full authentication, you'd fetch this from Firestore.
+  const freelancerPortfolioProjects: Project[] = useMemo(() => {
+    return projects.filter(p => p.postedBy === 'Jane Doe');
+  }, []);
+  const isLoading = false; // Mock loading state
 
   const allCategories = useMemo(() => {
     if (!freelancerPortfolioProjects) return [];
@@ -142,7 +140,7 @@ export default function ProjectsPage() {
                         <Label>Budget Range: ${budget[0]} - ${budget[1]}</Label>
                         <Slider
                             min={0}
-                            max={10000}
+                            max={15000}
                             step={500}
                             value={budget}
                             onValueChange={(value) => setBudget(value)}

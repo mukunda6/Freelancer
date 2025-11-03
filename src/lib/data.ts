@@ -32,7 +32,7 @@ export const projects: Project[] = [
     impact: "The redesigned platform was a massive success, boosting conversion rates by 40% in the first quarter. The mobile-first design and improved navigation reduced the bounce rate by 25%, and the client reported a significant increase in customer satisfaction and repeat business.",
     budget: 5000,
     category: 'Web Development',
-    postedBy: 'Retail Co', // Display name
+    postedBy: 'Jane Doe', // Display name
     clientUid: 'RETAIL_CO_UID', // Simulated UID for the client
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     impact: "The app was an instant hit, achieving over 50,000 downloads in the first three months with a 4.8-star rating. The intuitive UI and personalized features led to high user retention. The social sharing feature created a viral loop, driving organic downloads and building a strong user community.",
     budget: 8000,
     category: 'Mobile Development',
-    postedBy: 'FitLife Inc.', // Display name
+    postedBy: 'Jane Doe', // Display name
     clientUid: 'FITLIFE_INC_UID', // Simulated UID for the client
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageHint || '',
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     impact: "The professional brand identity was crucial in the client's successful pre-launch marketing. It helped them build credibility and played a significant role in their pitch decks, contributing to them securing their first round of seed funding within two months of the brand launch.",
     budget: 2500,
     category: 'Design',
-    postedBy: 'Fintech Startup',
+    postedBy: 'Jane Doe',
     clientUid: 'FINTECH_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageHint || '',
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     impact: "The data-driven content strategy yielded exceptional results. Organic search traffic to the blog increased by 150% over six months. The targeted content resonated with their audience, generating over 200 new marketing qualified leads (MQLs) and significantly boosting their sales pipeline.",
     budget: 3000,
     category: 'Marketing',
-    postedBy: 'CloudCorp',
+    postedBy: 'Jane Doe',
     clientUid: 'CLOUDCORP_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',
@@ -158,6 +158,40 @@ export const projects: Project[] = [
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-8')?.imageHint || '',
     skills: ['Node.js', 'WebSockets', 'Google Cloud', 'API Design'],
     duration: '3 Months',
+    rating: 4.8
+  },
+  {
+    id: '9',
+    title: 'Educational VR Experience',
+    description: 'EduVerse wanted to create an immersive virtual reality experience to teach complex scientific concepts to high school students in a fun and engaging way.',
+    requirements: 'The project required the development of a VR application for the Meta Quest 2. It needed to feature interactive 3D models, physics-based simulations, and a guided lesson plan. The experience had to be intuitive for first-time VR users and align with educational standards.',
+    features: '- Interactive 3D models of cellular structures.\n- Physics-based simulations for chemical reactions.\n- Gamified quizzes and challenges to test knowledge.\n- Voice-over guided tours for each lesson module.\n- A teacher dashboard to track student progress.',
+    impact: 'The VR experience was piloted in several schools and received overwhelmingly positive feedback from both students and teachers. Student engagement and knowledge retention increased by an average of 40% compared to traditional teaching methods.',
+    budget: 12000,
+    category: 'VR/AR Development',
+    postedBy: 'Jane Doe',
+    clientUid: 'EDUVERSE_UID',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-9')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-image-9')?.imageHint || '',
+    skills: ['Unity', 'C#', 'VR', '3D Modeling'],
+    duration: '4 Months',
+    rating: 4.9
+  },
+  {
+    id: '10',
+    title: 'Real-time Collaborative Whiteboard',
+    description: 'TeamSync needed a web-based collaborative whiteboard to enhance remote team brainstorming and planning sessions.',
+    requirements: 'The application had to allow multiple users to draw, write, and add sticky notes on a shared digital canvas in real-time. It required a highly responsive user interface, low-latency communication using WebSockets, and the ability to save and export boards.',
+    features: '- Real-time multi-user collaboration.\n- Drawing tools, text boxes, and sticky notes.\n- Infinite canvas with zoom and pan functionality.\n- Ability to save boards to the cloud (Firestore).\n- Export boards as PNG or PDF files.',
+    impact: 'The collaborative whiteboard became a core tool for remote teams, improving the quality and efficiency of their virtual meetings. It was praised for its intuitive interface and reliable real-time performance, handling over 100 concurrent users per session seamlessly.',
+    budget: 7500,
+    category: 'Web Development',
+    postedBy: 'Jane Doe',
+    clientUid: 'TEAMSYNC_UID',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-10')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-image-10')?.imageHint || '',
+    skills: ['React', 'Firebase', 'WebSockets', 'Canvas API'],
+    duration: '2.5 Months',
     rating: 4.8
   }
 ];
