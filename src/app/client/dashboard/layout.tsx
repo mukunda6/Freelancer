@@ -16,7 +16,7 @@ export default function ClientDashboardLayout({ children }: { children: ReactNod
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader className="p-4">
-          <Logo />
+          <Logo className="text-sidebar-foreground" />
         </SidebarHeader>
         <SidebarContent>
           <ClientNav />
