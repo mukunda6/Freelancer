@@ -52,7 +52,7 @@ export function SignupForm() {
                 <Label
                   htmlFor="freelancer"
                   className={cn(
-                    "flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground",
+                    "flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer",
                     role === 'freelancer' && "border-primary"
                   )}
                 >
@@ -64,7 +64,7 @@ export function SignupForm() {
                 <Label
                   htmlFor="client"
                   className={cn(
-                    "flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground",
+                    "flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer",
                     role === 'client' && "border-primary"
                     )}
                 >
