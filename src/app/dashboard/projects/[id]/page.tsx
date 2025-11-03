@@ -143,12 +143,6 @@ export default function ProjectDetailPage() {
                   </div>
                 </div>
 
-                 <Button className="w-full" variant="outline" asChild>
-                    <Link href="#" target="_blank">
-                      View Project Live
-                      <ExternalLink className="ml-2" />
-                    </Link>
-                 </Button>
                  <Button className="w-full" asChild>
                     <Link href={`mailto:contact@${project.postedBy.replace(/\s+/g, '').toLowerCase()}.com`}>
                       <Mail className="mr-2" />
