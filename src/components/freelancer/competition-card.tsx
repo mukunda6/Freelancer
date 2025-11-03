@@ -14,8 +14,13 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { ApplyCompetitionForm } from "./apply-competition-form";
 import React from "react";
 
-export function CompetitionCard({ competition }: { competition: Competition }) {
+export function CompetitionCard({ competition, onApplicationSubmit }: { competition: Competition, onApplicationSubmit: () => void }) {
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+
+    const handleSuccess = () => {
+        onApplicationSubmit();
+        setIsDialogOpen(false);
+    }
 
     const getBadgeVariant = (status: 'Live' | 'Judging' | 'Completed'): VariantProps<typeof badgeVariants>['variant'] => {
         switch (status) {
@@ -75,10 +80,12 @@ export function CompetitionCard({ competition }: { competition: Competition }) {
                             Submit your proposal and files to enter the competition. Good luck!
                         </DialogDescription>
                     </DialogHeader>
-                    <ApplyCompetitionForm competition={competition} onSubmissionSuccess={() => setIsDialogOpen(false)} />
+                    <ApplyCompetitionForm competition={competition} onSubmissionSuccess={handleSuccess} />
                 </DialogContent>
             </Dialog>
         </CardFooter>
       </Card>
   );
 }
+
+    

@@ -1,9 +1,20 @@
 
-import { competitions } from "@/lib/data";
+'use client';
+
+import React from 'react';
+import { competitions as competitionsData, type Competition } from "@/lib/data";
 import { CompetitionCard } from "@/components/freelancer/competition-card";
 import { Trophy } from "lucide-react";
+import { useToast } from '@/hooks/use-toast';
 
 export default function CompetitionsPage() {
+  const [competitions, setCompetitions] = React.useState<Competition[]>(competitionsData);
+
+  const handleApplication = () => {
+    // This function forces a re-render by creating a new array from the updated data
+    setCompetitions([...competitionsData]);
+  }
+
   return (
     <div className="space-y-6">
        <div className="flex items-center gap-4">
@@ -17,9 +28,11 @@ export default function CompetitionsPage() {
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {competitions.map((competition) => (
-          <CompetitionCard key={competition.id} competition={competition} />
+          <CompetitionCard key={competition.id} competition={competition} onApplicationSubmit={handleApplication} />
         ))}
       </div>
     </div>
   );
 }
+
+    

@@ -288,7 +288,7 @@ export type Competition = {
   status: 'Live' | 'Judging' | 'Completed';
 };
 
-export const competitions: Competition[] = [
+let competitionsData: Competition[] = [
   {
     id: 'comp1',
     title: 'Design a new company logo',
@@ -306,6 +306,16 @@ export const competitions: Competition[] = [
     status: 'Judging'
   }
 ];
+
+export const competitions: Competition[] = competitionsData;
+
+
+export function addCompetitionEntry(competitionId: string) {
+    const competition = competitionsData.find(c => c.id === competitionId);
+    if (competition) {
+        competition.entries += 1;
+    }
+}
 
 export type Competitor = {
   id: string;
@@ -329,4 +339,6 @@ export const competitors: Competitor[] = [
   { id: 'c9', name: 'Ivy Jones', avatar: 'https://picsum.photos/seed/ivyjones/100/100', specialty: 'Full-Stack Developer', rank: 9, earnings: 88000, tags: ['Rising Talent'] },
   { id: 'c10', name: 'Jack King', avatar: 'https://picsum.photos/seed/jackking/100/100', specialty: 'Marketing Automation Specialist', rank: 10, earnings: 85000, tags: [] },
 ];
+    
+
     

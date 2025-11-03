@@ -6,7 +6,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { proposals, type Competition } from "@/lib/data";
+import { proposals, type Competition, addCompetitionEntry } from "@/lib/data";
+import React from 'react';
 
 export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { competition: Competition, onSubmissionSuccess: () => void }) {
     const { toast } = useToast();
@@ -29,9 +30,7 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
             date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         });
         
-        // This is a simulation of notifying the client.
-        // In a real app, this would trigger a backend event.
-        console.log(`Client notified of new application for ${competition.title}`);
+        addCompetitionEntry(competition.id);
         
         toast({
             title: "Application Submitted!",
@@ -94,3 +93,5 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
         </form>
     );
 }
+
+    
