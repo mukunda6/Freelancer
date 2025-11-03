@@ -61,7 +61,7 @@ export default function LandingPage() {
               </Button>
               <Button size="lg" asChild>
                 <Link href="/signup?role=client">
-                  Hire Talent for Your Project
+                  Hire Client
                 </Link>
               </Button>
             </div>
