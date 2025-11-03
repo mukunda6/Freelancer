@@ -124,8 +124,10 @@ export default function ProjectDetailPage() {
              </CardHeader>
             <CardContent className="space-y-4 text-sm">
                 <div className="space-y-2">
-                    <h4 className="font-semibold text-muted-foreground">Project Budget</h4>
-                    <p className="text-lg font-bold text-primary">${project.budget.toLocaleString()}</p>
+                    <h4 className="font-semibold text-muted-foreground">Project Summary</h4>
+                    <p className="text-sm text-foreground">
+                      This {project.duration} project was completed within a budget of ${project.budget.toLocaleString()} and delivered key features for the client's {project.category.toLowerCase()} needs.
+                    </p>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <div className="space-y-2">
