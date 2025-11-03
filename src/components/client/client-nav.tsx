@@ -26,18 +26,6 @@ export function ClientNav() {
 
   return (
     <SidebarMenu>
-      <SidebarMenuItem>
-        <SidebarMenuButton
-          asChild
-          isActive={pathname === actionItem.href}
-          className="justify-start bg-accent text-accent-foreground hover:bg-accent/90 mb-2"
-        >
-          <Link href={actionItem.href}>
-            <actionItem.icon className="h-5 w-5 mr-3" />
-            <span>{actionItem.label}</span>
-          </Link>
-        </SidebarMenuButton>
-      </SidebarMenuItem>
       {navItems.map((item) => (
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
@@ -52,6 +40,18 @@ export function ClientNav() {
           </SidebarMenuButton>
         </SidebarMenuItem>
       ))}
+      <SidebarMenuItem>
+        <SidebarMenuButton
+          asChild
+          isActive={pathname === actionItem.href}
+          className="justify-start bg-accent text-accent-foreground hover:bg-accent/90 mt-2"
+        >
+          <Link href={actionItem.href}>
+            <actionItem.icon className="h-5 w-5 mr-3" />
+            <span>{actionItem.label}</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
     </SidebarMenu>
   );
 }
