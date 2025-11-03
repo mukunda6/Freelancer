@@ -39,7 +39,7 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
             >
               <Link href={item.href}>
                 <item.icon />
-                <span>{item.label}</span>
+                {item.href !== '/dashboard/profile' && <span>{item.label}</span>}
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
