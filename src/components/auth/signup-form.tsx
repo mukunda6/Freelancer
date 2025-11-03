@@ -39,12 +39,12 @@ export function SignupForm() {
           {role === 'client' ? 'Create a Client Account' : role === 'freelancer' ? 'Create a Freelancer Account' : 'Create an Account'}
         </CardTitle>
         <CardDescription>
-            {showRoleSelector ? "First, tell us what you're looking for." : "Join to get started."}
+            {role ? "Join to get started." : "First, tell us what you're looking for."}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSignup} className="grid gap-4">
-          {showRoleSelector && (
+          {!role && (
             <div className="grid grid-cols-2 gap-4 pb-4">
               <div
                 onClick={() => setRole('freelancer')}
