@@ -46,55 +46,34 @@ export function SignupForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSignup} className="grid gap-4">
-          <div className="grid gap-2">
-            <Label>I am a...</Label>
-            <div className="grid grid-cols-2 gap-4">
-               <div
-                onClick={() => setRole('freelancer')}
-                className={cn(
-                  "relative group rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
+          <div className="grid grid-cols-2 gap-4">
+              <div
+              onClick={() => setRole('freelancer')}
+              className={cn(
+                  "rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
                   "hover:shadow-lg hover:scale-105",
-                  role === 'freelancer' ? "border-primary shadow-lg scale-105" : "border-muted"
-                )}
+                  role === 'freelancer' ? "border-primary shadow-lg scale-105" : "border-muted bg-background"
+              )}
               >
-                {freelancerImage && (
-                    <Image
-                      src={freelancerImage.imageUrl}
-                      alt="Freelancer"
-                      fill
-                      className="object-cover rounded-md opacity-20 group-hover:opacity-30 transition-opacity"
-                      data-ai-hint={freelancerImage.imageHint}
-                    />
-                )}
-                <div className="relative z-10 flex flex-col items-center justify-center h-full">
+              <div className="relative z-10 flex flex-col items-center justify-center h-full">
                   <Users className="w-8 h-8 mb-2 text-primary" />
                   <span className="font-semibold text-sm">Freelancer</span>
-                </div>
+              </div>
               </div>
 
-               <div
-                onClick={() => setRole('client')}
-                className={cn(
-                  "relative group rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
+              <div
+              onClick={() => setRole('client')}
+              className={cn(
+                  "rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
                   "hover:shadow-lg hover:scale-105",
-                  role === 'client' ? "border-accent shadow-lg scale-105" : "border-muted"
-                )}
+                  role === 'client' ? "border-accent shadow-lg scale-105" : "border-muted bg-background"
+              )}
               >
-                {clientImage && (
-                  <Image
-                    src={clientImage.imageUrl}
-                    alt="Client"
-                    fill
-                    className="object-cover rounded-md opacity-20 group-hover:opacity-30 transition-opacity"
-                    data-ai-hint={clientImage.imageHint}
-                  />
-                )}
-                <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                    <Building className="w-8 h-8 mb-2 text-accent" />
-                    <span className="font-semibold text-sm">Client</span>
-                </div>
+              <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                  <Building className="w-8 h-8 mb-2 text-accent" />
+                  <span className="font-semibold text-sm">Client</span>
               </div>
-            </div>
+              </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
