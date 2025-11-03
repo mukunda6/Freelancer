@@ -1,7 +1,7 @@
 import type { Referral } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/componentsui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Check, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { VariantProps } from "class-variance-authority";
