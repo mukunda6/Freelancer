@@ -6,7 +6,7 @@ export default function ProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="space-y-1">
-          <h1 className="text-3xl font-headline font-bold tracking-tight">Project Portfolio</h1>
+          <h1 className="text-3xl font-headline font-bold tracking-tight">My Projects</h1>
           <p className="text-muted-foreground max-w-2xl">
             Here is a selection of my recent work. Each project highlights my ability to deliver tangible results and create value for my clients.
           </p>
