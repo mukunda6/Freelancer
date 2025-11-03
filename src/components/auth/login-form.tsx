@@ -8,25 +8,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
-import { cn } from "@/lib/utils";
 import { Users, Building } from "lucide-react";
 
-export function LoginForm({ userType: initialUserType = 'freelancer' }: { userType?: 'freelancer' | 'client' }) {
+export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
   const router = useRouter();
-  const [role, setRole] = React.useState(initialUserType);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (role === 'client') {
+    if (userType === 'client') {
       router.push("/client/dashboard");
     } else {
       router.push("/dashboard");
     }
   };
-  
-  React.useEffect(() => {
-    setRole(initialUserType);
-  }, [initialUserType]);
+
+  const isClient = userType === 'client';
 
   return (
     <Card className="mx-auto max-w-sm w-full shadow-xl">
@@ -35,44 +31,23 @@ export function LoginForm({ userType: initialUserType = 'freelancer' }: { userTy
           <Logo className="mx-auto mb-4" />
         </Link>
         <CardTitle className="text-2xl font-headline">
-          Login to Your Account
+          {isClient ? 'Client Login' : 'Freelancer Login'}
         </CardTitle>
         <CardDescription>
-          Select your role to access your dashboard.
+          Welcome back! Please enter your details.
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleLogin} className="grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
-              <div
-              onClick={() => setRole('freelancer')}
-              className={cn(
-                  "rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
-                  "hover:shadow-lg hover:scale-105",
-                  role === 'freelancer' ? "border-primary shadow-lg scale-105" : "border-muted bg-background"
-              )}
-              >
-              <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                  <Users className="w-8 h-8 mb-2 text-primary" />
-                  <span className="font-semibold text-sm">Freelancer</span>
-              </div>
-              </div>
-
-              <div
-              onClick={() => setRole('client')}
-              className={cn(
-                  "rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
-                  "hover:shadow-lg hover:scale-105",
-                  role === 'client' ? "border-accent shadow-lg scale-105" : "border-muted bg-background"
-              )}
-              >
-              <div className="relative z-10 flex flex-col items-center justify-center h-full">
-                  <Building className="w-8 h-8 mb-2 text-accent" />
-                  <span className="font-semibold text-sm">Client</span>
-              </div>
-              </div>
+        <div className="flex justify-center mb-6">
+          <div className={`p-4 rounded-full ${isClient ? 'bg-accent/10' : 'bg-primary/10'}`}>
+            {isClient ? (
+              <Building className={`w-8 h-8 text-accent`} />
+            ) : (
+              <Users className={`w-8 h-8 text-primary`} />
+            )}
           </div>
-          
+        </div>
+        <form onSubmit={handleLogin} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -92,12 +67,12 @@ export function LoginForm({ userType: initialUserType = 'freelancer' }: { userTy
             <Input id="password" type="password" required />
           </div>
           <Button type="submit" className="w-full">
-            Login as {role === 'freelancer' ? 'Freelancer' : 'Client'}
+            Login
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="/signup" className="font-semibold text-primary/80 hover:text-primary hover:underline">
+          <Link href={`/signup?role=${userType}`} className="font-semibold text-primary/80 hover:text-primary hover:underline">
             Sign up
           </Link>
         </div>
