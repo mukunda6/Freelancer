@@ -13,8 +13,8 @@ import {z} from 'genkit';
 
 const TranslateUserProfileInputSchema = z.object({
   text: z.string().describe('The text to translate (user profile or project description).'),
-  targetLanguages: z.array(z.string()).describe('An array of target language codes (e.g., [\"es\", \"fr\"]).'),
-  sourceLanguage: z.string().optional().describe('The source language code (e.g., \"en\"). Optional, will be auto-detected if not provided.'),
+  targetLanguages: z.array(z.string()).describe('An array of target language codes (e.g., ["es", "fr"]).'),
+  sourceLanguage: z.string().optional().describe('The source language code (e.g., "en"). Optional, will be auto-detected if not provided.'),
 });
 
 export type TranslateUserProfileInput = z.infer<typeof TranslateUserProfileInputSchema>;
@@ -27,13 +27,6 @@ export async function translateUserProfile(input: TranslateUserProfileInput): Pr
   return translateUserProfileFlow(input);
 }
 
-const translateUserProfilePrompt = ai.definePrompt({
-  name: 'translateUserProfilePrompt',
-  input: {schema: TranslateUserProfileInputSchema},
-  output: {schema: TranslateUserProfileOutputSchema},
-  prompt: `Translate the following text into the specified languages. The output should be a JSON object where the keys are the language codes and the values are the translated text.\n\nText: {{{text}}}\nTarget Languages: {{#each targetLanguages}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}\n{{#if sourceLanguage}}Source Language: {{{sourceLanguage}}}{{/if}}\n\nJSON Output:`,
-});
-
 const translateUserProfileFlow = ai.defineFlow(
   {
     name: 'translateUserProfileFlow',
@@ -41,7 +34,22 @@ const translateUserProfileFlow = ai.defineFlow(
     outputSchema: TranslateUserProfileOutputSchema,
   },
   async input => {
-    const {output} = await translateUserProfilePrompt(input);
-    return output!;
+    const { text } = await ai.generate({
+      prompt: `Translate the following text into the specified languages. The output should be a raw JSON object with a single key "translations" which is a map of language codes to the translated text.\n\nText: """${input.text}"""\nTarget Languages: ${input.targetLanguages.join(', ')}\n${input.sourceLanguage ? `Source Language: ${input.sourceLanguage}` : ''}\n\nJSON Output:`,
+      config: {
+        responseFormat: 'json',
+      }
+    });
+
+    try {
+      const parsed = JSON.parse(text);
+      if (parsed.translations) {
+        return parsed.translations;
+      }
+      return parsed;
+    } catch(e) {
+      console.error("Failed to parse translation response:", text);
+      throw new Error("Failed to get a valid translation from the AI model.");
+    }
   }
 );
