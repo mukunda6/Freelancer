@@ -59,15 +59,15 @@ export default function ProfilePage() {
           </Card>
         </div>
       </div>
-      <Card className="col-span-full">
-            <CardHeader>
-                <CardTitle className="font-headline">Top Competitors</CardTitle>
-                <CardDescription>See how you stack up against the top talent on the platform.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <TopCompetitors />
-            </CardContent>
-        </Card>
+      <Card>
+        <CardHeader>
+            <CardTitle className="font-headline">Top Competitors</CardTitle>
+            <CardDescription>See how you stack up against the top talent on the platform.</CardDescription>
+        </CardHeader>
+        <CardContent>
+            <TopCompetitors />
+        </CardContent>
+    </Card>
     </div>
   );
 }
