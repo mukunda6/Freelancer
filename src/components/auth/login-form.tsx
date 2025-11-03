@@ -11,23 +11,62 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { Users, Building } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  Auth,
+} from "firebase/auth";
+import { useAuth } from "@/firebase";
 
 export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
+  const auth = useAuth();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    toast({
-      title: "Login Successful",
-      description: "Welcome back!",
-    });
+    const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
+    const password = (e.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
+
+    try {
+      // First, try to sign in.
+      await signInWithEmailAndPassword(auth, email, password);
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
+      });
+    } catch (signInError: any) {
+      // If sign-in fails because the user doesn't exist, create a new account.
+      if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          toast({
+            title: "Account Created",
+            description: "Welcome! Your new account is ready.",
+          });
+        } catch (signUpError: any) {
+          toast({
+            title: "Sign-up Failed",
+            description: signUpError.message || "Could not create your account.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+      } else {
+        // Handle other sign-in errors
+        toast({
+          title: "Login Failed",
+          description: signInError.message || "An unexpected error occurred.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+    }
 
     if (userType === 'client') {
       router.push("/client/dashboard");

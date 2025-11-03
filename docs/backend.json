@@ -1,3 +1,4 @@
+
 {
   "entities": {
     "User": {
@@ -179,7 +180,11 @@
         },
         "status": {
           "type": "string",
-          "enum": ["Pending", "Accepted", "Declined"],
+          "enum": [
+            "Pending",
+            "Accepted",
+            "Declined"
+          ],
           "description": "The status of the proposal."
         },
         "submittedAt": {
