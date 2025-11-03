@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages } from "./placeholder-images";
 
 export type Project = {
@@ -231,7 +232,7 @@ export const proposals: Proposal[] = [
 
 export type Testimonial = {
     id: string;
-    projectId: string;
+    projectId?: string;
     clientName: string;
     clientTitle: string;
     clientAvatar: string;
@@ -254,5 +255,12 @@ export const testimonials: Testimonial[] = [
         clientTitle: 'Founder, FitLife Inc.',
         clientAvatar: 'https://picsum.photos/seed/sarahsmith/100/100',
         quote: "The fitness app exceeded all our expectations. It's intuitive, beautiful, and our users absolutely love it. The engagement metrics are through the roof, and it's all thanks to the incredible work done on this project."
-    }
+    },
+    {
+        id: 'test-ref2',
+        clientName: 'Innovate LLC',
+        clientTitle: 'COO, Innovate LLC',
+        clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-2')?.imageUrl || '',
+        quote: "This freelancer is our go-to partner for critical projects. Their ability to quickly understand our needs and deliver high-quality results is unmatched. Highly recommended."
+    },
 ];

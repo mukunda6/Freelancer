@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -8,6 +9,8 @@ import {
 import { ProfileForm } from '@/components/profile/profile-form';
 import { VerificationStatus } from '@/components/profile/verification-status';
 import { TranslationTool } from '@/components/profile/translation-tool';
+import { TestimonialCard } from '@/components/profile/testimonial-card';
+import { testimonials } from '@/lib/data';
 
 export default function ProfilePage() {
   return (
@@ -34,13 +37,23 @@ export default function ProfilePage() {
             </CardContent>
           </Card>
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="font-headline">Account Status</CardTitle>
             </CardHeader>
             <CardContent>
               <VerificationStatus />
+            </CardContent>
+          </Card>
+           <Card>
+            <CardHeader>
+              <CardTitle className="font-headline">What My Clients Say</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {testimonials.map((testimonial) => (
+                <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+              ))}
             </CardContent>
           </Card>
         </div>
