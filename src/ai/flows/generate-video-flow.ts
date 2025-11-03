@@ -6,15 +6,15 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-export const GenerateVideoScriptInputSchema = z.object({
+const GenerateVideoScriptInputSchema = z.object({
   title: z.string().describe('The title of the project.'),
   description: z.string().describe('A short description of the project.'),
   features: z.string().describe('The key features of the project.'),
 });
 
-export type GenerateVideoScriptInput = z.infer<typeof GenerateVideoScriptInputSchema>;
+type GenerateVideoScriptInput = z.infer<typeof GenerateVideoScriptInputSchema>;
 
-export const GenerateVideoScriptOutputSchema = z.object({
+const GenerateVideoScriptOutputSchema = z.object({
   script: z
     .string()
     .describe(
