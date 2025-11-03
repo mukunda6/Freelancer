@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -16,6 +15,7 @@ import { Trophy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { competitions } from "@/lib/data";
 
 export default function ProjectCompetitionPage() {
   const { toast } = useToast();
@@ -23,7 +23,20 @@ export default function ProjectCompetitionPage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const competitionTitle = (e.currentTarget.elements.namedItem('competition-title') as HTMLInputElement)?.value;
+    const form = e.currentTarget;
+    const competitionTitle = (form.elements.namedItem('competition-title') as HTMLInputElement)?.value;
+    const prizeAmount = (form.elements.namedItem('prize-amount') as HTMLInputElement)?.value;
+    const deadline = (form.elements.namedItem('deadline') as HTMLInputElement)?.value;
+
+    // This is a simulation. In a real app, this would be an API call.
+    competitions.unshift({
+        id: `comp${Date.now()}`,
+        title: competitionTitle,
+        prize: parseInt(prizeAmount, 10),
+        deadline: new Date(deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+        entries: 0,
+        status: 'Live'
+    });
 
     toast({
       title: "Competition Launched! 🚀",
@@ -67,11 +80,11 @@ export default function ProjectCompetitionPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="prize-amount">Prize Amount ($)</Label>
-                    <Input id="prize-amount" type="number" placeholder="e.g., 1000" required/>
+                    <Input id="prize-amount" name="prize-amount" type="number" placeholder="e.g., 1000" required/>
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="deadline">Submission Deadline</Label>
-                    <Input id="deadline" type="date" required/>
+                    <Input id="deadline" name="deadline" type="date" required/>
                 </div>
             </div>
             <div className="flex justify-end pt-4">
