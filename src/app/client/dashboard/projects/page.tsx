@@ -7,7 +7,8 @@ import { FilePlus } from "lucide-react";
 
 export default function ClientProjectsPage() {
   // Filter to show projects posted by this client (e.g., 'Retail Co', 'FitLife Inc.', etc.)
-  const clientProjects = projects.filter(p => ["Retail Co", "FitLife Inc.", "Fintech Startup", "CloudCorp", "Supportify", "Metrics Inc."].includes(p.postedBy));
+  // This simulates showing projects for the currently logged-in client.
+  const clientPostedProjects = projects.filter(p => ["Retail Co", "FitLife Inc.", "Fintech Startup", "CloudCorp", "Supportify", "Metrics Inc."].includes(p.postedBy));
 
   return (
     <div className="space-y-6">
@@ -21,7 +22,7 @@ export default function ClientProjectsPage() {
         </Button>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {clientProjects.map((project) => (
+        {clientPostedProjects.map((project) => (
           <ProjectCard key={project.id} project={project} isClientView={true} />
         ))}
       </div>

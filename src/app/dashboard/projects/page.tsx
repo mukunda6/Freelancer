@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -23,13 +24,17 @@ import { Filter } from 'lucide-react';
 const allCategories = [...new Set(projects.map((p) => p.category))];
 const allSkills = [...new Set(projects.flatMap((p) => p.skills))];
 
+// These represent the freelancer's own projects, not client projects.
+const freelancerPortfolioProjects = projects;
+
+
 export default function ProjectsPage() {
   const [category, setCategory] = useState('all');
   const [skill, setSkill] = useState('all');
   const [budget, setBudget] = useState([0, 10000]);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
+    return freelancerPortfolioProjects.filter((project) => {
       const categoryMatch =
         category === 'all' || project.category === category;
       const skillMatch = skill === 'all' || project.skills.includes(skill);
