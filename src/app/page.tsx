@@ -56,7 +56,7 @@ export default function LandingPage() {
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
               <Button size="lg" asChild>
                 <Link href="/signup?role=freelancer">
-                  Find Work as a Freelancer
+                  Freelancer
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
