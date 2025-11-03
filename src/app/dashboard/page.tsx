@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -78,6 +79,15 @@ export default function DashboardPage() {
           <CardContent>
             <InvoiceStatus />
           </CardContent>
+        </Card>
+        <Card className="col-span-full">
+            <CardHeader>
+                <CardTitle className="font-headline">Top Competitors</CardTitle>
+                <CardDescription>See how you stack up against the top talent on the platform.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <TopCompetitors />
+            </CardContent>
         </Card>
         <Card className="col-span-full lg:col-span-4">
             <CardHeader>

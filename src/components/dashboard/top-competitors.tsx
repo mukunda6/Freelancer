@@ -1,3 +1,4 @@
+
 import { competitors } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Crown } from 'lucide-react';
