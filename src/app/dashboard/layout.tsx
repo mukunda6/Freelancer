@@ -1,3 +1,4 @@
+
 import type { ReactNode } from 'react';
 import {
   SidebarProvider,
@@ -10,6 +11,7 @@ import {
 import { Logo } from '@/components/logo';
 import { MainNav } from '@/components/main-nav';
 import { UserNav } from '@/components/user-nav';
+import { Chatbot } from '@/components/chatbot/chatbot';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
@@ -35,6 +37,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             {children}
           </main>
         </div>
+        <Chatbot />
       </SidebarInset>
     </SidebarProvider>
   );
