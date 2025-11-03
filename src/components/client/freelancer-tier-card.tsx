@@ -11,22 +11,22 @@ import Link from "next/link";
 const tierConfig = {
   Gold: {
     icon: Crown,
-    textColor: "text-yellow-500",
-    bgColor: "bg-yellow-500/10",
+    textColor: "text-yellow-400",
+    bgColor: "bg-gradient-to-br from-yellow-500/10 via-yellow-900/5 to-background",
     borderColor: "border-yellow-500/20",
     shadowColor: "hover:shadow-yellow-500/10",
   },
   Silver: {
     icon: Award,
     textColor: "text-slate-400",
-    bgColor: "bg-slate-500/10",
+    bgColor: "bg-gradient-to-br from-slate-500/10 via-slate-900/5 to-background",
     borderColor: "border-slate-500/20",
     shadowColor: "hover:shadow-slate-500/10",
   },
   Bronze: {
     icon: Shield,
     textColor: "text-amber-700",
-    bgColor: "bg-amber-700/10",
+    bgColor: "bg-gradient-to-br from-amber-700/10 via-amber-900/5 to-background",
     borderColor: "border-amber-700/20",
     shadowColor: "hover:shadow-amber-700/10",
   },
@@ -37,14 +37,14 @@ export function FreelancerTierCard({ freelancer }: { freelancer: Competitor }) {
   const Icon = config.icon;
 
   return (
-    <Card className={cn("flex flex-col transition-all duration-300", config.bgColor, config.borderColor, config.shadowColor, "shadow-md")}>
+    <Card className={cn("flex flex-col transition-all duration-300 group", config.bgColor, config.borderColor, config.shadowColor, "shadow-lg")}>
       <CardHeader className="flex-row items-start gap-4">
         <Avatar className="h-16 w-16 border-2 border-primary/20">
           <AvatarImage src={freelancer.avatar} alt={freelancer.name} />
           <AvatarFallback>{freelancer.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <CardTitle className="font-headline text-lg">{freelancer.name}</CardTitle>
+          <CardTitle className="font-headline text-lg group-hover:text-primary transition-colors">{freelancer.name}</CardTitle>
           <CardDescription>{freelancer.specialty}</CardDescription>
           <div className="flex items-center gap-2 mt-2">
             <Icon className={cn("w-5 h-5", config.textColor)} />

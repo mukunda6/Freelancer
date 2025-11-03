@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ProfileForm } from '@/components/profile/profile-form';
-import { VerificationStatus } from '@/components/profile/verification-status';
+import { AccountStatus } from '@/components/profile/account-status';
 import { TranslationTool } from '@/components/profile/translation-tool';
 import { TestimonialCard } from '@/components/profile/testimonial-card';
 import { testimonials } from '@/lib/data';
@@ -44,7 +44,7 @@ export default function ProfilePage() {
               <CardTitle className="font-headline">Account Status</CardTitle>
             </CardHeader>
             <CardContent>
-              <VerificationStatus />
+              <AccountStatus />
             </CardContent>
           </Card>
            <Card>

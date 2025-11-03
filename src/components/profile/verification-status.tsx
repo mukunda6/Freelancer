@@ -1,7 +1,8 @@
+
 import { Button } from "@/components/ui/button";
 import { ShieldAlert, ShieldCheck } from "lucide-react";
 
-export function VerificationStatus() {
+export function AccountStatus() {
   const isVerified = false; // Mock status
 
   return (

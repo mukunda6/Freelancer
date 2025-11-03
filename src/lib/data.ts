@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages } from "./placeholder-images";
 
 export type Project = {
@@ -228,6 +229,40 @@ export const projects: Project[] = [
     duration: '3 Weeks',
     rating: 4.8
   },
+  {
+    id: '13',
+    title: 'Next-Gen Video Editing Software',
+    description: 'ClipCraft, a video software startup, needed a proof-of-concept for a revolutionary video editor that used AI to automate complex editing tasks.',
+    requirements: 'The project was to develop a desktop application using Electron and React that could analyze video footage, automatically identify key moments, and suggest edits. The core challenge was integrating a Genkit-powered AI flow that could process video metadata and generate an edit decision list (EDL).',
+    features: '- AI-powered scene detection and highlight suggestions.\n- Automated rough cuts based on user-defined parameters.\n- Integration with Genkit for video analysis.\n- A non-linear timeline interface for manual adjustments.\n- Export functionality to standard video formats.',
+    impact: 'The prototype was instrumental in securing a second round of funding. It demonstrated the feasibility of AI-driven video editing and set the technical foundation for the company\'s flagship product. Early testers praised its innovative approach and time-saving capabilities.',
+    budget: 15000,
+    category: 'AI/ML',
+    postedBy: 'Jane Doe',
+    clientUid: 'CLIPGRAFT_UID',
+    imageUrl: 'https://picsum.photos/seed/videoediting/600/400',
+    imageHint: 'video editing',
+    skills: ['React', 'Electron', 'AI/ML', 'Genkit', 'Node.js'],
+    duration: '4 Months',
+    rating: 5.0
+  },
+  {
+    id: '14',
+    title: 'Cloud-Based Document Collaboration Suite',
+    description: 'Paperflow Inc. wanted to build a real-time document editor, similar to Google Docs, to be the centerpiece of their new productivity suite.',
+    requirements: 'The application needed to support real-time text editing, commenting, and version history. The backend, built on Firebase, had to handle concurrent user sessions and ensure data integrity. The frontend, built with Next.js, needed a clean, minimalist UI focused on a distraction-free writing experience.',
+    features: '- Real-time collaborative text editing.\n- Commenting and suggestion features.\n- Version history and document rollback.\n- Secure document sharing and permissions.\n- Firestore backend for low-latency synchronization.',
+    impact: 'The collaborative editor became the most popular tool in the Paperflow suite. It was praised for its speed and reliability, successfully handling thousands of documents and concurrent users. It significantly increased user adoption and retention for the entire platform.',
+    budget: 11000,
+    category: 'Web Development',
+    postedBy: 'Jane Doe',
+    clientUid: 'PAPERFLOW_UID',
+    imageUrl: 'https://picsum.photos/seed/documentcollab/600/400',
+    imageHint: 'document collaboration',
+    skills: ['Next.js', 'Firebase', 'Real-time Sync', 'UI/UX'],
+    duration: '3.5 Months',
+    rating: 4.9
+  }
 ];
 
 export type Milestone = {
@@ -466,10 +501,11 @@ export type Competitor = {
 };
 
 export const competitors: Competitor[] = [
-  { id: 'c1', name: 'Alex Ray', avatar: 'https://picsum.photos/seed/alexray/100/100', specialty: 'React & Node.js Expert', rank: 1, earnings: 120000, tags: ['Top Rated', 'Client Recommended'], tier: 'Gold' },
-  { id: 'c2', name: 'Ben Carter', avatar: 'https://picsum.photos/seed/bencarter/100/100', specialty: 'UI/UX & Brand Designer', rank: 2, earnings: 115000, tags: ['Top Rated'], tier: 'Gold' },
-  { id: 'c3', name: 'Casey Smith', avatar: 'https://picsum.photos/seed/caseysmith/100/100', specialty: 'Mobile App Developer (iOS & Android)', rank: 3, earnings: 110000, tags: ['Top Rated'], tier: 'Silver' },
-  { id: 'c4', name: 'Drew Evans', avatar: 'https://picsum.photos/seed/drewevans/100/100', specialty: 'AI & Machine Learning Engineer', rank: 4, earnings: 105000, tags: ['Top Rated'], tier: 'Silver' },
-  { id: 'c5', name: 'Eli Finch', avatar: 'https://picsum.photos/seed/elifinch/100/100', specialty: 'Content Strategy & SEO', rank: 5, earnings: 98000, tags: ['Rising Talent'], tier: 'Bronze' },
-  { id: 'c6', name: 'Frank Green', avatar: 'https://picsum.photos/seed/frankgreen/100/100', specialty: 'Data Scientist', rank: 6, earnings: 95000, tags: [], tier: 'Bronze' },
+  { id: 'user', name: 'Jane Doe', avatar: PlaceHolderImages.find(p => p.id === 'user-avatar')?.imageUrl || '', specialty: 'Full-Stack Web Developer', rank: 1, earnings: 125000, tags: ['Top Rated', 'Client Recommended'], tier: 'Gold' },
+  { id: 'c1', name: 'Alex Ray', avatar: 'https://picsum.photos/seed/alexray/100/100', specialty: 'React & Node.js Expert', rank: 2, earnings: 120000, tags: ['Top Rated', 'Client Recommended'], tier: 'Gold' },
+  { id: 'c2', name: 'Ben Carter', avatar: 'https://picsum.photos/seed/bencarter/100/100', specialty: 'UI/UX & Brand Designer', rank: 3, earnings: 115000, tags: ['Top Rated'], tier: 'Gold' },
+  { id: 'c3', name: 'Casey Smith', avatar: 'https://picsum.photos/seed/caseysmith/100/100', specialty: 'Mobile App Developer (iOS & Android)', rank: 4, earnings: 110000, tags: ['Top Rated'], tier: 'Silver' },
+  { id: 'c4', name: 'Drew Evans', avatar: 'https://picsum.photos/seed/drewevans/100/100', specialty: 'AI & Machine Learning Engineer', rank: 5, earnings: 105000, tags: ['Top Rated'], tier: 'Silver' },
+  { id: 'c5', name: 'Eli Finch', avatar: 'https://picsum.photos/seed/elifinch/100/100', specialty: 'Content Strategy & SEO', rank: 6, earnings: 98000, tags: ['Rising Talent'], tier: 'Bronze' },
+  { id: 'c6', name: 'Frank Green', avatar: 'https://picsum.photos/seed/frankgreen/100/100', specialty: 'Data Scientist', rank: 7, earnings: 95000, tags: [], tier: 'Bronze' },
 ];
