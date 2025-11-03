@@ -5,6 +5,8 @@ export type Project = {
   id: string;
   title: string;
   description: string;
+  requirements: string;
+  features: string;
   impact: string;
   budget: number;
   category: string;
@@ -19,8 +21,10 @@ export const projects: Project[] = [
   {
     id: '1',
     title: 'E-commerce Platform Redesign',
-    description: 'Retail Co, a growing online fashion retailer, was struggling with a dated and clunky Shopify store. The user experience was poor, especially on mobile devices, leading to high bounce rates and cart abandonment. The goal was to execute a comprehensive overhaul of the platform to create a modern, intuitive, and high-converting shopping experience. The project involved a full UX audit, development of a new design system from scratch, and custom Shopify theme development to align with their refreshed brand identity.',
-    impact: "The redesigned platform was a massive success. We boosted conversion rates by a staggering 40% within the first quarter. Additionally, the mobile-first design and improved navigation reduced the bounce rate by 25%. The client reported a significant increase in customer satisfaction and repeat business, solidifying their position in the competitive online fashion market.",
+    description: 'Retail Co, a growing online fashion retailer, was struggling with a dated and clunky Shopify store. The user experience was poor, especially on mobile devices, leading to high bounce rates and cart abandonment.',
+    requirements: 'The primary requirement was a comprehensive overhaul of the platform to create a modern, intuitive, and high-converting shopping experience. This included a full UX audit, development of a new design system, and a custom Shopify theme that aligned with their refreshed brand identity. The site needed to be fully responsive, with a focus on mobile-first design, and integrate seamlessly with their existing inventory management system.',
+    features: '- Custom Shopify theme with a modern, clean design.\n- Mobile-first, responsive layout for all devices.\n- Intuitive navigation and product discovery.\n- Streamlined checkout process to reduce cart abandonment.\n- Integration with a new design system for brand consistency.',
+    impact: "The redesigned platform was a massive success, boosting conversion rates by 40% in the first quarter. The mobile-first design and improved navigation reduced the bounce rate by 25%, and the client reported a significant increase in customer satisfaction and repeat business.",
     budget: 5000,
     category: 'Web Development',
     postedBy: 'Retail Co',
@@ -32,8 +36,10 @@ export const projects: Project[] = [
   {
     id: '2',
     title: 'Mobile App for Fitness Tracking',
-    description: 'FitLife Inc. wanted to create a best-in-class, cross-platform mobile app for fitness enthusiasts. The primary challenge was to build an engaging and motivating experience for users to track their workouts, nutrition, and progress. The app required features like real-time data synchronization with wearables, social sharing capabilities, and AI-driven personalized fitness plans. The project was built using React Native for a consistent experience on both iOS and Android.',
-    impact: "The app was an instant hit, achieving over 50,000 downloads in the first three months and maintaining a 4.8-star rating on both app stores. The intuitive UI and personalized features led to high user retention and engagement. The social sharing feature created a viral loop, further driving organic downloads and building a strong user community around the FitLife brand.",
+    description: 'FitLife Inc. wanted to create a best-in-class, cross-platform mobile app for fitness enthusiasts to track their workouts, nutrition, and progress.',
+    requirements: 'The app needed to be built with React Native for a consistent experience on both iOS and Android. Key requirements included real-time data synchronization with wearables (like Apple Watch and Fitbit), social sharing capabilities, and a robust backend to handle user data securely. The UI/UX had to be engaging and motivating to encourage daily use.',
+    features: '- Real-time workout and nutrition tracking.\n- Integration with popular fitness wearables.\n- Social sharing features to build a community.\n- AI-driven personalized fitness and meal plans.\n- Gamified progress tracking with achievements and leaderboards.',
+    impact: "The app was an instant hit, achieving over 50,000 downloads in the first three months with a 4.8-star rating. The intuitive UI and personalized features led to high user retention. The social sharing feature created a viral loop, driving organic downloads and building a strong user community.",
     budget: 8000,
     category: 'Mobile Development',
     postedBy: 'FitLife Inc.',
@@ -45,8 +51,10 @@ export const projects: Project[] = [
   {
     id: '3',
     title: 'Brand Identity and Logo Design',
-    description: 'A stealth-mode fintech startup needed to establish a strong and trustworthy brand presence before its public launch. The project involved developing a complete brand identity from the ground up. This included creating a modern and memorable logo, defining a comprehensive color palette and typography system, and producing a full brand style guide. The goal was to create a visual identity that conveyed security, innovation, and user-friendliness.',
-    impact: "The professional and cohesive brand identity was a key factor in the client's successful pre-launch marketing efforts. It helped them build credibility and attract early adopters. Crucially, the strong branding played a significant role in their pitch decks, contributing to them securing their first round of seed funding within two months of the brand launch.",
+    description: 'A stealth-mode fintech startup needed to establish a strong, trustworthy brand presence before its public launch to attract investors and early adopters.',
+    requirements: 'The project involved developing a complete brand identity from the ground up. This included creating a modern and memorable logo, defining a comprehensive color palette and typography system, and producing a full brand style guide. The visual identity needed to convey security, innovation, and user-friendliness to a tech-savvy audience.',
+    features: '- A modern, memorable logo and brand mark.\n- A comprehensive brand style guide.\n- A defined color palette and typography system.\n- Templates for marketing materials and presentations.\n- Social media branding assets.',
+    impact: "The professional brand identity was crucial in the client's successful pre-launch marketing. It helped them build credibility and played a significant role in their pitch decks, contributing to them securing their first round of seed funding within two months of the brand launch.",
     budget: 2500,
     category: 'Design',
     postedBy: 'Fintech Startup',
@@ -58,8 +66,10 @@ export const projects: Project[] = [
     {
     id: '4',
     title: 'Content Strategy for SaaS Blog',
-    description: 'CloudCorp, a B2B SaaS provider, was struggling to generate organic traffic and leads through their blog. The project required the creation of a comprehensive, six-month content strategy to establish their authority in the industry. This involved in-depth keyword research, a thorough competitive analysis, the development of topic clusters around core product features, and the creation of a detailed content calendar with briefs for each article.',
-    impact: "The data-driven content strategy yielded exceptional results. Over a six-month period, organic search traffic to the blog increased by 150%. The high-quality, targeted content resonated with their audience, generating over 200 new marketing qualified leads (MQLs) and significantly boosting their sales pipeline. The blog is now a primary driver of inbound leads for the company.",
+    description: 'CloudCorp, a B2B SaaS provider, was struggling to generate organic traffic and leads through their blog. They needed a strategy to establish their authority in the industry.',
+    requirements: 'The project required the creation of a comprehensive, six-month content strategy. This involved in-depth keyword research, a thorough competitive analysis, the development of topic clusters around core product features, and the creation of a detailed content calendar with briefs for each article. The content needed to be optimized for search engines and targeted at their ideal customer profile.',
+    features: '- In-depth keyword research and competitive analysis.\n- Development of topic clusters and a content calendar.\n- SEO-optimized blog post briefs and templates.\n- A strategy for content promotion and link building.\n- Performance tracking and reporting framework.',
+    impact: "The data-driven content strategy yielded exceptional results. Organic search traffic to the blog increased by 150% over six months. The targeted content resonated with their audience, generating over 200 new marketing qualified leads (MQLs) and significantly boosting their sales pipeline.",
     budget: 3000,
     category: 'Marketing',
     postedBy: 'CloudCorp',
@@ -71,8 +81,10 @@ export const projects: Project[] = [
   {
     id: '5',
     title: 'AI-Powered Chatbot Integration',
-    description: 'Supportify, a customer service software company, wanted to leverage AI to improve their support efficiency. The project involved integrating a Genkit-based AI chatbot into their existing customer support portal. The chatbot was trained on an extensive library of company documentation, help articles, and historical support tickets. It was designed to handle common customer queries, provide instant answers, and intelligently escalate complex issues to human agents.',
-    impact: "The AI chatbot transformed their customer support operations. It successfully automated 60% of common customer support queries, freeing up human agents to focus on high-priority issues. This led to an 80% reduction in average agent response time and a noticeable improvement in customer satisfaction (CSAT) scores. The project delivered a significant return on investment within months.",
+    description: 'Supportify, a customer service software company, wanted to leverage AI to improve their support efficiency and reduce response times.',
+    requirements: 'The project involved integrating a Genkit-based AI chatbot into their existing customer support portal. The chatbot needed to be trained on an extensive library of company documentation, help articles, and historical support tickets. It had to be designed to handle common customer queries, provide instant answers, and intelligently escalate complex issues to human agents with full context.',
+    features: '- Genkit-powered chatbot for instant query resolution.\n- Training on company-specific knowledge base.\n- Intelligent-escalation to human agents.\n- Integration with existing support software (Zendesk).\n- Analytics dashboard to track chatbot performance.',
+    impact: "The AI chatbot transformed their customer support operations. It successfully automated 60% of common customer queries, freeing up human agents. This led to an 80% reduction in average agent response time and a noticeable improvement in customer satisfaction (CSAT) scores.",
     budget: 4500,
     category: 'AI/ML',
     postedBy: 'Supportify',
@@ -84,8 +96,10 @@ export const projects: Project[] = [
   {
     id: '6',
     title: 'Data Visualization Dashboard',
-    description: 'Metrics Inc., a data analytics firm, needed a way to provide their clients with real-time insights from complex datasets stored in Firestore. I was tasked with building a dynamic data visualization dashboard using Next.js and Recharts. The dashboard needed to display key sales and marketing KPIs, with interactive charts and date-range filters to allow for deep-dive analysis. The primary challenge was ensuring high performance with large volumes of data.',
-    impact: "The interactive dashboard provided key stakeholders with at-a-glance, actionable insights, replacing static weekly reports. This real-time data access empowered their marketing team to make faster, data-driven decisions, leading to a 15% improvement in marketing campaign ROI. The dashboard became an essential tool for their daily operations and strategic planning.",
+    description: 'Metrics Inc., a data analytics firm, needed a way to provide their clients with real-time insights from complex datasets stored in Firestore.',
+    requirements: 'The task was to build a dynamic data visualization dashboard using Next.js and Recharts. The dashboard needed to display key sales and marketing KPIs, with interactive charts and date-range filters to allow for deep-dive analysis. High performance was critical, even with large volumes of data, so the implementation had to be optimized for speed and responsiveness.',
+    features: '- Interactive charts and graphs for KPIs.\n- Real-time data fetching from Firestore.\n- Date-range and custom filters for data segmentation.\n- Export functionality for charts and data (PDF, CSV).\n- A secure, multi-tenant architecture to serve multiple clients.',
+    impact: "The interactive dashboard provided stakeholders with at-a-glance, actionable insights, replacing static weekly reports. This real-time data access empowered their marketing team to make faster decisions, leading to a 15% improvement in marketing campaign ROI. The dashboard became an essential tool for their daily operations.",
     budget: 6000,
     category: 'Data Analytics',
     postedBy: 'Metrics Inc.',
@@ -292,3 +306,5 @@ export const competitions: Competition[] = [
     status: 'Judging'
   }
 ];
+
+    

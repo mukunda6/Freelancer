@@ -14,8 +14,9 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, DollarSign, FileText } from 'lucide-react';
+import { ArrowLeft, Clock, DollarSign, FileText, CheckCircle2, Wrench } from 'lucide-react';
 import { ProposalCard } from '@/components/client/proposal-card';
+import { Separator } from '@/components/ui/separator';
 
 export default function ClientProjectDetailPage() {
   const params = useParams();
@@ -67,10 +68,37 @@ export default function ClientProjectDetailPage() {
                   data-ai-hint={project.imageHint}
                 />
               </div>
-              <h3 className="font-semibold text-lg mb-2">Project Description</h3>
-              <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
+
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-semibold text-lg mb-2">Project Description</h3>
+                  <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
+                </div>
+                <Separator />
+                <div>
+                  <h3 className="font-semibold text-lg mb-2">Technical Requirements</h3>
+                  <p className="text-muted-foreground whitespace-pre-line">{project.requirements}</p>
+                </div>
+                 <Separator />
+                 <div>
+                    <h3 className="font-semibold text-lg mb-2">Key Features</h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                    {project.features.split('\n').map((feature, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                        <CheckCircle2 className="h-5 w-5 text-primary mt-1 shrink-0" />
+                        <span>{feature.replace('- ', '')}</span>
+                        </li>
+                    ))}
+                    </ul>
+                </div>
+                 <Separator />
+                 <div>
+                  <h3 className="font-semibold text-lg mb-2">Solution & Impact</h3>
+                  <p className="text-muted-foreground whitespace-pre-line">{project.impact}</p>
+                </div>
+              </div>
               
-              <div className="mt-4 pt-4 border-t grid grid-cols-2 gap-4 text-sm">
+              <div className="mt-6 pt-6 border-t grid grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                  <div className="flex items-center gap-2">
                     <DollarSign className="h-5 w-5 text-primary" />
                     <div>
@@ -85,12 +113,19 @@ export default function ClientProjectDetailPage() {
                         <p className="font-semibold text-foreground">{project.duration}</p>
                     </div>
                 </div>
+                 <div className="flex items-center gap-2 col-span-2 lg:col-span-1">
+                    <Wrench className="h-5 w-5 text-primary" />
+                    <div>
+                        <p className="text-muted-foreground">Skills</p>
+                        <p className="font-semibold text-foreground">{project.skills.join(', ')}</p>
+                    </div>
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
         <div className="lg:col-span-1">
-          <Card>
+          <Card className="sticky top-24">
             <CardHeader className="flex flex-row items-center gap-3">
               <FileText className="h-6 w-6 text-accent" />
               <div>
@@ -113,3 +148,5 @@ export default function ClientProjectDetailPage() {
     </div>
   );
 }
+
+    

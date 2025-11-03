@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useParams } from 'next/navigation';
@@ -14,7 +15,8 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ExternalLink, Mail, Clock } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2 } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -102,11 +104,33 @@ export default function ProjectDetailPage() {
              <CardHeader>
                 <CardTitle className="font-headline">Project Details</CardTitle>
              </CardHeader>
-            <CardContent className="space-y-4">
-              <h3 className="font-semibold text-lg">Problem</h3>
-              <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
-               <h3 className="font-semibold text-lg mt-4">Solution & Impact</h3>
-               <p className="text-muted-foreground whitespace-pre-line">{project.impact}</p>
+            <CardContent className="space-y-6">
+                <div>
+                    <h3 className="font-semibold text-lg mb-2">Problem Statement</h3>
+                    <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
+                </div>
+                <Separator />
+                <div>
+                    <h3 className="font-semibold text-lg mb-2">Technical Requirements</h3>
+                    <p className="text-muted-foreground whitespace-pre-line">{project.requirements}</p>
+                </div>
+                 <Separator />
+                 <div>
+                    <h3 className="font-semibold text-lg mb-2">Key Features</h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                    {project.features.split('\n').map((feature, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                        <CheckCircle2 className="h-5 w-5 text-primary mt-1 shrink-0" />
+                        <span>{feature.replace('- ', '')}</span>
+                        </li>
+                    ))}
+                    </ul>
+                </div>
+                 <Separator />
+                <div>
+                    <h3 className="font-semibold text-lg mb-2">Solution & Impact</h3>
+                    <p className="text-muted-foreground whitespace-pre-line">{project.impact}</p>
+                </div>
             </CardContent>
           </Card>
         </div>
@@ -156,3 +180,5 @@ export default function ProjectDetailPage() {
     </div>
   );
 }
+
+    
