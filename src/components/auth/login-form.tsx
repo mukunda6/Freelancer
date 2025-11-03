@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -9,16 +10,64 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { Users, Building } from "lucide-react";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { useToast } from "@/hooks/use-toast";
 
 export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
   const router = useRouter();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (userType === 'client') {
-      router.push("/client/dashboard");
-    } else {
-      router.push("/dashboard");
+    setIsLoading(true);
+    const auth = getAuth();
+    const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
+    const password = (e.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
+
+    try {
+      // First, try to sign in the user
+      await signInWithEmailAndPassword(auth, email, password);
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
+      });
+      if (userType === 'client') {
+        router.push("/client/dashboard");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (error: any) {
+      // If sign-in fails because the user doesn't exist, create a new account
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+        try {
+          await createUserWithEmailAndPassword(auth, email, password);
+          toast({
+            title: "Account Created!",
+            description: "Welcome! Your new account has been created successfully.",
+          });
+          if (userType === 'client') {
+            router.push("/client/dashboard");
+          } else {
+            router.push("/dashboard");
+          }
+        } catch (creationError: any) {
+          toast({
+            variant: "destructive",
+            title: "Signup Failed",
+            description: creationError.message || "An error occurred during signup.",
+          });
+        }
+      } else {
+        // Handle other errors (e.g., wrong password, network issues)
+        toast({
+          variant: "destructive",
+          title: "Login Failed",
+          description: error.message || "An unexpected error occurred.",
+        });
+      }
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -34,7 +83,7 @@ export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
           {isClient ? 'Client Login' : 'Freelancer Login'}
         </CardTitle>
         <CardDescription>
-          Welcome back! Please enter your details.
+          Welcome! Please enter your details to continue.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -52,9 +101,11 @@ export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
+              name="email"
               type="email"
               placeholder="m@example.com"
               required
+              defaultValue="test@example.com"
             />
           </div>
           <div className="grid gap-2">
@@ -64,16 +115,16 @@ export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
                 Forgot your password?
               </Link>
             </div>
-            <Input id="password" type="password" required />
+            <Input id="password" name="password" type="password" required defaultValue="password" />
           </div>
-          <Button type="submit" className="w-full">
-            Login
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? 'Processing...' : 'Login or Sign Up'}
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">
-          Don&apos;t have an account?{" "}
+          No account? No problem.{" "}
           <Link href={`/signup?role=${userType}`} className="font-semibold text-primary/80 hover:text-primary hover:underline">
-            Sign up
+            Go to full signup
           </Link>
         </div>
       </CardContent>
