@@ -307,4 +307,26 @@ export const competitions: Competition[] = [
   }
 ];
 
+export type Competitor = {
+  id: string;
+  name: string;
+  avatar: string;
+  specialty: string;
+  rank: number;
+  earnings: number;
+  tags: string[];
+};
+
+export const competitors: Competitor[] = [
+  { id: 'c1', name: 'Alex Ray', avatar: 'https://picsum.photos/seed/alexray/100/100', specialty: 'React & Node.js Expert', rank: 1, earnings: 120000, tags: ['Top Rated', 'Rising Talent'] },
+  { id: 'c2', name: 'Ben Carter', avatar: 'https://picsum.photos/seed/bencarter/100/100', specialty: 'UI/UX & Brand Designer', rank: 2, earnings: 115000, tags: ['Top Rated'] },
+  { id: 'c3', name: 'Casey Smith', avatar: 'https://picsum.photos/seed/caseysmith/100/100', specialty: 'Mobile App Developer (iOS & Android)', rank: 3, earnings: 110000, tags: ['Top Rated'] },
+  { id: 'c4', name: 'Drew Evans', avatar: 'https://picsum.photos/seed/drewevans/100/100', specialty: 'AI & Machine Learning Engineer', rank: 4, earnings: 105000, tags: ['Top Rated'] },
+  { id: 'c5', name: 'Eli Finch', avatar: 'https://picsum.photos/seed/elifinch/100/100', specialty: 'Content Strategy & SEO', rank: 5, earnings: 98000, tags: ['Rising Talent'] },
+  { id: 'c6', name: 'Frank Green', avatar: 'https://picsum.photos/seed/frankgreen/100/100', specialty: 'Data Scientist', rank: 6, earnings: 95000, tags: [] },
+  { id: 'c7', name: 'Grace Hill', avatar: 'https://picsum.photos/seed/gracehill/100-100', specialty: 'Shopify Developer', rank: 7, earnings: 92000, tags: ['Top Rated'] },
+  { id: 'c8', name: 'Henry Ives', avatar: 'https://picsum.photos/seed/henryives/100/100', specialty: 'Graphic Designer', rank: 8, earnings: 89000, tags: [] },
+  { id: 'c9', name: 'Ivy Jones', avatar: 'https://picsum.photos/seed/ivyjones/100/100', specialty: 'Full-Stack Developer', rank: 9, earnings: 88000, tags: ['Rising Talent'] },
+  { id: 'c10', name: 'Jack King', avatar: 'https://picsum.photos/seed/jackking/100/100', specialty: 'Marketing Automation Specialist', rank: 10, earnings: 85000, tags: [] },
+];
     

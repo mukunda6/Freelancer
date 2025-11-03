@@ -10,6 +10,7 @@ import { InvoiceStatus } from '@/components/dashboard/invoice-status';
 import { ProjectMilestones } from '@/components/dashboard/project-milestones';
 import { ClientCommunication } from '@/components/dashboard/client-communication';
 import { Briefcase, DollarSign, GitPullRequestArrow, TrendingUp } from 'lucide-react';
+import { TopCompetitors } from '@/components/dashboard/top-competitors';
 
 export default function DashboardPage() {
   return (
@@ -50,7 +51,7 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Profile Views</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <TrendingUp className="h-4 w-4 textmuted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">+1,234</div>
@@ -95,6 +96,15 @@ export default function DashboardPage() {
             <CardContent>
                 <ClientCommunication />
             </CardContent>
+        </Card>
+         <Card className="col-span-full lg:col-span-7">
+          <CardHeader>
+            <CardTitle className="font-headline">Top Competitors</CardTitle>
+            <CardDescription>See how you stack up against other freelancers.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <TopCompetitors />
+          </CardContent>
         </Card>
       </div>
     </div>
