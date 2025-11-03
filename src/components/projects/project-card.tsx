@@ -8,14 +8,14 @@ import { ArrowRight, Building } from "lucide-react";
 
 export function ProjectCard({ project, isClientView = false }: { project: Project, isClientView?: boolean }) {
   return (
-    <Link href={isClientView ? `/client/dashboard/proposals` : `/dashboard/projects/${project.id}`} className="flex">
-      <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 w-full hover:border-primary">
-        <div className="relative aspect-video w-full">
+    <Link href={isClientView ? `/client/dashboard/proposals` : `/dashboard/projects/${project.id}`} className="flex group">
+      <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 w-full hover:border-primary border-transparent border-2">
+        <div className="relative aspect-video w-full overflow-hidden">
           <Image
             src={project.imageUrl}
             alt={project.title}
             fill
-            className="object-cover"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
             data-ai-hint={project.imageHint}
           />
         </div>
@@ -24,16 +24,16 @@ export function ProjectCard({ project, isClientView = false }: { project: Projec
               <Building className="h-4 w-4" />
               <span>{project.postedBy}</span>
           </div>
-          <CardTitle className="font-headline text-lg pt-1">{project.title}</CardTitle>
+          <CardTitle className="font-headline text-lg pt-1 group-hover:text-primary transition-colors">{project.title}</CardTitle>
         </CardHeader>
         <CardContent className="flex-grow">
           <p className="text-sm text-muted-foreground line-clamp-3 font-medium">
-            <span className="text-foreground">Impact: </span>{project.impact}
+            <span className="text-foreground font-semibold">Impact: </span>{project.impact}
           </p>
         </CardContent>
         <CardFooter className="pt-4 flex justify-between items-center bg-secondary/30 p-4">
            <Badge variant="secondary" className="w-fit">{project.category}</Badge>
-           <div className="text-sm font-semibold text-primary flex items-center gap-1">
+           <div className="text-sm font-semibold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
              View Project <ArrowRight className="h-4 w-4" />
            </div>
         </CardFooter>

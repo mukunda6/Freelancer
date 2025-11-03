@@ -143,28 +143,38 @@ export type Referral = {
 };
 
 export const referrals: Referral[] = [
-  { 
-    id: 'ref1', 
-    clientName: 'TechCorp', 
-    clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-1')?.imageUrl || '', 
-    projectDescription: 'They need a new landing page for their upcoming product launch. It\'s a quick turnaround project, but they have a good budget. I told them you were the best.', 
-    status: 'Pending', 
-    date: '2024-07-15' 
+  {
+    id: 'ref1',
+    clientName: 'TechCorp',
+    clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-1')?.imageUrl || '',
+    projectDescription: 'They need a new landing page for their upcoming product launch. It\'s a quick turnaround project, but they have a good budget. I told them you were the best.',
+    status: 'Pending',
+    date: '2024-07-15'
   },
-  { 
-    id: 'ref2', 
-    clientName: 'Innovate LLC', 
-    clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-2')?.imageUrl || '', 
-    projectDescription: 'This is for a larger project to build an internal dashboard for their sales team. Should be a 3-month contract.', 
-    status: 'Accepted', 
-    date: '2024-06-28' 
+  {
+    id: 'ref2',
+    clientName: 'Innovate LLC',
+    clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-2')?.imageUrl || '',
+    projectDescription: 'This is for a larger project to build an internal dashboard for their sales team. Should be a 3-month contract.',
+    status: 'Accepted',
+    date: '2024-06-28'
   },
-  { 
-    id: 'ref3', 
-    clientName: 'MarketRise', 
-    clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-3')?.imageUrl || '', 
-    projectDescription: 'A small graphic design job for some social media assets.', 
-    status: 'Declined', date: '2024-06-10' },
+  {
+    id: 'ref3',
+    clientName: 'MarketRise',
+    clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-3')?.imageUrl || '',
+    projectDescription: 'A small graphic design job for some social media assets.',
+    status: 'Declined',
+    date: '2024-06-10'
+  },
+  {
+    id: 'ref4',
+    clientName: 'Growth Partners',
+    clientAvatar: 'https://picsum.photos/seed/growthpartners/100/100',
+    projectDescription: 'Looking for a full-stack developer for a long-term project. They are a great team to work with.',
+    status: 'Pending',
+    date: '2024-07-20'
+  }
 ];
 
 

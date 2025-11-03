@@ -30,9 +30,10 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
               asChild
               isActive={pathname === item.href}
               className="justify-start"
+              tooltip={item.label}
             >
               <Link href={item.href}>
-                <item.icon className="h-5 w-5 mr-3" />
+                <item.icon />
                 <span>{item.label}</span>
               </Link>
             </SidebarMenuButton>

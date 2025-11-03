@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Cell } from "recharts"
 
 import {
   ChartConfig,
@@ -12,16 +12,16 @@ import { milestones } from "@/lib/data"
 
 const chartData = milestones.map(item => ({
     name: item.title.split(':')[0],
-    progress: item.progress,
-    fill: `hsl(var(--chart-${milestones.indexOf(item) + 1}))`
+    progress: item.progress
 }));
-
 
 const chartConfig = {
   progress: {
     label: "Progress",
   },
 } satisfies ChartConfig
+
+const colors = ["#2563eb", "#f97316", "#22c55e", "#8b5cf6", "#ec4899"];
 
 export function ProjectOverview() {
   return (
@@ -51,7 +51,11 @@ export function ProjectOverview() {
                     indicator="dot" 
                 />}
             />
-            <Bar dataKey="progress" radius={4} />
+            <Bar dataKey="progress" radius={4}>
+                {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                ))}
+            </Bar>
         </BarChart>
       </ResponsiveContainer>
     </ChartContainer>
