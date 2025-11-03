@@ -147,7 +147,11 @@ export default function ClientProjectDetailPage() {
 
             </CardContent>
             <CardFooter>
-                 <Button className="w-full">Apply Now</Button>
+                 <Button className="w-full" asChild>
+                    <Link href="https://docs.google.com/forms/d/e/1FAIpQLSe_D-yM-1Vf1i1l-3A4t_5k9f6p8c_7X_7W_6Q/viewform" target="_blank">
+                        Apply Now
+                    </Link>
+                 </Button>
             </CardFooter>
           </Card>
         </div>
@@ -155,4 +159,5 @@ export default function ClientProjectDetailPage() {
     </div>
   );
 }
+
 
