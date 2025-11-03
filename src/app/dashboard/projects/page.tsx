@@ -129,12 +129,6 @@ export default function ProjectsPage() {
                 </div>
               </PopoverContent>
             </Popover>
-            <Button asChild>
-                <Link href="/dashboard/projects/new">
-                    <PlusCircle className="mr-2" />
-                    New Project
-                </Link>
-            </Button>
         </div>
       </div>
 
