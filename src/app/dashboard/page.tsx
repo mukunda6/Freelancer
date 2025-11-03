@@ -8,6 +8,7 @@ import {
 import { ProjectOverview } from '@/components/dashboard/project-overview';
 import { InvoiceStatus } from '@/components/dashboard/invoice-status';
 import { ProjectMilestones } from '@/components/dashboard/project-milestones';
+import { ClientCommunication } from '@/components/dashboard/client-communication';
 import { Briefcase, DollarSign, GitPullRequestArrow, TrendingUp } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -77,14 +78,23 @@ export default function DashboardPage() {
             <InvoiceStatus />
           </CardContent>
         </Card>
-        <Card className="col-span-full">
-          <CardHeader>
-            <CardTitle className="font-headline">Project Milestones</CardTitle>
-            <CardDescription>Track the progress of your current projects.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ProjectMilestones />
-          </CardContent>
+        <Card className="col-span-full lg:col-span-4">
+            <CardHeader>
+                <CardTitle className="font-headline">Project Milestones</CardTitle>
+                <CardDescription>Track the progress of your current projects.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ProjectMilestones />
+            </CardContent>
+        </Card>
+        <Card className="col-span-full lg:col-span-3">
+            <CardHeader>
+                <CardTitle className="font-headline">Client Communication</CardTitle>
+                <CardDescription>Review your latest messages.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ClientCommunication />
+            </CardContent>
         </Card>
       </div>
     </div>
