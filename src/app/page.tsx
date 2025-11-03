@@ -126,10 +126,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Linkfolio. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
-             <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+             <Link href="/" className="text-sm text-muted-foreground hover:text-primary">
                 Privacy Policy
               </Link>
-              <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
+              <Link href="/" className="text-sm text-muted-foreground hover:text-primary">
                 Terms of Service
               </Link>
           </div>

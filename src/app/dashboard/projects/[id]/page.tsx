@@ -223,12 +223,6 @@ export default function ProjectDetailPage() {
                         <span className="ml-2 text-sm font-semibold text-foreground">{project.rating.toFixed(1)}</span>
                     </div>
                 </div>
-                 <Button className="w-full" asChild>
-                    <Link href="#">
-                      <Building className="mr-2" />
-                      View Client Profile
-                    </Link>
-                 </Button>
             </CardContent>
           </Card>
         </div>
