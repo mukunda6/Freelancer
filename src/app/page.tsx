@@ -59,7 +59,7 @@ export default function LandingPage() {
                   Freelancer
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" asChild>
                 <Link href="/signup?role=client">
                   Client
                 </Link>
