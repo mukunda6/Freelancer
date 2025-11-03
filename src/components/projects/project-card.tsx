@@ -9,7 +9,7 @@ import { ArrowRight, Building, DollarSign, Clock, Wrench } from "lucide-react";
 export function ProjectCard({ project, isClientView = false }: { project: Project, isClientView?: boolean }) {
   return (
     <Link href={isClientView ? `/client/dashboard/proposals` : `/dashboard/projects/${project.id}`} className="flex group">
-      <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 w-full hover:border-primary border-transparent border-2">
+      <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 w-full hover:border-primary">
         <div className="relative aspect-video w-full overflow-hidden">
           <Image
             src={project.imageUrl}
