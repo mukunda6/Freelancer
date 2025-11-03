@@ -1,0 +1,230 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the Freelancer Hub platform.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique user ID. (Primary Key)"
+        },
+        "role": {
+          "type": "string",
+          "description": "User's role: 'freelancer' or 'entrepreneur'."
+        },
+        "profileVerified": {
+          "type": "boolean",
+          "description": "True if ID and credentials have passed verification."
+        },
+        "multiLanguageSettings": {
+          "type": "string",
+          "description": "Multi Language Settings",
+          "format": "json"
+        },
+        "settings": {
+          "type": "string",
+          "description": "User settings",
+          "format": "json"
+        }
+      },
+      "required": [
+        "uid"
+      ]
+    },
+    "Client": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Client",
+      "type": "object",
+      "description": "Represents a client managed by a freelancer.",
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "description": "Unique client ID. (Primary Key)"
+        },
+        "freelancerUid": {
+          "type": "string",
+          "description": "The UID of the freelancer who added this client. (Relationship: User 1:N Client)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Client's company or individual name."
+        },
+        "email": {
+          "type": "string",
+          "description": "Client's contact email.",
+          "format": "email"
+        },
+        "isVerifiedClient": {
+          "type": "boolean",
+          "description": "True if the client has completed a project and their identity is confirmed."
+        }
+      },
+      "required": [
+        "clientId",
+        "freelancerUid"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a project managed by a freelancer for a client.",
+      "properties": {
+        "projectId": {
+          "type": "string",
+          "description": "Unique project ID. (Primary Key)"
+        },
+        "freelancerUid": {
+          "type": "string",
+          "description": "The UID of the freelancer managing the project. (Relationship: User 1:N Project)"
+        },
+        "clientId": {
+          "type": "string",
+          "description": "The ID of the associated client. (Relationship: Client 1:N Project)"
+        },
+        "status": {
+          "type": "string",
+          "description": "Project status: 'Active', 'Completed', 'On Hold'."
+        },
+        "milestones": {
+          "type": "array",
+          "description": "Nested array for tracking project phases.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": {
+          "type": "string",
+          "description": "Details of the project."
+        }
+      },
+      "required": [
+        "projectId",
+        "freelancerUid",
+        "clientId"
+      ]
+    },
+    "Referral": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Referral",
+      "type": "object",
+      "description": "Represents a client referral to a freelancer for a new project.",
+      "properties": {
+        "referralId": {
+          "type": "string",
+          "description": "Unique referral ID. (Primary Key)"
+        },
+        "clientId": {
+          "type": "string",
+          "description": "The ID of the verified client making the referral. (Relationship: Client 1:N Referral)"
+        },
+        "referredFreelancerUid": {
+          "type": "string",
+          "description": "The UID of the freelancer being referred to. (Relationship: User 1:N Referral)"
+        },
+        "projectDescription": {
+          "type": "string",
+          "description": "Details of the new project being referred."
+        },
+        "status": {
+          "type": "string",
+          "description": "Referral status: 'Pending', 'Accepted', 'Declined'."
+        }
+      },
+      "required": [
+        "referralId",
+        "clientId",
+        "referredFreelancerUid"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{uid}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile information. Keyed by the user's unique Firebase Auth UID.",
+          "params": [
+            {
+              "name": "uid",
+              "description": "The unique Firebase Auth UID of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{freelancerUid}/clients/{clientId}",
+        "definition": {
+          "entityName": "Client",
+          "schema": {
+            "$ref": "#/backend/entities/Client"
+          },
+          "description": "Stores clients associated with a specific freelancer. Includes denormalized 'freelancerUid' for authorization independence.",
+          "params": [
+            {
+              "name": "freelancerUid",
+              "description": "The UID of the freelancer who owns this client."
+            },
+            {
+              "name": "clientId",
+              "description": "The unique ID of the client."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{freelancerUid}/clients/{clientId}/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores projects associated with a client of a freelancer. Includes denormalized 'freelancerUid' and 'clientId' for authorization independence.",
+          "params": [
+            {
+              "name": "freelancerUid",
+              "description": "The UID of the freelancer managing the project."
+            },
+            {
+              "name": "clientId",
+              "description": "The ID of the client associated with the project."
+            },
+            {
+              "name": "projectId",
+              "description": "The unique ID of the project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/referrals/{referralId}",
+        "definition": {
+          "entityName": "Referral",
+          "schema": {
+            "$ref": "#/backend/entities/Referral"
+          },
+          "description": "Stores client referrals to freelancers. Includes 'clientId' and 'referredFreelancerUid' for authorization independence.",
+          "params": [
+            {
+              "name": "referralId",
+              "description": "The unique ID of the referral."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "This Firestore structure is designed to support the Freelancer Hub platform, focusing on user, client, project, and referral management. It prioritizes authorization independence, clarity, and scalability. User data is stored in `/users/{uid}`, client data in `/users/{freelancerUid}/clients/{clientId}`, project data in `/users/{freelancerUid}/clients/{clientId}/projects/{projectId}`, and referral data in `/referrals/{referralId}`.  Each entity is placed in separate collections to simplify security rules and avoid complex filtering.  Authorization independence is achieved by ensuring that each document contains all the information needed for authorization, eliminating the need for `get()` calls.  For instance, the `Client`, and `Project` collections are nested under the user's document to implicitly enforce ownership and simplify access control. The referral collection will contain both the `clientId` and `referredFreelancerUid`, ensuring each referral document stores the necessary information for authorization, enabling atomic operations and avoiding dependency on parent documents for access control. Segregation of data into separate collections based on ownership simplifies security rules and improves query performance.  All paths follow a consistent naming convention for clarity and maintainability."
+  }
+}

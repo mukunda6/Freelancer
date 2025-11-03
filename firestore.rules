@@ -1,0 +1,153 @@
+/**
+ * @fileOverview Firestore Security Rules for Freelancer Hub.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for user profiles, clients, and projects.
+ * Users can only create, read, update, and delete their own data.
+ * Referrals have separate read and write rules based on the client and freelancer involved.
+ *
+ * Data Structure:
+ * - /users/{userId}: Stores user profiles, accessible only by the user.
+ * - /users/{userId}/clients/{clientId}: Stores clients owned by a specific freelancer.
+ * - /users/{userId}/clients/{clientId}/projects/{projectId}: Stores projects owned by a freelancer for a client.
+ * - /referrals/{referralId}: Stores referral data.
+ *
+ * Key Security Decisions:
+ * - User listing is disabled for privacy.
+ * - Clients and projects are nested under user documents to enforce ownership.
+ * - Referral access is based on the referred freelancer and the referring client.
+ *
+ * Denormalization for Authorization:
+ * The Client and Project documents contain the freelancerUid, removing the need for get() calls
+ * to the user document when checking permissions. The referral document contains both clientId and referredFreelancerUid
+ * for similar reasons.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Secure user profiles. Only the user can read and write their own profile.
+     * @path /users/{uid}
+     * @allow (create) User with UID 'user_abc' can create their profile.
+     *   request.auth.uid == 'user_abc'
+     * @allow (get) User with UID 'user_abc' can get their profile.
+     *   request.auth.uid == 'user_abc'
+     * @allow (update) User with UID 'user_abc' can update their profile.
+     *   request.auth.uid == 'user_abc'
+     * @allow (delete) User with UID 'user_abc' can delete their profile.
+     *   request.auth.uid == 'user_abc'
+     * @deny (create) User with UID 'user_def' cannot create a profile for 'user_abc'.
+     *   request.auth.uid == 'user_def', resource.data.uid == 'user_abc'
+     * @principle Enforces document ownership for user profiles.
+     */
+    match /users/{userId} {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isOwner(userId);
+      allow list: if false; // User listing is not allowed
+
+      allow create: if isOwner(userId) && request.resource.data.uid == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.uid == resource.data.uid;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Secure clients. Only the owning freelancer can manage their clients.
+     * @path /users/{freelancerUid}/clients/{clientId}
+     * @allow (create) Freelancer with UID 'user_abc' can create a client.
+     *   request.auth.uid == 'user_abc', request.resource.data.freelancerUid == 'user_abc'
+     * @allow (get) Freelancer with UID 'user_abc' can get client 'client_123'.
+     *   request.auth.uid == 'user_abc', resource.data.freelancerUid == 'user_abc'
+     * @allow (update) Freelancer with UID 'user_abc' can update client 'client_123'.
+     *   request.auth.uid == 'user_abc', resource.data.freelancerUid == 'user_abc'
+     * @allow (delete) Freelancer with UID 'user_abc' can delete client 'client_123'.
+     *   request.auth.uid == 'user_abc', resource.data.freelancerUid == 'user_abc'
+     * @deny (create) Freelancer with UID 'user_def' cannot create a client for 'user_abc'.
+     *   request.auth.uid == 'user_def', resource.data.freelancerUid == 'user_abc'
+     * @principle Enforces document ownership for clients within a freelancer's data tree.
+     */
+    match /users/{freelancerUid}/clients/{clientId} {
+      function isOwner(freelancerUid) {
+        return request.auth.uid == freelancerUid;
+      }
+
+      function isExistingOwner(freelancerUid) {
+        return isOwner(freelancerUid) && resource != null;
+      }
+      allow get: if isOwner(freelancerUid);
+      allow list: if isOwner(freelancerUid);
+
+      allow create: if isOwner(freelancerUid) && request.resource.data.freelancerUid == freelancerUid;
+      allow update: if isExistingOwner(freelancerUid) && request.resource.data.freelancerUid == resource.data.freelancerUid;
+      allow delete: if isExistingOwner(freelancerUid);
+    }
+
+    /**
+     * @description Secure projects. Only the owning freelancer can manage their clients' projects.
+     * @path /users/{freelancerUid}/clients/{clientId}/projects/{projectId}
+     * @allow (create) Freelancer with UID 'user_abc' can create a project for client 'client_123'.
+     *   request.auth.uid == 'user_abc', request.resource.data.freelancerUid == 'user_abc'
+     * @allow (get) Freelancer with UID 'user_abc' can get project 'project_xyz' for client 'client_123'.
+     *   request.auth.uid == 'user_abc', resource.data.freelancerUid == 'user_abc'
+     * @allow (update) Freelancer with UID 'user_abc' can update project 'project_xyz' for client 'client_123'.
+     *   request.auth.uid == 'user_abc', resource.data.freelancerUid == 'user_abc'
+     * @allow (delete) Freelancer with UID 'user_abc' can delete project 'project_xyz' for client 'client_123'.
+     *   request.auth.uid == 'user_abc', resource.data.freelancerUid == 'user_abc'
+     * @deny (create) Freelancer with UID 'user_def' cannot create a project for client 'client_123' under 'user_abc'.
+     *   request.auth.uid == 'user_def', resource.data.freelancerUid == 'user_abc'
+     * @principle Enforces document ownership for projects within a client's data tree.
+     */
+    match /users/{freelancerUid}/clients/{clientId}/projects/{projectId} {
+      function isOwner(freelancerUid) {
+        return request.auth.uid == freelancerUid;
+      }
+
+      function isExistingOwner(freelancerUid) {
+        return isOwner(freelancerUid) && resource != null;
+      }
+      allow get: if isOwner(freelancerUid);
+      allow list: if isOwner(freelancerUid);
+
+      allow create: if isOwner(freelancerUid) && request.resource.data.freelancerUid == freelancerUid;
+      allow update: if isExistingOwner(freelancerUid) && request.resource.data.freelancerUid == resource.data.freelancerUid;
+      allow delete: if isExistingOwner(freelancerUid);
+    }
+
+    /**
+     * @description Secure referrals.  Only the referring client or the referred freelancer can read the referral.  The referring client can create a referral.
+     * @path /referrals/{referralId}
+     * @allow (create) Client with UID 'client_xyz' can create a referral.
+     *   request.auth.uid == 'client_xyz'
+     * @allow (get) Client with UID 'client_xyz' or Freelancer with UID 'freelancer_abc' can get referral 'referral_123'.
+     *   request.auth.uid == 'client_xyz' || request.auth.uid == 'freelancer_abc', resource.data.clientId == 'client_xyz', resource.data.referredFreelancerUid == 'freelancer_abc'
+     * @allow (update) Referring client and referred freelancer can not edit the document, only the server side.
+     *   request.auth.uid == 'client_xyz' && resource.data.clientId == 'client_xyz'
+     *   request.auth.uid == 'freelancer_abc' && resource.data.referredFreelancerUid == 'freelancer_abc'
+     * @allow (delete) Referring client and referred freelancer can not delete the document, only the server side.
+     *   request.auth.uid == 'client_xyz' && resource.data.clientId == 'client_xyz'
+     *   request.auth.uid == 'freelancer_abc' && resource.data.referredFreelancerUid == 'freelancer_abc'
+     * @deny (create) User with UID 'user_def' cannot create a referral.
+     *   request.auth.uid == 'user_def'
+     * @principle Enforces access control for referrals based on client and freelancer roles.
+     */
+    match /referrals/{referralId} {
+      function isClientOrFreelancer(clientId, referredFreelancerUid) {
+        return request.auth.uid == clientId || request.auth.uid == referredFreelancerUid;
+      }
+
+      allow get: if isClientOrFreelancer(resource.data.clientId, resource.data.referredFreelancerUid);
+      allow list: if false; // Listing referrals is not allowed to prevent data leakage
+
+      allow create: if request.auth.uid == request.resource.data.clientId;
+      allow update: if false; // Only server-side updates allowed
+      allow delete: if false; // Only server-side deletes allowed
+    }
+  }
+}
