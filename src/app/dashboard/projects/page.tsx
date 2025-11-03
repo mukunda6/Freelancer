@@ -1,9 +1,8 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
-import { ProjectCard } from "@/components/projects/project-card";
-import { projects } from "@/lib/data";
+import { ProjectCard } from '@/components/projects/project-card';
+import { projects } from '@/lib/data';
 import {
   Select,
   SelectContent,
@@ -12,8 +11,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Filter } from 'lucide-react';
 
 const allCategories = [...new Set(projects.map((p) => p.category))];
 const allSkills = [...new Set(projects.flatMap((p) => p.skills))];
@@ -36,22 +41,36 @@ export default function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-center justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-3xl font-headline font-bold tracking-tight">
             My Projects
           </h1>
           <p className="text-muted-foreground max-w-2xl">
-            Here is a selection of my recent work. Each project highlights my ability to deliver tangible results and create value for my clients.
+            Here is a selection of my recent work. Each project highlights my
+            ability to deliver tangible results and create value for my clients.
           </p>
         </div>
-      </div>
-        <Card>
-            <CardContent className="p-4 flex flex-col md:flex-row items-center gap-4">
-                <div className="grid gap-2 w-full md:w-auto">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">
+              <Filter className="mr-2 h-4 w-4" />
+              Filter
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80" align="end">
+            <div className="grid gap-4">
+              <div className="space-y-2">
+                <h4 className="font-medium leading-none">Filters</h4>
+                <p className="text-sm text-muted-foreground">
+                  Adjust the filters to find projects.
+                </p>
+              </div>
+              <div className="grid gap-2">
+                 <div className="grid gap-2 w-full md:w-auto">
                     <Label htmlFor="category-filter">Category</Label>
                     <Select value={category} onValueChange={setCategory}>
-                        <SelectTrigger id="category-filter" className="w-full md:w-[180px]">
+                        <SelectTrigger id="category-filter" className="w-full">
                             <SelectValue placeholder="Filter by category" />
                         </SelectTrigger>
                         <SelectContent>
@@ -67,7 +86,7 @@ export default function ProjectsPage() {
                 <div className="grid gap-2 w-full md:w-auto">
                     <Label htmlFor="skill-filter">Skill</Label>
                     <Select value={skill} onValueChange={setSkill}>
-                        <SelectTrigger id="skill-filter" className="w-full md:w-[180px]">
+                        <SelectTrigger id="skill-filter" className="w-full">
                             <SelectValue placeholder="Filter by skill" />
                         </SelectTrigger>
                         <SelectContent>
@@ -90,9 +109,11 @@ export default function ProjectsPage() {
                         onValueChange={(value) => setBudget(value)}
                     />
                 </div>
-            </CardContent>
-        </Card>
-
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {filteredProjects.length > 0 ? (
