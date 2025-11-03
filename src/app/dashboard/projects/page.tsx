@@ -1,22 +1,107 @@
 
+'use client';
+
+import { useState, useMemo } from 'react';
 import { ProjectCard } from "@/components/projects/project-card";
 import { projects } from "@/lib/data";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+
+const allCategories = [...new Set(projects.map((p) => p.category))];
+const allSkills = [...new Set(projects.flatMap((p) => p.skills))];
 
 export default function ProjectsPage() {
+  const [category, setCategory] = useState('all');
+  const [skill, setSkill] = useState('all');
+  const [budget, setBudget] = useState([0, 10000]);
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter((project) => {
+      const categoryMatch =
+        category === 'all' || project.category === category;
+      const skillMatch = skill === 'all' || project.skills.includes(skill);
+      const budgetMatch =
+        project.budget >= budget[0] && project.budget <= budget[1];
+      return categoryMatch && skillMatch && budgetMatch;
+    });
+  }, [category, skill, budget]);
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
-          <h1 className="text-3xl font-headline font-bold tracking-tight">Projects</h1>
+          <h1 className="text-3xl font-headline font-bold tracking-tight">
+            My Projects
+          </h1>
           <p className="text-muted-foreground max-w-2xl">
             Here is a selection of my recent work. Each project highlights my ability to deliver tangible results and create value for my clients.
           </p>
         </div>
       </div>
+        <Card>
+            <CardContent className="p-4 flex flex-col md:flex-row items-center gap-4">
+                <div className="grid gap-2 w-full md:w-auto">
+                    <Label htmlFor="category-filter">Category</Label>
+                    <Select value={category} onValueChange={setCategory}>
+                        <SelectTrigger id="category-filter" className="w-full md:w-[180px]">
+                            <SelectValue placeholder="Filter by category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Categories</SelectItem>
+                            {allCategories.map((cat) => (
+                                <SelectItem key={cat} value={cat}>
+                                    {cat}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="grid gap-2 w-full md:w-auto">
+                    <Label htmlFor="skill-filter">Skill</Label>
+                    <Select value={skill} onValueChange={setSkill}>
+                        <SelectTrigger id="skill-filter" className="w-full md:w-[180px]">
+                            <SelectValue placeholder="Filter by skill" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Skills</SelectItem>
+                            {allSkills.map((s) => (
+                                <SelectItem key={s} value={s}>
+                                    {s}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="grid gap-2 w-full flex-1">
+                    <Label>Budget Range: ${budget[0]} - ${budget[1]}</Label>
+                    <Slider
+                        min={0}
+                        max={10000}
+                        step={500}
+                        value={budget}
+                        onValueChange={(value) => setBudget(value)}
+                    />
+                </div>
+            </CardContent>
+        </Card>
+
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+        {filteredProjects.length > 0 ? (
+          filteredProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))
+        ) : (
+          <p>No projects match the current filters.</p>
+        )}
       </div>
     </div>
   );
