@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme-provider';
+import { Chatbot } from '@/components/chatbot/chatbot';
 
 export const metadata: Metadata = {
   title: 'Linkfolio',
@@ -30,6 +31,7 @@ export default function RootLayout({
             disableTransitionOnChange
         >
           {children}
+          <Chatbot />
           <Toaster />
         </ThemeProvider>
       </body>
