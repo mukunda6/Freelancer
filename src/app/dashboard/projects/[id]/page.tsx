@@ -136,13 +136,17 @@ export default function ProjectDetailPage() {
                     <Badge variant="secondary">{project.category}</Badge>
                 </div>
 
-                 <Button className="w-full" variant="outline">
-                    View Project Live
-                    <ExternalLink className="ml-2" />
+                 <Button className="w-full" variant="outline" asChild>
+                    <Link href="#" target="_blank">
+                      View Project Live
+                      <ExternalLink className="ml-2" />
+                    </Link>
                  </Button>
-                 <Button className="w-full">
-                    <Mail className="mr-2" />
-                    Contact Client
+                 <Button className="w-full" asChild>
+                    <Link href={`mailto:contact@${project.postedBy.replace(/\s+/g, '').toLowerCase()}.com`}>
+                      <Mail className="mr-2" />
+                      Contact Client
+                    </Link>
                  </Button>
             </CardContent>
           </Card>
