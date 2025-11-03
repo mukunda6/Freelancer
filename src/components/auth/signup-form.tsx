@@ -21,7 +21,9 @@ export function SignupForm() {
   return (
     <Card className="mx-auto max-w-sm w-full shadow-xl">
       <CardHeader className="text-center">
-        <Logo className="mx-auto mb-4" />
+         <Link href="/">
+          <Logo className="mx-auto mb-4" />
+        </Link>
         <CardTitle className="text-2xl font-headline">Create an Account</CardTitle>
         <CardDescription>Enter your information to create an account</CardDescription>
       </CardHeader>
@@ -56,7 +58,7 @@ export function SignupForm() {
         </form>
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}
-          <Link href="/" className="font-semibold text-primary/80 hover:text-primary hover:underline">
+          <Link href="/login" className="font-semibold text-primary/80 hover:text-primary hover:underline">
             Login
           </Link>
         </div>

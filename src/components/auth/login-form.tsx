@@ -21,7 +21,9 @@ export function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm w-full shadow-xl">
       <CardHeader className="text-center">
-        <Logo className="mx-auto mb-4" />
+        <Link href="/">
+          <Logo className="mx-auto mb-4" />
+        </Link>
         <CardTitle className="text-2xl font-headline">Login to Freelancer Hub</CardTitle>
         <CardDescription>Enter your email below to login to your account</CardDescription>
       </CardHeader>
