@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from 'next/link';
@@ -18,7 +17,6 @@ const navItems = [
   { href: '/client/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/client/dashboard/projects', label: 'My Projects', icon: Briefcase },
   { href: '/client/dashboard/proposals', label: 'Proposals', icon: FileText },
-  { href: '/client/dashboard/freelancer-projects', label: 'Freelancer Projects', icon: Search },
 ];
 
 const actionItem = { href: '/client/dashboard/project-competition', label: 'Post Competition', icon: Trophy };
