@@ -1,7 +1,6 @@
 
 'use client';
 
-import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projects, proposals as allProposals } from '@/lib/data';
@@ -18,9 +17,8 @@ import { ArrowLeft, Clock, DollarSign, FileText, CheckCircle2, Wrench } from 'lu
 import { ProposalCard } from '@/components/client/proposal-card';
 import { Separator } from '@/components/ui/separator';
 
-export default function ClientProjectDetailPage() {
-  const params = useParams();
-  const projectId = params.id as string;
+export default function ClientProjectDetailPage({ params }: { params: { id: string } }) {
+  const projectId = params.id;
 
   const project = projects.find((p) => p.id === projectId);
   const proposalsForProject = allProposals.filter(p => p.projectName === project?.title);
@@ -148,5 +146,3 @@ export default function ClientProjectDetailPage() {
     </div>
   );
 }
-
-    

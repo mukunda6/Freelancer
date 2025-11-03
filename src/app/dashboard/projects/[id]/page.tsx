@@ -1,7 +1,6 @@
 
 'use client';
 
-import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, ChangeEvent, useEffect } from 'react';
@@ -22,9 +21,8 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function ProjectDetailPage() {
-  const params = useParams();
-  const projectId = params.id as string;
+export default function ProjectDetailPage({ params }: { params: { id: string } }) {
+  const projectId = params.id;
   const project = projects.find((p) => p.id === projectId);
 
   const [videoSrc, setVideoSrc] = useState<string | null>(null);

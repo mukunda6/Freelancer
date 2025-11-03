@@ -1,7 +1,6 @@
 
 'use client';
 
-import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projects } from '@/lib/data';
@@ -22,9 +21,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { ApplyProjectForm } from '@/components/freelancer/apply-project-form';
 import React from 'react';
 
-export default function ClientProjectDetailPage() {
-  const params = useParams();
-  const projectId = params.id as string;
+export default function ClientProjectDetailPage({ params }: { params: { id: string } }) {
+  const projectId = params.id;
   const project = projects.find((p) => p.id === projectId);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
