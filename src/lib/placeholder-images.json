@@ -59,6 +59,18 @@
       "description": "Client avatar for MarketRise",
       "imageUrl": "https://images.unsplash.com/photo-1622465911368-72162f8da3e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NjIxNDA1MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "company logo"
+    },
+    {
+      "id": "signup-freelancer",
+      "description": "Person working on a laptop in a bright, creative environment.",
+      "imageUrl": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmcmVlbGFuY2VyfGVufDB8fHx8MTc2MjMyMjExMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "freelancer working"
+    },
+    {
+      "id": "signup-client",
+      "description": "Two professionals in a meeting, reviewing documents.",
+      "imageUrl": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbGllbnQlMjBtZWV0aW5nfGVufDB8fHx8MTc2MjMyMjE0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "client meeting"
     }
   ]
 }

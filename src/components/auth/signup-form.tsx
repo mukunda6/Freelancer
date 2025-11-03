@@ -1,21 +1,27 @@
+
 "use client";
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from 'react';
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Users, Building } from "lucide-react";
 
 export function SignupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialRole = searchParams.get('role') === 'client' ? 'client' : 'freelancer';
   const [role, setRole] = React.useState(initialRole);
+  
+  const freelancerImage = PlaceHolderImages.find(p => p.id === 'signup-freelancer');
+  const clientImage = PlaceHolderImages.find(p => p.id === 'signup-client');
 
 
   const handleSignup = (e: React.FormEvent) => {
@@ -42,46 +48,63 @@ export function SignupForm() {
         <form onSubmit={handleSignup} className="grid gap-4">
           <div className="grid gap-2">
             <Label>I am a...</Label>
-            <RadioGroup
-              defaultValue={role}
-              onValueChange={(value) => setRole(value as 'freelancer' | 'client')}
-              className="grid grid-cols-2 gap-4"
-            >
-              <div>
-                <RadioGroupItem value="freelancer" id="freelancer" className="peer sr-only" />
-                <Label
-                  htmlFor="freelancer"
-                  className={cn(
-                    "flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer",
-                    role === 'freelancer' && "border-primary"
-                  )}
-                >
-                  Freelancer
-                </Label>
+            <div className="grid grid-cols-2 gap-4">
+               <div
+                onClick={() => setRole('freelancer')}
+                className={cn(
+                  "relative group rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
+                  "hover:shadow-lg hover:scale-105",
+                  role === 'freelancer' ? "border-primary shadow-lg scale-105" : "border-muted"
+                )}
+              >
+                {freelancerImage && (
+                    <Image
+                      src={freelancerImage.imageUrl}
+                      alt="Freelancer"
+                      fill
+                      className="object-cover rounded-md opacity-20 group-hover:opacity-30 transition-opacity"
+                      data-ai-hint={freelancerImage.imageHint}
+                    />
+                )}
+                <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                  <Users className="w-8 h-8 mb-2 text-primary" />
+                  <span className="font-semibold text-sm">Freelancer</span>
+                </div>
               </div>
-              <div>
-                <RadioGroupItem value="client" id="client" className="peer sr-only" />
-                <Label
-                  htmlFor="client"
-                  className={cn(
-                    "flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground cursor-pointer",
-                    role === 'client' && "border-primary"
-                    )}
-                >
-                  Client
-                </Label>
+
+               <div
+                onClick={() => setRole('client')}
+                className={cn(
+                  "relative group rounded-lg border-2 p-4 cursor-pointer transition-all duration-300 flex flex-col items-center justify-center aspect-square text-center",
+                  "hover:shadow-lg hover:scale-105",
+                  role === 'client' ? "border-accent shadow-lg scale-105" : "border-muted"
+                )}
+              >
+                {clientImage && (
+                  <Image
+                    src={clientImage.imageUrl}
+                    alt="Client"
+                    fill
+                    className="object-cover rounded-md opacity-20 group-hover:opacity-30 transition-opacity"
+                    data-ai-hint={clientImage.imageHint}
+                  />
+                )}
+                <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                    <Building className="w-8 h-8 mb-2 text-accent" />
+                    <span className="font-semibold text-sm">Client</span>
+                </div>
               </div>
-            </RadioGroup>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <Label htmlFor="first-name">First name</Label>
-              <Input id="first-name" placeholder="Max" required />
+              <Input id="first-name" required />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="last-name">Last name</Label>
-              <Input id="last-name" placeholder="Robinson" required />
+              <Input id="last-name" required />
             </div>
           </div>
           <div className="grid gap-2">
@@ -89,7 +112,6 @@ export function SignupForm() {
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
               required
             />
           </div>
