@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9maWxlJTIwcGljdHVyZXxlbnwwfHx8fDE3NjIxMTIxOTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "profile picture"
+    },
+    {
+      "id": "project-image-1",
+      "description": "Abstract coding background",
+      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlY29tbWVyY2UlMjB3ZWJzaXRlfGVufDB8fHx8MTc2MjE1MjcwOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ecommerce website"
+    },
+    {
+      "id": "project-image-2",
+      "description": "Modern office workspace",
+      "imageUrl": "https://images.unsplash.com/photo-1619037961390-f2047d89bc55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmaXRuZXNzJTIwYXBwfGVufDB8fHx8MTc2MjA1NTYwMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fitness app"
+    },
+    {
+      "id": "project-image-3",
+      "description": "Collaborative team meeting",
+      "imageUrl": "https://images.unsplash.com/photo-1635536816492-9a6fb49354d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxicmFuZCUyMGRlc2lnbnxlbnwwfHx8fDE3NjIwOTU3NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brand design"
+    },
+    {
+      "id": "project-image-4",
+      "description": "Data visualization on a screen",
+      "imageUrl": "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb250ZW50JTIwc3RyYXRlZ3l8ZW58MHx8fHwxNzYyMDc2MjIwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "content strategy"
+    },
+    {
+      "id": "client-avatar-1",
+      "description": "Client avatar for TechCorp",
+      "imageUrl": "https://images.unsplash.com/photo-1549924231-f129b911e442?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NjIxNDA1MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "client-avatar-2",
+      "description": "Client avatar for Innovate LLC",
+      "imageUrl": "https://images.unsplash.com/photo-1687523327554-fa9f50423489?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NjIxNDA1MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "company logo"
+    },
+    {
+      "id": "client-avatar-3",
+      "description": "Client avatar for MarketRise",
+      "imageUrl": "https://images.unsplash.com/photo-1622465911368-72162f8da3e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NjIxNDA1MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "company logo"
+    }
+  ]
 }
