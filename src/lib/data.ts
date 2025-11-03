@@ -4,73 +4,87 @@ export type Project = {
   id: string;
   title: string;
   description: string;
+  impact: string;
   budget: number;
   category: string;
   postedBy: string;
   imageUrl: string;
   imageHint: string;
+  skills: string[];
 };
 
 export const projects: Project[] = [
   {
     id: '1',
     title: 'E-commerce Platform Redesign',
-    description: 'We are looking for an experienced developer to redesign our Shopify store. Focus on improving UX and mobile responsiveness.',
+    description: 'A comprehensive overhaul of a Shopify store to improve user experience, mobile responsiveness, and modernizing the brand\'s digital presence. The project involved a full UX audit, a new design system, and custom theme development.',
+    impact: "Boosted conversion rates by 40% and reduced bounce rate by 25% through a complete UX and visual overhaul.",
     budget: 5000,
     category: 'Web Development',
     postedBy: 'Retail Co',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
+    skills: ['UI/UX', 'Shopify', 'React']
   },
   {
     id: '2',
     title: 'Mobile App for Fitness Tracking',
-    description: 'Create a cross-platform mobile app for iOS and Android that tracks user workouts and diet. React Native experience is a must.',
+    description: 'A cross-platform mobile app for iOS and Android that tracks user workouts, nutrition, and progress. It features real-time data sync, social sharing, and personalized fitness plans.',
+    impact: "Achieved 50,000+ downloads in the first 3 months and a 4.8-star app store rating by focusing on an intuitive and motivating user interface.",
     budget: 8000,
     category: 'Mobile Development',
     postedBy: 'FitLife Inc.',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageHint || '',
+    skills: ['React Native', 'Firebase', 'UI/UX']
   },
   {
     id: '3',
     title: 'Brand Identity and Logo Design',
-    description: 'A new startup in the fintech space needs a complete brand identity package, including logo, color palette, and style guide.',
+    description: 'Developed a complete brand identity for a new fintech startup, including a modern logo, a comprehensive color palette, typography guidelines, and a full brand style guide to ensure consistency across all marketing materials.',
+    impact: "Established a strong, trustworthy brand identity that helped the client secure their first round of seed funding within two months of launch.",
     budget: 2500,
     category: 'Design',
     postedBy: 'Fintech Startup',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageHint || '',
+    skills: ['Branding', 'Logo Design', 'Illustration']
   },
     {
     id: '4',
     title: 'Content Strategy for SaaS Blog',
-    description: 'Develop a 6-month content strategy to increase organic traffic. Includes keyword research, topic ideation, and content calendar.',
+    description: 'Created a six-month content strategy to drive organic growth for a B2B SaaS platform. The project involved in-depth keyword research, competitive analysis, topic clustering, and creating a detailed content calendar.',
+    impact: "Increased organic search traffic by 150% and generated over 200 new marketing qualified leads in 6 months.",
     budget: 3000,
     category: 'Marketing',
     postedBy: 'CloudCorp',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',
+    skills: ['SEO', 'Content Strategy', 'Marketing']
   },
   {
     id: '5',
     title: 'AI-Powered Chatbot Integration',
-    description: 'Integrate a Genkit-based AI chatbot into our existing customer support portal to handle common queries.',
+    description: 'Integrated a Genkit-based AI chatbot into an existing customer support portal. The chatbot was trained on company documentation to handle common queries, escalate complex issues, and reduce support ticket volume.',
+    impact: "Automated 60% of common customer support queries, reducing agent response time by 80% and improving customer satisfaction scores.",
     budget: 4500,
     category: 'AI/ML',
     postedBy: 'Supportify',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageHint || '',
+    skills: ['Genkit', 'AI/ML', 'Node.js']
   },
   {
     id: '6',
     title: 'Data Visualization Dashboard',
-    description: 'Build a real-time dashboard using Recharts to visualize our sales and marketing data from a Firestore database.',
+    description: 'Built a real-time data visualization dashboard using Recharts and Next.js to display sales and marketing KPIs from a Firestore database. The dashboard provided stakeholders with actionable insights at a glance.',
+    impact: "Provided key stakeholders with real-time data, leading to a 15% improvement in marketing campaign ROI.",
     budget: 6000,
     category: 'Data Analytics',
     postedBy: 'Metrics Inc.',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageHint || '',
+    skills: ['Recharts', 'Firebase', 'Data Visualization']
   }
 ];
 
@@ -195,5 +209,33 @@ export const proposals: Proposal[] = [
         coverLetter: 'I am a React Native specialist and a fitness enthusiast. I have built three successful fitness apps and I\'m excited by the opportunity to work on this project for FitLife Inc.',
         status: 'Accepted',
         date: '2024-07-15'
+    }
+];
+
+export type Testimonial = {
+    id: string;
+    projectId: string;
+    clientName: string;
+    clientTitle: string;
+    clientAvatar: string;
+    quote: string;
+};
+
+export const testimonials: Testimonial[] = [
+    {
+        id: 'test1',
+        projectId: '1',
+        clientName: 'John Doe',
+        clientTitle: 'CEO, Retail Co',
+        clientAvatar: 'https://picsum.photos/seed/johndoe/100/100',
+        quote: "Working with Jane was a game-changer. Her attention to detail and understanding of our brand vision resulted in a website that not only looks stunning but also performs exceptionally well. Our conversion rates have never been better."
+    },
+    {
+        id: 'test2',
+        projectId: '2',
+        clientName: 'Sarah Smith',
+        clientTitle: 'Founder, FitLife Inc.',
+        clientAvatar: 'https://picsum.photos/seed/sarahsmith/100/100',
+        quote: "The fitness app exceeded all our expectations. It's intuitive, beautiful, and our users absolutely love it. The engagement metrics are through the roof, and it's all thanks to the incredible work done on this project."
     }
 ];
