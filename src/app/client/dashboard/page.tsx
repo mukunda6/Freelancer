@@ -66,7 +66,7 @@ export default function ClientDashboardPage() {
        <div className="space-y-8">
         <div>
           <h2 className="text-2xl font-headline font-bold">Top Freelancers</h2>
-          <p className="text-muted-foreground">Discover top-rated talent for your next project.</p>
+          <p className="text-muted-foreground">Discover our elite freelancers, who are given top priority. These are the most trusted and skilled professionals on our platform.</p>
         </div>
 
         <div className="space-y-4">
