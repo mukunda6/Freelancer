@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/card';
 import { ProjectOverview } from '@/components/dashboard/project-overview';
 import { InvoiceStatus } from '@/components/dashboard/invoice-status';
-import { ClientCommunication } from '@/components/dashboard/client-communication';
+import { ProjectMilestones } from '@/components/dashboard/project-milestones';
 import { Briefcase, DollarSign, GitPullRequestArrow, TrendingUp } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -79,11 +79,11 @@ export default function DashboardPage() {
         </Card>
         <Card className="col-span-full">
           <CardHeader>
-            <CardTitle className="font-headline">Client Communication</CardTitle>
-            <CardDescription>Recent messages from your clients.</CardDescription>
+            <CardTitle className="font-headline">Project Milestones</CardTitle>
+            <CardDescription>Track the progress of your current projects.</CardDescription>
           </CardHeader>
           <CardContent>
-            <ClientCommunication />
+            <ProjectMilestones />
           </CardContent>
         </Card>
       </div>
