@@ -16,34 +16,44 @@ import { PlusCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { projects } from "@/lib/data";
+import { useFirebase } from "@/firebase/provider";
+import { addDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { collection } from "firebase/firestore";
 
 export default function NewProjectPage() {
   const { toast } = useToast();
   const router = useRouter();
+  const { firestore, user } = useFirebase();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!firestore || !user) {
+      toast({ title: "Error", description: "You must be logged in to add a project.", variant: "destructive" });
+      return;
+    }
+
     const form = e.currentTarget;
     const projectTitle = (form.elements.namedItem('project-title') as HTMLInputElement)?.value;
-
-    // This is a simulation. In a real app, this would be an API call.
-    // We are just adding to the mock data for now.
-    projects.unshift({
-        id: `proj${Date.now()}`,
+    
+    const newProject = {
+        freelancerUid: user.uid,
         title: projectTitle || 'New Project',
         description: (form.elements.namedItem('project-description') as HTMLTextAreaElement)?.value,
-        requirements: 'N/A',
-        features: 'N/A',
-        impact: 'N/A',
         budget: parseInt((form.elements.namedItem('budget') as HTMLInputElement)?.value, 10) || 0,
         category: (form.elements.namedItem('category') as HTMLInputElement)?.value,
-        postedBy: 'Jane Doe', // This would be the current freelancer's name
+        postedBy: user.displayName || 'Jane Doe', // This would be the current freelancer's name
         imageUrl: `https://picsum.photos/seed/${Date.now()}/600/400`,
         imageHint: 'new project',
         skills: ((form.elements.namedItem('skills') as HTMLInputElement)?.value).split(',').map(s => s.trim()),
         duration: (form.elements.namedItem('duration') as HTMLInputElement)?.value,
-    });
+        rating: Math.round((Math.random() * (5 - 4.5) + 4.5) * 10) / 10, // Mock a high rating for new projects
+        requirements: 'N/A', // Not in form, default value
+        features: 'N/A', // Not in form, default value
+        impact: 'N/A', // Not in form, default value
+    };
+
+    const portfolioProjectsRef = collection(firestore, `users/${user.uid}/portfolioProjects`);
+    addDocumentNonBlocking(portfolioProjectsRef, newProject);
 
     toast({
       title: "Project Added! 🎉",
@@ -113,3 +123,5 @@ export default function NewProjectPage() {
     </div>
   );
 }
+
+    

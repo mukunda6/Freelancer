@@ -107,6 +107,57 @@
         "clientId"
       ]
     },
+    "PortfolioProject": {
+      "title": "Portfolio Project",
+      "type": "object",
+      "description": "A project in a freelancer's portfolio, not necessarily tied to a client on the platform.",
+      "properties": {
+        "freelancerUid": {
+          "type": "string",
+          "description": "The UID of the freelancer who owns this portfolio project."
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "budget": {
+          "type": "number"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "imageHint": {
+          "type": "string"
+        },
+        "postedBy": {
+          "type": "string",
+          "description": "Display name of the freelancer."
+        }
+      },
+      "required": [
+        "freelancerUid",
+        "title",
+        "description",
+        "category",
+        "skills",
+        "budget",
+        "duration"
+      ]
+    },
     "Referral": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Referral",
@@ -249,6 +300,26 @@
         }
       },
       {
+        "path": "/users/{freelancerUid}/portfolioProjects/{projectId}",
+        "definition": {
+          "entityName": "PortfolioProject",
+          "schema": {
+            "$ref": "#/backend/entities/PortfolioProject"
+          },
+          "description": "Stores a freelancer's portfolio projects. Keyed by freelancer UID and a unique project ID.",
+          "params": [
+            {
+              "name": "freelancerUid",
+              "description": "The UID of the freelancer."
+            },
+            {
+              "name": "projectId",
+              "description": "The unique ID of the portfolio project."
+            }
+          ]
+        }
+      },
+      {
         "path": "/users/{freelancerUid}/clients/{clientId}/projects/{projectId}",
         "definition": {
           "entityName": "Project",
@@ -308,3 +379,5 @@
     "reasoning": "This Firestore structure is designed to support the Freelancer Hub platform, focusing on user, client, project, referral and proposal management. It prioritizes authorization independence, clarity, and scalability. User data is stored in `/users/{uid}`, client data in `/users/{freelancerUid}/clients/{clientId}`, project data in `/users/{freelancerUid}/clients/{clientId}/projects/{projectId}`, referral data in `/referrals/{referralId}`, and proposal data in `/proposals/{proposalId}`. Each entity is placed in separate collections to simplify security rules and avoid complex filtering.  Authorization independence is achieved by ensuring that each document contains all the information needed for authorization, eliminating the need for `get()` calls. For instance, the `Client` and `Project` collections are nested under the user's document to implicitly enforce ownership and simplify access control. The referral and proposal collections will contain the necessary UIDs to ensure each document stores the necessary information for authorization, enabling atomic operations and avoiding dependency on parent documents for access control. Segregation of data into separate collections based on ownership simplifies security rules and improves query performance. All paths follow a consistent naming convention for clarity and maintainability."
   }
 }
+
+    

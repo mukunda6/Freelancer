@@ -11,6 +11,7 @@
  * - /users/{userId}: Stores user profiles, accessible only by the user.
  * - /users/{userId}/clients/{clientId}: Stores clients owned by a specific freelancer.
  * - /users/{userId}/clients/{clientId}/projects/{projectId}: Stores projects owned by a freelancer for a client.
+ * - /users/{userId}/portfolioProjects/{projectId}: Stores a freelancer's portfolio projects.
  * - /referrals/{referralId}: Stores referral data.
  * - /proposals/{proposalId}: Stores proposal data.
  *
@@ -69,6 +70,23 @@ service cloud.firestore {
       allow update: if isExistingOwner(freelancerUid) && request.resource.data.freelancerUid == resource.data.freelancerUid;
       allow delete: if isExistingOwner(freelancerUid);
     }
+
+    /**
+     * @description Secure freelancer portfolio projects. Only the owning freelancer can manage them.
+     * @path /users/{freelancerUid}/portfolioProjects/{projectId}
+     */
+    match /users/{freelancerUid}/portfolioProjects/{projectId} {
+      function isOwner(freelancerUid) {
+        return request.auth.uid == freelancerUid;
+      }
+
+      function isExistingOwner(freelancerUid) {
+        return isOwner(freelancerUid) && exists(path(freelancerUid));
+      }
+
+      allow read, write: if isOwner(freelancerUid) && request.resource.data.freelancerUid == freelancerUid;
+    }
+
 
     /**
      * @description Secure projects. Only the owning freelancer can manage their clients' projects.
@@ -139,3 +157,5 @@ service cloud.firestore {
     }
   }
 }
+
+    
