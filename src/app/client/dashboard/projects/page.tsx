@@ -7,7 +7,7 @@ import { FilePlus } from "lucide-react";
 
 export default function ClientProjectsPage() {
   // Assuming these are projects posted by the client
-  const clientProjects = projects.slice(0, 2);
+  const clientProjects = projects.slice(0, 4);
 
   return (
     <div className="space-y-6">
@@ -20,7 +20,7 @@ export default function ClientProjectsPage() {
           </Link>
         </Button>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {clientProjects.map((project) => (
           <ProjectCard key={project.id} project={project} isClientView={true} />
         ))}
