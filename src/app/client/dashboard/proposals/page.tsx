@@ -1,26 +1,16 @@
+
 'use client';
 
 import { ProposalCard } from '@/components/client/proposal-card';
-import { useCollection, useFirebase, useMemoFirebase } from '@/firebase';
-import { collection, query, where } from 'firebase/firestore';
+import { proposals as mockProposals } from '@/lib/data';
 import type { Proposal } from '@/lib/data';
-import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProposalsPage() {
-  const { firestore, user } = useFirebase();
-
-  // Memoize the query to prevent re-creating it on every render
-  const proposalsQuery = useMemoFirebase(() => {
-    if (!firestore || !user) return null;
-    
-    // Query for proposals where the clientUid matches the current user's UID
-    return query(
-      collection(firestore, 'proposals'),
-      where('clientUid', '==', user.uid)
-    );
-  }, [firestore, user]);
-
-  const { data: proposals, isLoading } = useCollection<Proposal>(proposalsQuery);
+  // For demonstration, we'll use mock data.
+  // In a real app, you would use the Firestore hook like this:
+  // const { data: proposals, isLoading } = useCollection<Proposal>(proposalsQuery);
+  const proposals: (Proposal & { id: string })[] = mockProposals;
+  const isLoading = false;
 
   return (
     <div className="space-y-6">
@@ -30,9 +20,8 @@ export default function ProposalsPage() {
       <div className="space-y-4">
         {isLoading && (
           <>
-            <Skeleton className="h-40 w-full" />
-            <Skeleton className="h-40 w-full" />
-            <Skeleton className="h-40 w-full" />
+            <div className="p-4 border rounded-lg shadow-md"><div className="animate-pulse flex space-x-4"><div className="rounded-full bg-slate-200 h-10 w-10"></div><div className="flex-1 space-y-3 py-1"><div className="h-2 bg-slate-200 rounded"></div><div className="space-y-2"><div className="grid grid-cols-3 gap-4"><div className="h-2 bg-slate-200 rounded col-span-2"></div><div className="h-2 bg-slate-200 rounded col-span-1"></div></div><div className="h-2 bg-slate-200 rounded"></div></div></div></div></div>
+            <div className="p-4 border rounded-lg shadow-md"><div className="animate-pulse flex space-x-4"><div className="rounded-full bg-slate-200 h-10 w-10"></div><div className="flex-1 space-y-3 py-1"><div className="h-2 bg-slate-200 rounded"></div><div className="space-y-2"><div className="grid grid-cols-3 gap-4"><div className="h-2 bg-slate-200 rounded col-span-2"></div><div className="h-2 bg-slate-200 rounded col-span-1"></div></div><div className="h-2 bg-slate-200 rounded"></div></div></div></div></div>
           </>
         )}
         {!isLoading && proposals && proposals.length > 0 && (
