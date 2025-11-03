@@ -11,6 +11,7 @@ export type Project = {
   imageUrl: string;
   imageHint: string;
   skills: string[];
+  duration: string;
 };
 
 export const projects: Project[] = [
@@ -24,7 +25,8 @@ export const projects: Project[] = [
     postedBy: 'Retail Co',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
-    skills: ['UI/UX', 'Shopify', 'React']
+    skills: ['UI/UX', 'Shopify', 'React'],
+    duration: '6 Weeks'
   },
   {
     id: '2',
@@ -36,7 +38,8 @@ export const projects: Project[] = [
     postedBy: 'FitLife Inc.',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageHint || '',
-    skills: ['React Native', 'Firebase', 'UI/UX']
+    skills: ['React Native', 'Firebase', 'UI/UX'],
+    duration: '3 Months'
   },
   {
     id: '3',
@@ -48,7 +51,8 @@ export const projects: Project[] = [
     postedBy: 'Fintech Startup',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageHint || '',
-    skills: ['Branding', 'Logo Design', 'Illustration']
+    skills: ['Branding', 'Logo Design', 'Illustration'],
+    duration: '4 Weeks'
   },
     {
     id: '4',
@@ -60,7 +64,8 @@ export const projects: Project[] = [
     postedBy: 'CloudCorp',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',
-    skills: ['SEO', 'Content Strategy', 'Marketing']
+    skills: ['SEO', 'Content Strategy', 'Marketing'],
+    duration: 'Ongoing'
   },
   {
     id: '5',
@@ -72,7 +77,8 @@ export const projects: Project[] = [
     postedBy: 'Supportify',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageHint || '',
-    skills: ['Genkit', 'AI/ML', 'Node.js']
+    skills: ['Genkit', 'AI/ML', 'Node.js'],
+    duration: '1 Month'
   },
   {
     id: '6',
@@ -84,7 +90,8 @@ export const projects: Project[] = [
     postedBy: 'Metrics Inc.',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageHint || '',
-    skills: ['Recharts', 'Firebase', 'Data Visualization']
+    skills: ['Recharts', 'Firebase', 'Data Visualization'],
+    duration: '2 Months'
   }
 ];
 

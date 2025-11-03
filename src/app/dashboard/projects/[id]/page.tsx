@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projects, testimonials } from '@/lib/data';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
   Card,
   CardContent,
@@ -15,7 +14,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ExternalLink, Mail } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Mail, Clock } from 'lucide-react';
 
 export default function ProjectDetailPage() {
   const params = useParams();
@@ -40,9 +39,6 @@ export default function ProjectDetailPage() {
   }
 
   const clientAvatar = testimonials.find(t => t.projectId === project.id)?.clientAvatar || `https://picsum.photos/seed/${project.postedBy.replace(/\s+/g, '')}/100/100`;
-
-
-  const projectSkills = project.skills || [];
 
   return (
     <div className="container mx-auto max-w-6xl py-8">
@@ -131,9 +127,18 @@ export default function ProjectDetailPage() {
                     <h4 className="font-semibold text-muted-foreground">Project Budget</h4>
                     <p className="text-lg font-bold text-primary">${project.budget.toLocaleString()}</p>
                 </div>
-                <div className="space-y-2">
-                    <h4 className="font-semibold text-muted-foreground">Category</h4>
-                    <Badge variant="secondary">{project.category}</Badge>
+                <div className="flex items-center justify-between text-sm">
+                  <div className="space-y-2">
+                      <h4 className="font-semibold text-muted-foreground">Category</h4>
+                      <Badge variant="secondary">{project.category}</Badge>
+                  </div>
+                  <div className="space-y-2 text-right">
+                      <h4 className="font-semibold text-muted-foreground">Duration</h4>
+                      <div className="flex items-center gap-1.5 justify-end">
+                        <Clock className="h-4 w-4" />
+                        <span>{project.duration}</span>
+                      </div>
+                  </div>
                 </div>
 
                  <Button className="w-full" variant="outline" asChild>
