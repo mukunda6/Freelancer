@@ -1,4 +1,6 @@
 
+'use client';
+
 import {
   Card,
   CardContent,
@@ -11,8 +13,29 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Trophy } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 export default function ProjectCompetitionPage() {
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const competitionTitle = (e.currentTarget.elements.namedItem('competition-title') as HTMLInputElement)?.value;
+
+    toast({
+      title: "Competition Launched! 🚀",
+      description: `Your competition "${competitionTitle || 'New Project'}" has been posted.`,
+    });
+
+    // Redirect to the dashboard after a short delay to allow the user to see the toast.
+    setTimeout(() => {
+        router.push('/client/dashboard');
+    }, 1000);
+  };
+
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div className="flex items-center gap-4">
@@ -32,23 +55,23 @@ export default function ProjectCompetitionPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <Label htmlFor="competition-title">Competition Title</Label>
-              <Input id="competition-title" placeholder="e.g., Design a new company logo" />
+              <Input id="competition-title" name="competition-title" placeholder="e.g., Design a new company logo" required/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="competition-description">Brief & Requirements</Label>
-              <Textarea id="competition-description" placeholder="Describe the project, goals, and what you expect freelancers to deliver." className="min-h-[150px]" />
+              <Textarea id="competition-description" placeholder="Describe the project, goals, and what you expect freelancers to deliver." className="min-h-[150px]" required/>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="prize-amount">Prize Amount ($)</Label>
-                    <Input id="prize-amount" type="number" placeholder="e.g., 1000" />
+                    <Input id="prize-amount" type="number" placeholder="e.g., 1000" required/>
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="deadline">Submission Deadline</Label>
-                    <Input id="deadline" type="date" />
+                    <Input id="deadline" type="date" required/>
                 </div>
             </div>
             <div className="flex justify-end pt-4">
