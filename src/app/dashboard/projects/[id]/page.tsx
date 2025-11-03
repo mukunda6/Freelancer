@@ -94,7 +94,7 @@ export default function ProjectDetailPage() {
                    <video
                     className="w-full h-full"
                     controls
-                    src="https://www.w3schools.com/html/mov_bbb.mp4"
+                    src="https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link"
                     />
                 </div>
             </CardContent>
