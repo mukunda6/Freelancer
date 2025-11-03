@@ -65,7 +65,7 @@ export type Milestone = {
 export const milestones: Milestone[] = [
   { id: 'm1', title: 'Phase 1: Discovery & Research', status: 'Completed', progress: 100, dueDate: '2024-07-10' },
   { id: 'm2', title: 'Phase 2: UX/UI Design', status: 'In Progress', progress: 60, dueDate: '2024-07-25' },
-  { id: 'm3', title: 'Phase 3: Frontend Development', status: 'Pending', progress: 0, dueDate: '2024-08-15' },
+  { id: 'm3', title: 'Phase 3: Frontend Development', status: 'Pending', progress: 15, dueDate: '2024-08-15' },
   { id: 'm4', title: 'Phase 4: Backend Integration', status: 'Pending', progress: 0, dueDate: '2024-09-01' },
 ];
 

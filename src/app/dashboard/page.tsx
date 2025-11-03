@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ProjectMilestones } from '@/components/dashboard/project-milestones';
+import { ProjectOverview } from '@/components/dashboard/project-overview';
 import { InvoiceStatus } from '@/components/dashboard/invoice-status';
 import { ClientCommunication } from '@/components/dashboard/client-communication';
 import { Briefcase, DollarSign, GitPullRequestArrow, TrendingUp } from 'lucide-react';
@@ -59,16 +59,16 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4">
+        <Card className="col-span-full lg:col-span-4">
           <CardHeader>
-            <CardTitle className="font-headline">Project Milestones</CardTitle>
-            <CardDescription>Track progress on your current projects.</CardDescription>
+            <CardTitle className="font-headline">Project Overview</CardTitle>
+             <CardDescription>A visual summary of your project progress.</CardDescription>
           </CardHeader>
-          <CardContent>
-            <ProjectMilestones />
+          <CardContent className="pl-2">
+            <ProjectOverview />
           </CardContent>
         </Card>
-        <Card className="col-span-4 md:col-span-3">
+        <Card className="col-span-full lg:col-span-3">
           <CardHeader>
             <CardTitle className="font-headline">Invoice Status</CardTitle>
             <CardDescription>Manage your recent invoices.</CardDescription>
@@ -77,7 +77,7 @@ export default function DashboardPage() {
             <InvoiceStatus />
           </CardContent>
         </Card>
-        <Card className="col-span-7">
+        <Card className="col-span-full">
           <CardHeader>
             <CardTitle className="font-headline">Client Communication</CardTitle>
             <CardDescription>Recent messages from your clients.</CardDescription>
