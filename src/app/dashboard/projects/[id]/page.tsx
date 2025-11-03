@@ -61,12 +61,21 @@ export default function ProjectDetailPage() {
       });
     } catch (e: any) {
       console.error(e);
-      const errorMessage = e.message || "An unknown error occurred.";
-      setVideoError(`Failed to generate video. ${errorMessage}`);
+      let errorMessage = e.message || "An unknown error occurred.";
+      
+      // Check for the specific billing error message
+      if (errorMessage.includes("billing enabled")) {
+        errorMessage = "This feature requires an active Google Cloud Platform billing account. Please enable billing in your GCP account settings to generate videos.";
+      } else {
+        errorMessage = `Failed to generate video. ${errorMessage}`;
+      }
+
+      setVideoError(errorMessage);
+      
       toast({
         variant: "destructive",
         title: "Video Generation Failed",
-        description: "There was a problem creating the video. Please check the console for more details.",
+        description: "There was a problem creating the video. See the details on the page.",
       });
     } finally {
       setIsVideoLoading(false);
@@ -135,6 +144,13 @@ export default function ProjectDetailPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
+              {videoError && (
+                <Alert variant="destructive" className="mb-4">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertTitle>Billing Required</AlertTitle>
+                    <AlertDescription className="text-xs">{videoError}</AlertDescription>
+                </Alert>
+              )}
               {isVideoLoading ? (
                 <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex flex-col items-center justify-center text-center">
                   <Skeleton className="absolute inset-0" />
@@ -151,21 +167,15 @@ export default function ProjectDetailPage() {
                   <video src={generatedVideoUrl} controls className="w-full h-full" />
                 </div>
               ) : (
-                <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center">
-                  {videoError ? (
-                    <Alert variant="destructive" className="max-w-md mx-auto">
-                        <AlertTriangle className="h-4 w-4" />
-                        <AlertTitle>Generation Error</AlertTitle>
-                        <AlertDescription className="text-xs">{videoError}</AlertDescription>
-                    </Alert>
-                  ) : (
-                     <div className="text-center text-muted-foreground">
-                      <PlayCircle className="mx-auto h-12 w-12" />
-                      <p className="mt-2 text-sm font-semibold">Generate a Demo</p>
-                      <p className="text-xs">Click the button below to create an AI video.</p>
-                  </div>
-                  )}
-                </div>
+                !videoError && (
+                    <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center">
+                        <div className="text-center text-muted-foreground">
+                            <PlayCircle className="mx-auto h-12 w-12" />
+                            <p className="mt-2 text-sm font-semibold">Generate a Demo</p>
+                            <p className="text-xs">Click the button below to create an AI video.</p>
+                        </div>
+                    </div>
+                )
               )}
             </CardContent>
             <CardFooter>
@@ -258,5 +268,7 @@ export default function ProjectDetailPage() {
     </div>
   );
 }
+
+    
 
     
