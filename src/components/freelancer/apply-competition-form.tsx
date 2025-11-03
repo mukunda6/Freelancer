@@ -43,42 +43,52 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
 
     return (
         <form onSubmit={handleSubmit} className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="bid-amount" className="text-right">
-                    Bid ($)
-                </Label>
-                <Input
-                    id="bid-amount"
-                    name="bid-amount"
-                    type="number"
-                    defaultValue={competition.prize}
-                    className="col-span-3"
-                    required
-                />
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label htmlFor="full-name">Full Name</Label>
+                    <Input id="full-name" placeholder="Jane Doe" defaultValue="Jane Doe" required />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input id="email" type="email" placeholder="jane.doe@example.com" defaultValue="jane.doe@example.com" required />
+                </div>
             </div>
-            <div className="grid grid-cols-4 items-start gap-4">
-                <Label htmlFor="cover-letter" className="text-right pt-2">
-                    Proposal
-                </Label>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label htmlFor="mobile-number">Mobile Number</Label>
+                    <Input id="mobile-number" type="tel" placeholder="(123) 456-7890" required />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="bid-amount">Bid Amount ($)</Label>
+                    <Input
+                        id="bid-amount"
+                        name="bid-amount"
+                        type="number"
+                        defaultValue={competition.prize}
+                        required
+                    />
+                </div>
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="cover-letter">Proposal Details</Label>
                 <Textarea
                     id="cover-letter"
                     name="cover-letter"
                     placeholder="Explain why you're the best fit for this competition..."
-                    className="col-span-3 min-h-[100px]"
+                    className="min-h-[120px]"
                     required
                 />
             </div>
-             <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="file-upload" className="text-right">
-                    Files
-                </Label>
+             <div className="space-y-2">
+                <Label htmlFor="file-upload">Attach Files</Label>
                 <Input
                     id="file-upload"
                     type="file"
                     className="col-span-3"
                 />
+                 <p className="text-xs text-muted-foreground">Attach your portfolio, resume, or any other relevant files.</p>
             </div>
-            <div className="flex justify-end col-span-4">
+            <div className="flex justify-end pt-2">
                 <Button type="submit">Submit Application</Button>
             </div>
         </form>
