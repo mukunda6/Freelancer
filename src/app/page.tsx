@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Briefcase, Users, FileText, Building } from 'lucide-react';
+import { ArrowRight, Users, Building } from 'lucide-react';
 import { Logo } from '@/components/logo';
 
 export default function LandingPage() {
