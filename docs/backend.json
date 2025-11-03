@@ -138,6 +138,65 @@
         "clientId",
         "referredFreelancerUid"
       ]
+    },
+    "Proposal": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Proposal",
+      "type": "object",
+      "description": "Represents a proposal submitted by a freelancer for a project or competition.",
+      "properties": {
+        "freelancerUid": {
+          "type": "string",
+          "description": "The UID of the freelancer submitting the proposal."
+        },
+        "freelancerName": {
+          "type": "string",
+          "description": "The name of the freelancer."
+        },
+        "freelancerAvatar": {
+          "type": "string",
+          "description": "URL to the freelancer's avatar."
+        },
+        "clientUid": {
+          "type": "string",
+          "description": "The UID of the client who posted the project."
+        },
+        "projectId": {
+          "type": "string",
+          "description": "The ID of the project or competition being applied to."
+        },
+        "projectName": {
+          "type": "string",
+          "description": "The name of the project or competition."
+        },
+        "bid": {
+          "type": "number",
+          "description": "The bid amount for the proposal."
+        },
+        "coverLetter": {
+          "type": "string",
+          "description": "The cover letter submitted with the proposal."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Pending", "Accepted", "Declined"],
+          "description": "The status of the proposal."
+        },
+        "submittedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the proposal was submitted."
+        }
+      },
+      "required": [
+        "freelancerUid",
+        "clientUid",
+        "projectId",
+        "bid",
+        "coverLetter",
+        "status",
+        "submittedAt"
+      ]
     }
   },
   "auth": {
@@ -223,8 +282,24 @@
             }
           ]
         }
+      },
+      {
+        "path": "/proposals/{proposalId}",
+        "definition": {
+          "entityName": "Proposal",
+          "schema": {
+            "$ref": "#/backend/entities/Proposal"
+          },
+          "description": "Stores all proposals submitted by freelancers for projects and competitions.",
+          "params": [
+            {
+              "name": "proposalId",
+              "description": "The unique ID for the proposal."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "This Firestore structure is designed to support the Freelancer Hub platform, focusing on user, client, project, and referral management. It prioritizes authorization independence, clarity, and scalability. User data is stored in `/users/{uid}`, client data in `/users/{freelancerUid}/clients/{clientId}`, project data in `/users/{freelancerUid}/clients/{clientId}/projects/{projectId}`, and referral data in `/referrals/{referralId}`.  Each entity is placed in separate collections to simplify security rules and avoid complex filtering.  Authorization independence is achieved by ensuring that each document contains all the information needed for authorization, eliminating the need for `get()` calls.  For instance, the `Client`, and `Project` collections are nested under the user's document to implicitly enforce ownership and simplify access control. The referral collection will contain both the `clientId` and `referredFreelancerUid`, ensuring each referral document stores the necessary information for authorization, enabling atomic operations and avoiding dependency on parent documents for access control. Segregation of data into separate collections based on ownership simplifies security rules and improves query performance.  All paths follow a consistent naming convention for clarity and maintainability."
+    "reasoning": "This Firestore structure is designed to support the Freelancer Hub platform, focusing on user, client, project, referral and proposal management. It prioritizes authorization independence, clarity, and scalability. User data is stored in `/users/{uid}`, client data in `/users/{freelancerUid}/clients/{clientId}`, project data in `/users/{freelancerUid}/clients/{clientId}/projects/{projectId}`, referral data in `/referrals/{referralId}`, and proposal data in `/proposals/{proposalId}`. Each entity is placed in separate collections to simplify security rules and avoid complex filtering.  Authorization independence is achieved by ensuring that each document contains all the information needed for authorization, eliminating the need for `get()` calls. For instance, the `Client` and `Project` collections are nested under the user's document to implicitly enforce ownership and simplify access control. The referral and proposal collections will contain the necessary UIDs to ensure each document stores the necessary information for authorization, enabling atomic operations and avoiding dependency on parent documents for access control. Segregation of data into separate collections based on ownership simplifies security rules and improves query performance. All paths follow a consistent naming convention for clarity and maintainability."
   }
 }

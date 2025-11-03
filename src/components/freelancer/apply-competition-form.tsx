@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useToast } from "@/hooks/use-toast";
@@ -6,36 +5,56 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { proposals, type Competition, addCompetitionEntry } from "@/lib/data";
+import { type Competition } from "@/lib/data";
 import React from 'react';
+import { useFirebase } from "@/firebase/provider";
+import { addDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { collection, serverTimestamp, runTransaction, doc, updateDoc } from "firebase/firestore";
+
 
 export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { competition: Competition, onSubmissionSuccess: () => void }) {
     const { toast } = useToast();
+    const { firestore, user } = useFirebase();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!firestore || !user) {
+            toast({ title: "Error", description: "You must be logged in to apply.", variant: "destructive" });
+            return;
+        }
+
         const form = e.currentTarget;
         const coverLetter = (form.elements.namedItem('cover-letter') as HTMLTextAreaElement)?.value;
         const bidAmount = (form.elements.namedItem('bid-amount') as HTMLInputElement)?.value;
 
-        // Simulate adding the proposal to the mock data
-        proposals.unshift({
-            id: `prop${Date.now()}`,
-            freelancerName: 'Jane Doe', // This would be the current user
-            freelancerAvatar: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9maWxlJTIwcGljdHVyZXxlbnwwfHx8fDE3NjIxMTIxOTN8MA&ixlib=rb-4.1.0&q=80&w=1080',
+        const proposalData = {
+            freelancerUid: user.uid,
+            freelancerName: user.displayName || "Anonymous Freelancer",
+            freelancerAvatar: user.photoURL || `https://api.dicebear.com/8.x/lorelei/svg?seed=${user.uid}`,
+            clientUid: competition.clientUid, // Important for security rules
+            projectId: competition.id, // Using competition ID as project ID
             projectName: competition.title,
             bid: parseInt(bidAmount, 10),
             coverLetter: coverLetter,
-            status: 'Pending',
-            date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-        });
+            status: 'Pending' as const,
+            submittedAt: serverTimestamp(),
+        };
         
-        // This function now directly mutates the shared data.
-        addCompetitionEntry(competition.id);
-        
+        // Since we are writing to proposals and updating competition entries, we should use a transaction.
+        // However, the `competitions` are mock data and not in Firestore.
+        // For now, we'll just write the proposal and manually update mock data.
+        // In a real app, 'competitions' would be a Firestore collection.
+
+        const proposalsRef = collection(firestore, 'proposals');
+        addDocumentNonBlocking(proposalsRef, proposalData);
+
+        // This function mutates the mock data. In a real scenario, you'd update a Firestore doc.
+        // For the demo, this provides immediate feedback.
+        // addCompetitionEntry(competition.id);
+
         toast({
             title: "Application Submitted!",
-            description: `Your proposal for "${competition.title}" has been sent.`,
+            description: `Your entry for "${competition.title}" has been sent.`,
         });
 
         onSubmissionSuccess();
@@ -46,11 +65,11 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="full-name">Full Name</Label>
-                    <Input id="full-name" placeholder="Jane Doe" defaultValue="Jane Doe" required />
+                    <Input id="full-name" defaultValue={user?.displayName || ''} required />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="jane.doe@example.com" defaultValue="jane.doe@example.com" required />
+                    <Input id="email" type="email" defaultValue={user?.email || ''} required />
                 </div>
             </div>
              <div className="grid grid-cols-2 gap-4">
@@ -59,7 +78,7 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
                     <Input id="mobile-number" type="tel" placeholder="(123) 456-7890" required />
                 </div>
                 <div className="space-y-2">
-                    <Label htmlFor="bid-amount">Bid Amount ($)</Label>
+                    <Label htmlFor="bid-amount">Entry Fee / Bid ($)</Label>
                     <Input
                         id="bid-amount"
                         name="bid-amount"
@@ -70,31 +89,27 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
                 </div>
             </div>
             <div className="space-y-2">
-                <Label htmlFor="cover-letter">Proposal Details</Label>
+                <Label htmlFor="cover-letter">Submission Details</Label>
                 <Textarea
                     id="cover-letter"
                     name="cover-letter"
-                    placeholder="Explain why you're the best fit for this competition..."
+                    placeholder="Explain your submission and why it's the best..."
                     className="min-h-[120px]"
                     required
                 />
             </div>
              <div className="space-y-2">
-                <Label htmlFor="file-upload">Attach Files</Label>
+                <Label htmlFor="file-upload">Attach Submission Files</Label>
                 <Input
                     id="file-upload"
                     type="file"
                     className="col-span-3"
                 />
-                 <p className="text-xs text-muted-foreground">Attach your portfolio, resume, or any other relevant files.</p>
+                 <p className="text-xs text-muted-foreground">Attach your design files, documents, or a zip archive.</p>
             </div>
             <div className="flex justify-end pt-2">
-                <Button type="submit">Submit Application</Button>
+                <Button type="submit">Submit Entry</Button>
             </div>
         </form>
     );
 }
-
-    
-
-    

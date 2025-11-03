@@ -1,4 +1,3 @@
-
 'use client';
 
 import type { Competition } from "@/lib/data";
@@ -18,7 +17,9 @@ export function CompetitionCard({ competition, onApplicationSubmit }: { competit
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
     const handleSuccess = () => {
-        onApplicationSubmit();
+        // This is now handled by real-time updates, but we can keep it for immediate UI feedback if needed
+        // or to trigger other client-side actions.
+        onApplicationSubmit(); 
         setIsDialogOpen(false);
     }
 

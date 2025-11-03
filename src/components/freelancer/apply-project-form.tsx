@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useToast } from "@/hooks/use-toast";
@@ -6,29 +5,42 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { proposals, type Project } from "@/lib/data";
+import { type Project } from "@/lib/data";
 import React from 'react';
+import { useFirebase } from "@/firebase/provider";
+import { addDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { collection, serverTimestamp } from "firebase/firestore";
 
 export function ApplyProjectForm({ project, onSubmissionSuccess }: { project: Project, onSubmissionSuccess: () => void }) {
     const { toast } = useToast();
+    const { firestore, user } = useFirebase();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!firestore || !user) {
+            toast({ title: "Error", description: "You must be logged in to apply.", variant: "destructive" });
+            return;
+        }
+
         const form = e.currentTarget;
         const coverLetter = (form.elements.namedItem('cover-letter') as HTMLTextAreaElement)?.value;
         const bidAmount = (form.elements.namedItem('bid-amount') as HTMLInputElement)?.value;
 
-        // Simulate adding the proposal to the mock data
-        proposals.unshift({
-            id: `prop${Date.now()}`,
-            freelancerName: 'Jane Doe', // This would be the current user
-            freelancerAvatar: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9maWxlJTIwcGljdHVyZXxlbnwwfHx8fDE3NjIxMTIxOTN8MA&ixlib=rb-4.1.0&q=80&w=1080',
+        const proposalData = {
+            freelancerUid: user.uid,
+            freelancerName: user.displayName || "Anonymous Freelancer",
+            freelancerAvatar: user.photoURL || `https://api.dicebear.com/8.x/lorelei/svg?seed=${user.uid}`,
+            clientUid: project.clientUid || "UNKNOWN_CLIENT_UID", // Important for security rules
+            projectId: project.id,
             projectName: project.title,
             bid: parseInt(bidAmount, 10),
             coverLetter: coverLetter,
-            status: 'Pending',
-            date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-        });
+            status: 'Pending' as const,
+            submittedAt: serverTimestamp(),
+        };
+
+        const proposalsRef = collection(firestore, 'proposals');
+        addDocumentNonBlocking(proposalsRef, proposalData);
         
         toast({
             title: "Application Submitted!",
@@ -43,11 +55,11 @@ export function ApplyProjectForm({ project, onSubmissionSuccess }: { project: Pr
             <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label htmlFor="full-name">Full Name</Label>
-                    <Input id="full-name" placeholder="Jane Doe" defaultValue="Jane Doe" required />
+                    <Input id="full-name" defaultValue={user?.displayName || ''} required />
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="jane.doe@example.com" defaultValue="jane.doe@example.com" required />
+                    <Input id="email" type="email" defaultValue={user?.email || ''} required />
                 </div>
             </div>
              <div className="grid grid-cols-2 gap-4">

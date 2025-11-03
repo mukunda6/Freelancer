@@ -1,5 +1,4 @@
-
-"use client";
+'use client';
 
 import type { Proposal } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,27 +6,25 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Check, MessageCircle, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useFirebase } from "@/firebase/provider";
+import { updateDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { doc } from "firebase/firestore";
 
-export function ProposalCard({ proposal: initialProposal }: { proposal: Proposal }) {
-  const [proposal, setProposal] = useState(initialProposal);
+export function ProposalCard({ proposal }: { proposal: Proposal & { id: string } }) {
   const { toast } = useToast();
+  const { firestore } = useFirebase();
 
-  const handleAccept = () => {
-    setProposal({ ...proposal, status: 'Accepted' });
+  const handleStatusChange = (newStatus: 'Accepted' | 'Declined') => {
+    if (!firestore) return;
+
+    const proposalRef = doc(firestore, 'proposals', proposal.id);
+    updateDocumentNonBlocking(proposalRef, { status: newStatus });
+
     toast({
-      title: "Proposal Accepted!",
-      description: `You have accepted the proposal from ${proposal.freelancerName}.`,
-    });
-  };
-
-  const handleDecline = () => {
-    setProposal({ ...proposal, status: 'Declined' });
-     toast({
-      title: "Proposal Declined",
-      description: `You have declined the proposal from ${proposal.freelancerName}.`,
-      variant: 'destructive'
+      title: `Proposal ${newStatus}`,
+      description: `The proposal from ${proposal.freelancerName} has been ${newStatus.toLowerCase()}.`,
+      variant: newStatus === 'Declined' ? 'destructive' : 'default',
     });
   };
 
@@ -60,10 +57,10 @@ export function ProposalCard({ proposal: initialProposal }: { proposal: Proposal
            <Button variant="outline" size="sm">
             <MessageCircle className="mr-2 h-4 w-4" /> Message
           </Button>
-          <Button variant="destructive" size="sm" onClick={handleDecline}>
+          <Button variant="destructive" size="sm" onClick={() => handleStatusChange('Declined')}>
             <X className="mr-2 h-4 w-4" /> Decline
           </Button>
-          <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={handleAccept}>
+          <Button size="sm" className="bg-accent hover:bg-accent/90" onClick={() => handleStatusChange('Accepted')}>
             <Check className="mr-2 h-4 w-4" /> Accept
           </Button>
         </CardFooter>

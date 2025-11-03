@@ -1,4 +1,3 @@
-
 import { PlaceHolderImages } from "./placeholder-images";
 
 export type Project = {
@@ -10,7 +9,8 @@ export type Project = {
   impact: string;
   budget: number;
   category: string;
-  postedBy: string;
+  postedBy: string; // This should be a client UID in a real app
+  clientUid?: string; // UID of the client who posted
   imageUrl: string;
   imageHint: string;
   skills: string[];
@@ -19,6 +19,9 @@ export type Project = {
   rating: number;
 };
 
+// IMPORTANT: The 'postedBy' field is used for display. 
+// The 'clientUid' is the actual author ID for database queries.
+// In a real app, you would fetch user details based on the UID.
 export const projects: Project[] = [
   {
     id: '1',
@@ -29,7 +32,8 @@ export const projects: Project[] = [
     impact: "The redesigned platform was a massive success, boosting conversion rates by 40% in the first quarter. The mobile-first design and improved navigation reduced the bounce rate by 25%, and the client reported a significant increase in customer satisfaction and repeat business.",
     budget: 5000,
     category: 'Web Development',
-    postedBy: 'Jane Doe', // This is a portfolio project for the freelancer
+    postedBy: 'Retail Co', // Display name
+    clientUid: 'RETAIL_CO_UID', // Simulated UID for the client
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
     skills: ['UI/UX', 'Shopify', 'React', 'Design Systems'],
@@ -46,14 +50,15 @@ export const projects: Project[] = [
     impact: "The app was an instant hit, achieving over 50,000 downloads in the first three months with a 4.8-star rating. The intuitive UI and personalized features led to high user retention. The social sharing feature created a viral loop, driving organic downloads and building a strong user community.",
     budget: 8000,
     category: 'Mobile Development',
-    postedBy: 'Jane Doe', // This is a portfolio project for the freelancer
+    postedBy: 'FitLife Inc.', // Display name
+    clientUid: 'FITLIFE_INC_UID', // Simulated UID for the client
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageHint || '',
     skills: ['React Native', 'Firebase', 'UI/UX', 'Mobile Design'],
     duration: '3 Months',
     rating: 4.8,
   },
-  {
+    {
     id: '3',
     title: 'Brand Identity and Logo Design',
     description: 'A stealth-mode fintech startup needed to establish a strong, trustworthy brand presence before its public launch to attract investors and early adopters.',
@@ -62,7 +67,8 @@ export const projects: Project[] = [
     impact: "The professional brand identity was crucial in the client's successful pre-launch marketing. It helped them build credibility and played a significant role in their pitch decks, contributing to them securing their first round of seed funding within two months of the brand launch.",
     budget: 2500,
     category: 'Design',
-    postedBy: 'Fintech Startup', // This is a client project
+    postedBy: 'Fintech Startup',
+    clientUid: 'FINTECH_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageHint || '',
     skills: ['Branding', 'Logo Design', 'Illustration', 'Style Guides'],
@@ -78,7 +84,8 @@ export const projects: Project[] = [
     impact: "The data-driven content strategy yielded exceptional results. Organic search traffic to the blog increased by 150% over six months. The targeted content resonated with their audience, generating over 200 new marketing qualified leads (MQLs) and significantly boosting their sales pipeline.",
     budget: 3000,
     category: 'Marketing',
-    postedBy: 'CloudCorp', // This is a client project
+    postedBy: 'CloudCorp',
+    clientUid: 'CLOUDCORP_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',
     skills: ['SEO', 'Content Strategy', 'Marketing', 'Keyword Research'],
@@ -94,7 +101,8 @@ export const projects: Project[] = [
     impact: "The AI chatbot transformed their customer support operations. It successfully automated 60% of common customer queries, freeing up human agents. This led to an 80% reduction in average agent response time and a noticeable improvement in customer satisfaction (CSAT) scores.",
     budget: 4500,
     category: 'AI/ML',
-    postedBy: 'Supportify', // This is a client project
+    postedBy: 'Supportify',
+    clientUid: 'SUPPORTIFY_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageHint || '',
     skills: ['Genkit', 'AI/ML', 'Node.js', 'Customer Support'],
@@ -110,7 +118,8 @@ export const projects: Project[] = [
     impact: "The interactive dashboard provided stakeholders with at-a-glance, actionable insights, replacing static weekly reports. This real-time data access empowered their marketing team to make faster decisions, leading to a 15% improvement in marketing campaign ROI. The dashboard became an essential tool for their daily operations.",
     budget: 6000,
     category: 'Data Analytics',
-    postedBy: 'Metrics Inc.', // This is a client project
+    postedBy: 'Metrics Inc.',
+    clientUid: 'METRICS_INC_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageHint || '',
     skills: ['Recharts', 'Firebase', 'Data Visualization', 'Next.js'],
@@ -208,48 +217,61 @@ export const referrals: Referral[] = [
   }
 ];
 
-
 export type Proposal = {
-    id: string;
+    id?: string; // Optional because it's generated by Firestore
+    freelancerUid: string;
     freelancerName: string;
     freelancerAvatar: string;
+    clientUid: string;
+    projectId: string;
     projectName: string;
     bid: number;
     coverLetter: string;
     status: 'Pending' | 'Accepted' | 'Declined';
-    date: string;
+    submittedAt: Date;
 };
 
-export const proposals: Proposal[] = [
+// This is now used for seeding and as a fallback.
+// The main app will fetch from Firestore.
+export let proposals: Proposal[] = [
     {
         id: 'prop1',
+        freelancerUid: 'jane_doe_uid',
         freelancerName: 'Jane Doe',
         freelancerAvatar: PlaceHolderImages.find(p => p.id === 'user-avatar')?.imageUrl || '',
+        clientUid: 'RETAIL_CO_UID',
+        projectId: '1',
         projectName: 'E-commerce Platform Redesign',
         bid: 4800,
         coverLetter: "I've redesigned over 20 Shopify stores, consistently boosting conversion rates by 15% or more. My focus on mobile-first UX and clean design aligns perfectly with your goals.",
         status: 'Pending',
-        date: '2024-07-18'
+        submittedAt: new Date('2024-07-18')
     },
     {
         id: 'prop2',
+        freelancerUid: 'john_smith_uid',
         freelancerName: 'John Smith',
         freelancerAvatar: 'https://picsum.photos/seed/johnsmith/100/100',
+        clientUid: 'RETAIL_CO_UID',
+        projectId: '1',
         projectName: 'E-commerce Platform Redesign',
         bid: 5200,
         coverLetter: 'As a full-stack developer with deep expertise in Shopify Liquid and headless commerce, I can deliver a high-performance, scalable, and beautiful storefront for Retail Co.',
         status: 'Pending',
-        date: '2024-07-17'
+        submittedAt: new Date('2024-07-17')
     },
     {
         id: 'prop3',
+        freelancerUid: 'emily_white_uid',
         freelancerName: 'Emily White',
         freelancerAvatar: 'https://picsum.photos/seed/emilywhite/100/100',
+        clientUid: 'FITLIFE_INC_UID',
+        projectId: '2',
         projectName: 'Mobile App for Fitness Tracking',
         bid: 7500,
         coverLetter: 'I am a React Native specialist and a fitness enthusiast. I have built three successful fitness apps and I\'m excited by the opportunity to work on this project for FitLife Inc.',
         status: 'Accepted',
-        date: '2024-07-15'
+        submittedAt: new Date('2024-07-15')
     }
 ];
 
@@ -295,6 +317,7 @@ export type Competition = {
   deadline: string;
   entries: number;
   status: 'Live' | 'Judging' | 'Completed';
+  clientUid: string; // The UID of the client who posted it
 };
 
 let competitionsData: Competition[] = [
@@ -304,7 +327,8 @@ let competitionsData: Competition[] = [
     prize: 1000,
     deadline: '2024-08-15',
     entries: 25,
-    status: 'Live'
+    status: 'Live',
+    clientUid: 'some_client_uid_1'
   },
     {
     id: 'comp2',
@@ -312,7 +336,8 @@ let competitionsData: Competition[] = [
     prize: 2500,
     deadline: '2024-08-10',
     entries: 12,
-    status: 'Live'
+    status: 'Live',
+    clientUid: 'some_client_uid_2'
   }
 ];
 
