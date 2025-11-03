@@ -9,6 +9,7 @@ import {
   FileText,
   User,
   FilePlus,
+  Trophy,
 } from 'lucide-react';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
 
@@ -18,7 +19,7 @@ const navItems = [
   { href: '/client/dashboard/proposals', label: 'Proposals', icon: FileText },
 ];
 
-const actionItem = { href: '/client/dashboard/projects/new', label: 'Post Project', icon: FilePlus };
+const actionItem = { href: '/client/dashboard/project-competition', label: 'Post Competition', icon: Trophy };
 
 export function ClientNav() {
   const pathname = usePathname();
@@ -41,7 +42,7 @@ export function ClientNav() {
         <SidebarMenuItem key={item.href}>
           <SidebarMenuButton
             asChild
-            isActive={pathname === item.href}
+            isActive={pathname.startsWith(item.href) && (item.href === '/client/dashboard' ? pathname === item.href : true)}
             className="justify-start"
           >
             <Link href={item.href}>
