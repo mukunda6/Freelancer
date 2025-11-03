@@ -28,19 +28,11 @@ export function ProjectCard({ project, isClientView = false }: { project: Projec
           <CardTitle className="font-headline text-lg pt-1 group-hover:text-primary transition-colors">{project.title}</CardTitle>
         </CardHeader>
         <CardContent className="flex-grow space-y-3">
-            <p className="text-sm text-muted-foreground line-clamp-2">
-                <span className="text-foreground font-semibold">Impact: </span>{project.impact}
+            <p className="text-sm text-muted-foreground line-clamp-3">
+                {project.description}
             </p>
              <div className="text-sm text-muted-foreground space-y-2 pt-2 border-t">
                 <div className="flex items-center gap-2">
-                    <DollarSign className="h-4 w-4 text-primary/80" />
-                    <span><span className="font-semibold text-foreground/90">Budget:</span> ${project.budget.toLocaleString()}</span>
-                </div>
-                 <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-primary/80" />
-                    <span><span className="font-semibold text-foreground/90">Duration:</span> {project.duration}</span>
-                </div>
-                 <div className="flex items-center gap-2">
                     <Wrench className="h-4 w-4 text-primary/80" />
                     <span className="truncate"><span className="font-semibold text-foreground/90">Skills:</span> {project.skills.join(', ')}</span>
                 </div>

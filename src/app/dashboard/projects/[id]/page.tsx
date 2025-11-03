@@ -104,9 +104,9 @@ export default function ProjectDetailPage() {
              </CardHeader>
             <CardContent className="space-y-4">
               <h3 className="font-semibold text-lg">Problem</h3>
-              <p className="text-muted-foreground">{project.description}</p>
+              <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
                <h3 className="font-semibold text-lg mt-4">Solution & Impact</h3>
-               <p className="text-muted-foreground">{project.impact}</p>
+               <p className="text-muted-foreground whitespace-pre-line">{project.impact}</p>
             </CardContent>
           </Card>
         </div>

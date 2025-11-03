@@ -68,7 +68,7 @@ export default function ClientProjectDetailPage() {
                 />
               </div>
               <h3 className="font-semibold text-lg mb-2">Project Description</h3>
-              <p className="text-muted-foreground">{project.description}</p>
+              <p className="text-muted-foreground whitespace-pre-line">{project.description}</p>
               
               <div className="mt-4 pt-4 border-t grid grid-cols-2 gap-4 text-sm">
                  <div className="flex items-center gap-2">
