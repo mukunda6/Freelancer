@@ -24,11 +24,11 @@ import { Filter, PlusCircle } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-const allCategories = [...new Set(projects.map((p) => p.category))];
-const allSkills = [...new Set(projects.flatMap((p) => p.skills))];
-
 // These represent the freelancer's own projects, not client projects.
-const freelancerPortfolioProjects = projects;
+const freelancerPortfolioProjects = projects.filter(p => p.postedBy === 'Jane Doe');
+
+const allCategories = [...new Set(freelancerPortfolioProjects.map((p) => p.category))];
+const allSkills = [...new Set(freelancerPortfolioProjects.flatMap((p) => p.skills))];
 
 
 export default function ProjectsPage() {
@@ -67,6 +67,12 @@ export default function ProjectsPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+            <Button asChild>
+              <Link href="/dashboard/projects/new">
+                <PlusCircle className="mr-2" />
+                New Project
+              </Link>
+            </Button>
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="outline">
@@ -138,11 +144,17 @@ export default function ProjectsPage() {
             <ProjectCard key={project.id} project={project} />
           ))
         ) : (
-          <p>No projects match the current filters.</p>
+           <div className="col-span-full text-center py-12">
+            <p className="text-muted-foreground mb-4">You haven't added any projects to your portfolio yet.</p>
+            <Button asChild>
+                <Link href="/dashboard/projects/new">
+                    <PlusCircle className="mr-2" />
+                    Add Your First Project
+                </Link>
+            </Button>
+        </div>
         )}
       </div>
     </div>
   );
 }
-
-    

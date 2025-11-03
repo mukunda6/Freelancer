@@ -15,8 +15,11 @@ import { Slider } from '@/components/ui/slider';
 import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 
-const allCategories = [...new Set(projects.map((p) => p.category))];
-const allSkills = [...new Set(projects.flatMap((p) => p.skills))];
+// These projects are posted by clients and are available for freelancers to apply to.
+const availableClientProjects = projects.filter(p => p.postedBy !== 'Jane Doe');
+const allCategories = [...new Set(availableClientProjects.map((p) => p.category))];
+const allSkills = [...new Set(availableClientProjects.flatMap((p) => p.skills))];
+
 
 export default function ClientProjectsPage() {
   const [category, setCategory] = useState('all');
@@ -24,7 +27,7 @@ export default function ClientProjectsPage() {
   const [budget, setBudget] = useState([0, 10000]);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
+    return availableClientProjects.filter((project) => {
       const categoryMatch =
         category === 'all' || project.category === category;
       const skillMatch = skill === 'all' || project.skills.includes(skill);

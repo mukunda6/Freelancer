@@ -29,7 +29,7 @@ export const projects: Project[] = [
     impact: "The redesigned platform was a massive success, boosting conversion rates by 40% in the first quarter. The mobile-first design and improved navigation reduced the bounce rate by 25%, and the client reported a significant increase in customer satisfaction and repeat business.",
     budget: 5000,
     category: 'Web Development',
-    postedBy: 'Retail Co',
+    postedBy: 'Jane Doe', // This is a portfolio project for the freelancer
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
     skills: ['UI/UX', 'Shopify', 'React', 'Design Systems'],
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     impact: "The app was an instant hit, achieving over 50,000 downloads in the first three months with a 4.8-star rating. The intuitive UI and personalized features led to high user retention. The social sharing feature created a viral loop, driving organic downloads and building a strong user community.",
     budget: 8000,
     category: 'Mobile Development',
-    postedBy: 'FitLife Inc.',
+    postedBy: 'Jane Doe', // This is a portfolio project for the freelancer
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageHint || '',
     skills: ['React Native', 'Firebase', 'UI/UX', 'Mobile Design'],
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     impact: "The professional brand identity was crucial in the client's successful pre-launch marketing. It helped them build credibility and played a significant role in their pitch decks, contributing to them securing their first round of seed funding within two months of the brand launch.",
     budget: 2500,
     category: 'Design',
-    postedBy: 'Fintech Startup',
+    postedBy: 'Fintech Startup', // This is a client project
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageHint || '',
     skills: ['Branding', 'Logo Design', 'Illustration', 'Style Guides'],
@@ -78,7 +78,7 @@ export const projects: Project[] = [
     impact: "The data-driven content strategy yielded exceptional results. Organic search traffic to the blog increased by 150% over six months. The targeted content resonated with their audience, generating over 200 new marketing qualified leads (MQLs) and significantly boosting their sales pipeline.",
     budget: 3000,
     category: 'Marketing',
-    postedBy: 'CloudCorp',
+    postedBy: 'CloudCorp', // This is a client project
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',
     skills: ['SEO', 'Content Strategy', 'Marketing', 'Keyword Research'],
@@ -94,7 +94,7 @@ export const projects: Project[] = [
     impact: "The AI chatbot transformed their customer support operations. It successfully automated 60% of common customer queries, freeing up human agents. This led to an 80% reduction in average agent response time and a noticeable improvement in customer satisfaction (CSAT) scores.",
     budget: 4500,
     category: 'AI/ML',
-    postedBy: 'Supportify',
+    postedBy: 'Supportify', // This is a client project
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageHint || '',
     skills: ['Genkit', 'AI/ML', 'Node.js', 'Customer Support'],
@@ -110,7 +110,7 @@ export const projects: Project[] = [
     impact: "The interactive dashboard provided stakeholders with at-a-glance, actionable insights, replacing static weekly reports. This real-time data access empowered their marketing team to make faster decisions, leading to a 15% improvement in marketing campaign ROI. The dashboard became an essential tool for their daily operations.",
     budget: 6000,
     category: 'Data Analytics',
-    postedBy: 'Metrics Inc.',
+    postedBy: 'Metrics Inc.', // This is a client project
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageHint || '',
     skills: ['Recharts', 'Firebase', 'Data Visualization', 'Next.js'],
@@ -349,12 +349,3 @@ export const competitors: Competitor[] = [
   { id: 'c9', name: 'Ivy Jones', avatar: 'https://picsum.photos/seed/ivyjones/100/100', specialty: 'Full-Stack Developer', rank: 9, earnings: 88000, tags: ['Rising Talent'] },
   { id: 'c10', name: 'Jack King', avatar: 'https://picsum.photos/seed/jackking/100/100', specialty: 'Marketing Automation Specialist', rank: 10, earnings: 85000, tags: [] },
 ];
-    
-
-    
-
-    
-
-    
-
-    
