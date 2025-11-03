@@ -71,8 +71,7 @@ export function TranslationTool() {
       </div>
       <div className="flex items-end gap-4">
         <div className="flex-1 space-y-2">
-          <Label htmlFor="target-lang">Target Language</Label>
-          <Select value={targetLanguage} onValueChange={setTargetLanguage}>
+          <Label htmlFor="target-lang">Target Language</Label>          <Select value={targetLanguage} onValueChange={setTargetLanguage}>
             <SelectTrigger id="target-lang">
               <SelectValue placeholder="Select language" />
             </SelectTrigger>
