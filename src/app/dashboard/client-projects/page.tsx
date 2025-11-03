@@ -12,8 +12,14 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
+import { Filter } from 'lucide-react';
 
 // These projects are posted by clients and are available for freelancers to apply to.
 const availableClientProjects = projects.filter(p => p.postedBy !== 'Jane Doe');
@@ -49,54 +55,71 @@ export default function ClientProjectsPage() {
             and budget to match your expertise.
           </p>
         </div>
+        <div>
+           <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline">
+                  <Filter className="mr-2 h-4 w-4" />
+                  Filter
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80" align="end">
+                <div className="grid gap-4">
+                  <div className="space-y-2">
+                    <h4 className="font-medium leading-none">Filters</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Adjust the filters to find projects.
+                    </p>
+                  </div>
+                  <div className="grid gap-2">
+                    <div className="grid gap-2 w-full md:w-auto">
+                        <Label htmlFor="category-filter">Category</Label>
+                        <Select value={category} onValueChange={setCategory}>
+                            <SelectTrigger id="category-filter" className="w-full">
+                                <SelectValue placeholder="Filter by category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Categories</SelectItem>
+                                {allCategories.map((cat) => (
+                                    <SelectItem key={cat} value={cat}>
+                                        {cat}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="grid gap-2 w-full md:w-auto">
+                        <Label htmlFor="skill-filter">Skill</Label>
+                        <Select value={skill} onValueChange={setSkill}>
+                            <SelectTrigger id="skill-filter" className="w-full">
+                                <SelectValue placeholder="Filter by skill" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Skills</SelectItem>
+                                {allSkills.map((s) => (
+                                    <SelectItem key={s} value={s}>
+                                        {s}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="grid gap-2 w-full flex-1">
+                        <Label>Budget Range: ${budget[0]} - ${budget[1]}</Label>
+                        <Slider
+                            min={0}
+                            max={10000}
+                            step={500}
+                            value={budget}
+                            onValueChange={(value) => setBudget(value)}
+                        />
+                    </div>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
+        </div>
       </div>
-        <Card>
-            <CardContent className="p-4 flex flex-col md:flex-row items-center gap-4">
-                <div className="grid gap-2 w-full md:w-auto">
-                    <Label htmlFor="category-filter">Category</Label>
-                    <Select value={category} onValueChange={setCategory}>
-                        <SelectTrigger id="category-filter" className="w-full md:w-[180px]">
-                            <SelectValue placeholder="Filter by category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All Categories</SelectItem>
-                            {allCategories.map((cat) => (
-                                <SelectItem key={cat} value={cat}>
-                                    {cat}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="grid gap-2 w-full md:w-auto">
-                    <Label htmlFor="skill-filter">Skill</Label>
-                    <Select value={skill} onValueChange={setSkill}>
-                        <SelectTrigger id="skill-filter" className="w-full md:w-[180px]">
-                            <SelectValue placeholder="Filter by skill" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">All Skills</SelectItem>
-                            {allSkills.map((s) => (
-                                <SelectItem key={s} value={s}>
-                                    {s}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-                <div className="grid gap-2 w-full flex-1">
-                    <Label>Budget Range: ${budget[0]} - ${budget[1]}</Label>
-                    <Slider
-                        min={0}
-                        max={10000}
-                        step={500}
-                        value={budget}
-                        onValueChange={(value) => setBudget(value)}
-                    />
-                </div>
-            </CardContent>
-        </Card>
-
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {filteredProjects.length > 0 ? (
