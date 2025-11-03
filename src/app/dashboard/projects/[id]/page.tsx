@@ -17,16 +17,61 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Mail, CheckCircle2, Video, PlayCircle } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2, Video, PlayCircle, Bot, AlertTriangle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useToast } from '@/hooks/use-toast';
+import { generateVideo } from '@/ai/flows/generate-video-flow';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
 
 export default function ProjectDetailPage() {
   const params = useParams();
   const projectId = params.id as string;
+  const { toast } = useToast();
 
   const project = projects.find((p) => p.id === projectId);
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
+
+  const [isVideoLoading, setIsVideoLoading] = useState(false);
+  const [generatedVideoUrl, setGeneratedVideoUrl] = useState<string | null>(null);
+  const [videoError, setVideoError] = useState<string | null>(null);
+
+  const handleGenerateVideo = async () => {
+    if (!project) return;
+    setIsVideoLoading(true);
+    setGeneratedVideoUrl(null);
+    setVideoError(null);
+
+    toast({
+      title: "Video Generation Started 🎬",
+      description: "The AI is warming up. This might take a minute or two, so please be patient.",
+    });
+
+    try {
+      const result = await generateVideo({
+        title: project.title,
+        description: project.description,
+      });
+      setGeneratedVideoUrl(result.videoUrl);
+      toast({
+        title: "Video Generated! 🎉",
+        description: "Your project demo video is ready.",
+      });
+    } catch (e: any) {
+      console.error(e);
+      const errorMessage = e.message || "An unknown error occurred.";
+      setVideoError(`Failed to generate video. ${errorMessage}`);
+      toast({
+        variant: "destructive",
+        title: "Video Generation Failed",
+        description: "There was a problem creating the video. Please check the console for more details.",
+      });
+    } finally {
+      setIsVideoLoading(false);
+    }
+  };
   
   if (!project) {
     return (
@@ -79,31 +124,58 @@ export default function ProjectDetailPage() {
           </Card>
           
            {/* Demo Video Card */}
-          <Card>
+           <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <Video className="w-6 h-6 text-primary" />
-                <CardTitle className="font-headline">Project Demo Video</CardTitle>
+                <Bot className="w-6 h-6 text-primary" />
+                <CardTitle className="font-headline">AI-Powered Demo Video</CardTitle>
               </div>
               <CardDescription>
-                A short video showcasing the project's features and impact.
+                Generate a short, dynamic video to showcase this project's key features and impact.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center">
-                  <div className="text-center text-muted-foreground">
-                      <PlayCircle className="mx-auto h-12 w-12" />
-                      <p className="mt-2 text-sm font-semibold">Video Coming Soon</p>
-                      <p className="text-xs">This is a placeholder for the project demo video.</p>
+              {isVideoLoading ? (
+                <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex flex-col items-center justify-center text-center">
+                  <Skeleton className="absolute inset-0" />
+                  <div className="relative z-10 p-4">
+                     <p className="text-lg font-semibold text-foreground">Generating Video...</p>
+                     <p className="text-sm text-muted-foreground mt-2">This can take up to a minute. Please wait.</p>
+                     <div className="w-full bg-muted rounded-full h-2.5 mt-4 overflow-hidden">
+                         <div className="bg-primary h-2.5 rounded-full w-full animate-pulse" style={{ animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}></div>
+                     </div>
                   </div>
-              </div>
+                </div>
+              ) : generatedVideoUrl ? (
+                <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+                  <video src={generatedVideoUrl} controls className="w-full h-full" />
+                </div>
+              ) : (
+                <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center">
+                  {videoError ? (
+                    <Alert variant="destructive" className="max-w-md mx-auto">
+                        <AlertTriangle className="h-4 w-4" />
+                        <AlertTitle>Generation Error</AlertTitle>
+                        <AlertDescription className="text-xs">{videoError}</AlertDescription>
+                    </Alert>
+                  ) : (
+                     <div className="text-center text-muted-foreground">
+                      <PlayCircle className="mx-auto h-12 w-12" />
+                      <p className="mt-2 text-sm font-semibold">Generate a Demo</p>
+                      <p className="text-xs">Click the button below to create an AI video.</p>
+                  </div>
+                  )}
+                </div>
+              )}
             </CardContent>
             <CardFooter>
-               <Button variant="outline">
-                  Upload Video
-               </Button>
+              <Button onClick={handleGenerateVideo} disabled={isVideoLoading}>
+                <Video className="mr-2" />
+                {isVideoLoading ? 'Generating...' : generatedVideoUrl ? 'Regenerate Video' : 'Generate Video'}
+              </Button>
             </CardFooter>
           </Card>
+
 
           {/* Project Description */}
           <Card>
