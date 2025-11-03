@@ -1,4 +1,6 @@
 
+'use client';
+
 import type { Competition } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,9 +10,13 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { VariantProps } from 'class-variance-authority';
 import { badgeVariants } from '../ui/badge';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { ApplyCompetitionForm } from "./apply-competition-form";
+import React from "react";
 
 export function CompetitionCard({ competition }: { competition: Competition }) {
-    
+    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+
     const getBadgeVariant = (status: 'Live' | 'Judging' | 'Completed'): VariantProps<typeof badgeVariants>['variant'] => {
         switch (status) {
           case 'Live':
@@ -56,9 +62,22 @@ export function CompetitionCard({ competition }: { competition: Competition }) {
             </div>
         </CardContent>
         <CardFooter className="pt-4 bg-secondary/30 p-4">
-           <Button variant="default" className="w-full bg-accent hover:bg-accent/90">
-                Submit Entry <ArrowRight className="ml-2 h-4 w-4" />
-           </Button>
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogTrigger asChild>
+                    <Button variant="default" className="w-full bg-accent hover:bg-accent/90" disabled={competition.status !== 'Live'}>
+                        Apply <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>Apply to: {competition.title}</DialogTitle>
+                        <DialogDescription>
+                            Submit your proposal and files to enter the competition. Good luck!
+                        </DialogDescription>
+                    </DialogHeader>
+                    <ApplyCompetitionForm competition={competition} onSubmissionSuccess={() => setIsDialogOpen(false)} />
+                </DialogContent>
+            </Dialog>
         </CardFooter>
       </Card>
   );
