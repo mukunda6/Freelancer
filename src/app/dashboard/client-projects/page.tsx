@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -17,7 +18,7 @@ import { Label } from '@/components/ui/label';
 const allCategories = [...new Set(projects.map((p) => p.category))];
 const allSkills = [...new Set(projects.flatMap((p) => p.skills))];
 
-export default function FreelancerProjectsPage() {
+export default function ClientProjectsPage() {
   const [category, setCategory] = useState('all');
   const [skill, setSkill] = useState('all');
   const [budget, setBudget] = useState([0, 10000]);
@@ -38,7 +39,7 @@ export default function FreelancerProjectsPage() {
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
           <h1 className="text-3xl font-headline font-bold tracking-tight">
-            Browse Projects
+            Browse Client Projects
           </h1>
           <p className="text-muted-foreground max-w-2xl">
             Find your next opportunity. Filter projects by category, skills,
