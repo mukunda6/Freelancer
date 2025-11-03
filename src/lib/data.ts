@@ -125,6 +125,40 @@ export const projects: Project[] = [
     skills: ['Recharts', 'Firebase', 'Data Visualization', 'Next.js'],
     duration: '2 Months',
     rating: 5.0,
+  },
+  {
+    id: '7',
+    title: 'Interactive Storytelling Experience',
+    description: 'StoryWeavers Inc. aimed to create a captivating, web-based interactive story to engage their audience and promote their new book series.',
+    requirements: 'The project required a highly interactive and visually rich web application. The core was a branching narrative where user choices would alter the story\'s direction. This involved creating an intuitive UI for navigation, integrating animated illustrations, and implementing a system for managing story state and progression.',
+    features: '- Branching narrative with multiple story paths and endings.\n- Animated illustrations and subtle background effects.\n- Sound design and background music to enhance immersion.\n- A progress-saving feature to allow users to continue later.\n- Social sharing options for key story moments.',
+    impact: 'The interactive story was a viral success, with an average user engagement time of over 15 minutes. It significantly boosted pre-orders for the new book series and grew their mailing list by 300% through an integrated sign-up form at the story\'s conclusion.',
+    budget: 7000,
+    category: 'Web Development',
+    postedBy: 'StoryWeavers Inc.',
+    clientUid: 'STORYWEAVERS_UID',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-7')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-image-7')?.imageHint || '',
+    skills: ['React', 'GSAP', 'UI/UX', 'Storybook'],
+    duration: '5 Weeks',
+    rating: 4.9
+  },
+  {
+    id: '8',
+    title: 'Smart Home Automation API',
+    description: 'ConnectHome, a startup in the IoT space, needed a robust and scalable API to manage their new line of smart home devices.',
+    requirements: 'The goal was to build a secure RESTful API that could handle thousands of concurrent connections from smart devices. The API needed to support device registration, real-time status updates via WebSockets, and a secure command-and-control system. It also required a developer-friendly documentation portal.',
+    features: '- Secure RESTful API for device management.\n- WebSocket integration for real-time device communication.\n- OAuth 2.0 for secure third-party integrations.\n- A comprehensive developer portal with API documentation.\n- Scalable architecture on Google Cloud Platform.',
+    impact: 'The API successfully launched and now supports over 10,000 active devices. Its stability and clear documentation have attracted third-party developers, leading to several new integrations that have expanded the ConnectHome ecosystem and increased the value of their products.',
+    budget: 9500,
+    category: 'Backend Development',
+    postedBy: 'ConnectHome',
+    clientUid: 'CONNECTHOME_UID',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-8')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-image-8')?.imageHint || '',
+    skills: ['Node.js', 'WebSockets', 'Google Cloud', 'API Design'],
+    duration: '3 Months',
+    rating: 4.8
   }
 ];
 

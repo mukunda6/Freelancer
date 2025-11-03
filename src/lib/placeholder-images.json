@@ -43,6 +43,18 @@
       "imageHint": "data visualization"
     },
     {
+      "id": "project-image-7",
+      "description": "Interactive storytelling",
+      "imageUrl": "https://images.unsplash.com/photo-1639104796286-9d5d0dd11430?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbnRlcmFjdGl2ZSUyMHN0b3J5fGVufDB8fHx8MTc2MjIwNjI4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "interactive story"
+    },
+    {
+      "id": "project-image-8",
+      "description": "Smart home automation",
+      "imageUrl": "https://images.unsplash.com/photo-1558089687-f282ffcbc126?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzbWFydCUyMGhvbWV8ZW58MHx8fHwxNzYyMTA3MDg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "smart home"
+    },
+    {
       "id": "client-avatar-1",
       "description": "Client avatar for TechCorp",
       "imageUrl": "https://images.unsplash.com/photo-1549924231-f129b911e442?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjb21wYW55JTIwbG9nb3xlbnwwfHx8fDE3NjIxNDA1MjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
