@@ -98,7 +98,7 @@ export default function ClientProjectsPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {filteredProjects.length > 0 ? (
           filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} isBrowseView={true} />
           ))
         ) : (
           <p>No projects match the current filters.</p>

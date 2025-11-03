@@ -7,9 +7,20 @@ import { Badge } from "@/components/ui/badge";
 import Link from 'next/link';
 import { ArrowRight, Building, DollarSign, Clock, Wrench, Star } from "lucide-react";
 
-export function ProjectCard({ project, isClientView = false }: { project: Project, isClientView?: boolean }) {
+export function ProjectCard({ project, isClientView = false, isBrowseView = false }: { project: Project, isClientView?: boolean, isBrowseView?: boolean }) {
+  
+  const getProjectUrl = () => {
+    if (isClientView) {
+      return `/client/dashboard/projects/${project.id}`;
+    }
+    if (isBrowseView) {
+      return `/dashboard/client-projects/${project.id}`;
+    }
+    return `/dashboard/projects/${project.id}`;
+  }
+  
   return (
-    <Link href={isClientView ? `/client/dashboard/projects/${project.id}` : `/dashboard/projects/${project.id}`} className="flex group">
+    <Link href={getProjectUrl()} className="flex group">
       <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 w-full hover:border-primary">
         <div className="relative aspect-video w-full overflow-hidden">
           <Image
