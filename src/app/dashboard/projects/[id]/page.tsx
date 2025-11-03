@@ -17,20 +17,13 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Sparkles } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2, Video, PlayCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { useToast } from '@/hooks/use-toast';
-import { generateVideoScript } from '@/ai/flows/generate-video-flow';
-import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProjectDetailPage() {
   const params = useParams();
   const projectId = params.id as string;
-  const { toast } = useToast();
-
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [videoScript, setVideoScript] = useState<string | null>(null);
 
   const project = projects.find((p) => p.id === projectId);
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
@@ -49,32 +42,6 @@ export default function ProjectDetailPage() {
       </div>
     );
   }
-
-  const handleGenerateScript = async () => {
-    setIsGenerating(true);
-    setVideoScript(null);
-    try {
-      const result = await generateVideoScript({
-        title: project.title,
-        description: project.description,
-        features: project.features,
-      });
-      setVideoScript(result.script);
-      toast({
-        title: 'Script Generated!',
-        description: 'Your AI-powered video script is ready.',
-      });
-    } catch (error) {
-      console.error('Failed to generate video script:', error);
-      toast({
-        title: 'Generation Failed',
-        description: 'Could not generate the video script. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsGenerating(false);
-    }
-  };
 
   return (
     <div className="container mx-auto max-w-6xl py-8">
@@ -111,36 +78,30 @@ export default function ProjectDetailPage() {
             </div>
           </Card>
           
-           {/* AI-Powered Demo Video Card */}
+           {/* Demo Video Card */}
           <Card>
             <CardHeader>
               <div className="flex items-center gap-3">
-                <Sparkles className="w-6 h-6 text-primary" />
-                <CardTitle className="font-headline">AI-Powered Demo Video</CardTitle>
+                <Video className="w-6 h-6 text-primary" />
+                <CardTitle className="font-headline">Project Demo Video</CardTitle>
               </div>
               <CardDescription>
-                Generate a short, engaging video script for your project using AI.
+                A short video showcasing the project's features and impact.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {isGenerating && (
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-1/4" />
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-3/4" />
-                </div>
-              )}
-              {videoScript && (
-                <blockquote className="italic border-l-4 pl-4 text-muted-foreground">
-                  {videoScript}
-                </blockquote>
-              )}
+              <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center">
+                  <div className="text-center text-muted-foreground">
+                      <PlayCircle className="mx-auto h-12 w-12" />
+                      <p className="mt-2 text-sm font-semibold">Video Coming Soon</p>
+                      <p className="text-xs">This is a placeholder for the project demo video.</p>
+                  </div>
+              </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleGenerateScript} disabled={isGenerating}>
-                <Video className="mr-2" />
-                {isGenerating ? 'Generating Script...' : 'Generate Video Script'}
-              </Button>
+               <Button variant="outline">
+                  Upload Video
+               </Button>
             </CardFooter>
           </Card>
 
