@@ -39,7 +39,7 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="relative w-full py-20 md:py-32 lg:py-40 bg-gradient-to-br from-primary/10 via-background to-accent/10">
            <div
-            className="absolute inset-0 bg-cover bg-center opacity-75"
+            className="absolute inset-0 bg-cover bg-center opacity-90"
             style={{
               backgroundImage:
                 "url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxidXNpbmVzcyUyMHRlYW18ZW58MHx8fHwxNzYyMjA4MzU0fDA&ixlib=rb-4.1.0&q=80&w=1080')",
@@ -50,7 +50,7 @@ export default function LandingPage() {
             <h1 className="text-4xl font-headline font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
               Find Talent. Find Work.
             </h1>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-6">
+            <p className="mx-auto max-w-[700px] text-black md:text-xl mt-6">
               The premier platform connecting innovative companies with top-tier freelance talent.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
