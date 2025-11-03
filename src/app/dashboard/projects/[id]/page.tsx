@@ -90,12 +90,12 @@ export default function ProjectDetailPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="relative aspect-video w-full bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center">
-                    <div className="text-center text-muted-foreground">
-                        <PlayCircle className="mx-auto h-12 w-12" />
-                        <p className="mt-2 text-sm font-semibold">Video Not Available</p>
-                        <p className="text-xs">A video can be uploaded here.</p>
-                    </div>
+                <div className="relative aspect-video w-full bg-slate-900 rounded-lg overflow-hidden">
+                   <video
+                    className="w-full h-full"
+                    controls
+                    src="https://www.w3schools.com/html/mov_bbb.mp4"
+                    />
                 </div>
             </CardContent>
           </Card>
