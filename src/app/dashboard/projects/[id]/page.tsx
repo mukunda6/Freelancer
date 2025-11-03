@@ -17,7 +17,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload, Building } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Input } from '@/components/ui/input';
@@ -28,7 +28,7 @@ export default function ProjectDetailPage() {
   const projectId = params.id as string;
   const project = projects.find((p) => p.id === projectId);
 
-  const [videoSrc, setVideoSrc] = useState<string | null>(project?.videoUrl || null);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
   useEffect(() => {
     // Initialize videoSrc from project data when component mounts
@@ -36,8 +36,6 @@ export default function ProjectDetailPage() {
       setVideoSrc(project.videoUrl);
     }
   }, [project]);
-
-  const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
 
   const handleVideoUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -67,6 +65,8 @@ export default function ProjectDetailPage() {
       </div>
     );
   }
+  
+  const clientAvatarUrl = `https://picsum.photos/seed/${project.postedBy.replace(/\s+/g, '')}/100/100`;
 
   return (
     <div className="container mx-auto max-w-6xl py-8">
@@ -186,17 +186,19 @@ export default function ProjectDetailPage() {
            <Card className="sticky top-24">
              <CardHeader className="text-center items-center">
                 <Avatar className="h-24 w-24 mb-4 border-2 border-primary">
-                    <AvatarImage src={userAvatar?.imageUrl} alt="Jane Doe" />
-                    <AvatarFallback>JD</AvatarFallback>
+                    <AvatarImage src={clientAvatarUrl} alt={project.postedBy} />
+                    <AvatarFallback>
+                        {project.postedBy.split(' ').map(n => n[0]).join('')}
+                    </AvatarFallback>
                 </Avatar>
-                <CardTitle className="font-headline text-2xl">Jane Doe</CardTitle>
-                <CardDescription>Full-Stack Developer</CardDescription>
+                <CardTitle className="font-headline text-2xl">{project.postedBy}</CardTitle>
+                <CardDescription>Client</CardDescription>
              </CardHeader>
             <CardContent className="space-y-4 text-sm">
                 <div className="space-y-2">
                     <h4 className="font-semibold text-muted-foreground">Project Summary</h4>
                     <p className="text-sm text-foreground">
-                      This {project.duration} project for {project.postedBy} was completed within a budget of ${project.budget.toLocaleString()} and delivered key features for their {project.category.toLowerCase()} needs.
+                      This {project.duration} project was completed within a budget of ${project.budget.toLocaleString()} and delivered key features for their {project.category.toLowerCase()} needs.
                     </p>
                 </div>
                 <div className="flex items-center justify-between text-sm">
@@ -214,9 +216,9 @@ export default function ProjectDetailPage() {
                 </div>
 
                  <Button className="w-full" asChild>
-                    <Link href="/dashboard/profile">
-                      <Mail className="mr-2" />
-                      View My Profile
+                    <Link href="#">
+                      <Building className="mr-2" />
+                      View Client Profile
                     </Link>
                  </Button>
             </CardContent>
@@ -226,5 +228,3 @@ export default function ProjectDetailPage() {
     </div>
   );
 }
-
-    
