@@ -1,3 +1,4 @@
+
 import { ProposalCard } from '@/components/client/proposal-card';
 import { proposals } from '@/lib/data';
 
