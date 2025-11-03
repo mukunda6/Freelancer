@@ -27,7 +27,7 @@ export function SignupForm() {
     }
   };
 
-  const showRoleSelector = roleFromQuery !== 'freelancer' && roleFromQuery !== 'client';
+  const showRoleSelector = !roleFromQuery;
 
   return (
     <Card className="mx-auto max-w-sm w-full shadow-xl">
@@ -44,7 +44,7 @@ export function SignupForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSignup} className="grid gap-4">
-          {!role && (
+          {showRoleSelector && !role && (
             <div className="grid grid-cols-2 gap-4 pb-4">
               <div
                 onClick={() => setRole('freelancer')}
@@ -106,6 +106,14 @@ export function SignupForm() {
             </>
           )}
         </form>
+         {role && (
+            <div className="mt-4 text-center text-sm">
+                Already have an account?{" "}
+                <Link href={role === 'client' ? '/client/login' : '/login'} className="font-semibold text-primary/80 hover:text-primary hover:underline">
+                    Login
+                </Link>
+            </div>
+        )}
       </CardContent>
     </Card>
   );
