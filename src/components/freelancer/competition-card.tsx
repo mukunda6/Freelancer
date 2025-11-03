@@ -87,5 +87,3 @@ export function CompetitionCard({ competition, onApplicationSubmit }: { competit
       </Card>
   );
 }
-
-    
