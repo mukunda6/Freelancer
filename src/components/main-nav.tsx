@@ -26,18 +26,15 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
       <SidebarMenu>
         {navItems.map((item) => (
           <SidebarMenuItem key={item.href}>
-            <Link href={item.href} legacyBehavior passHref>
-              <SidebarMenuButton
-                asChild
-                isActive={pathname === item.href}
-                className="justify-start"
-              >
-                <a>
-                  <item.icon className="h-5 w-5 mr-3" />
-                  <span>{item.label}</span>
-                </a>
-              </SidebarMenuButton>
-            </Link>
+            <SidebarMenuButton
+              as={Link}
+              href={item.href}
+              isActive={pathname === item.href}
+              className="justify-start"
+            >
+              <item.icon className="h-5 w-5 mr-3" />
+              <span>{item.label}</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
