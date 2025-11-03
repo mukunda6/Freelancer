@@ -5,13 +5,13 @@ import React from 'react';
 import { competitions as competitionsData, type Competition } from "@/lib/data";
 import { CompetitionCard } from "@/components/freelancer/competition-card";
 import { Trophy } from "lucide-react";
-import { useToast } from '@/hooks/use-toast';
 
 export default function CompetitionsPage() {
   const [competitions, setCompetitions] = React.useState<Competition[]>(competitionsData);
 
   const handleApplication = () => {
-    // This function forces a re-render by creating a new array from the updated data
+    // This function forces a re-render by creating a new array from the updated data.
+    // This is necessary because we are directly mutating the mock data array.
     setCompetitions([...competitionsData]);
   }
 
@@ -34,3 +34,5 @@ export default function CompetitionsPage() {
     </div>
   );
 }
+
+    

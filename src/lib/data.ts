@@ -307,9 +307,10 @@ let competitionsData: Competition[] = [
   }
 ];
 
+// This is now the single source of truth for competitions.
 export const competitions: Competition[] = competitionsData;
 
-
+// This function mutates the original array, which is why the re-render works.
 export function addCompetitionEntry(competitionId: string) {
     const competition = competitionsData.find(c => c.id === competitionId);
     if (competition) {
@@ -339,6 +340,8 @@ export const competitors: Competitor[] = [
   { id: 'c9', name: 'Ivy Jones', avatar: 'https://picsum.photos/seed/ivyjones/100/100', specialty: 'Full-Stack Developer', rank: 9, earnings: 88000, tags: ['Rising Talent'] },
   { id: 'c10', name: 'Jack King', avatar: 'https://picsum.photos/seed/jackking/100/100', specialty: 'Marketing Automation Specialist', rank: 10, earnings: 85000, tags: [] },
 ];
+    
+
     
 
     

@@ -30,6 +30,7 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
             date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
         });
         
+        // This function now directly mutates the shared data.
         addCompetitionEntry(competition.id);
         
         toast({
@@ -93,5 +94,7 @@ export function ApplyCompetitionForm({ competition, onSubmissionSuccess }: { com
         </form>
     );
 }
+
+    
 
     
