@@ -39,7 +39,7 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="relative w-full py-20 md:py-32 lg:py-40 bg-gradient-to-br from-primary/10 via-background to-accent/10">
            <div
-            className="absolute inset-0 bg-cover bg-center opacity-25"
+            className="absolute inset-0 bg-cover bg-center opacity-75"
             style={{
               backgroundImage:
                 "url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxidXNpbmVzcyUyMHRlYW18ZW58MHx8fHwxNzYyMjA4MzU0fDA&ixlib=rb-4.1.0&q=80&w=1080')",
@@ -56,12 +56,12 @@ export default function LandingPage() {
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
               <Button size="lg" asChild>
                 <Link href="/signup?role=freelancer">
-                  Freelancer
+                  Find Work as a Freelancer
                 </Link>
               </Button>
-              <Button size="lg" asChild>
+              <Button size="lg" variant="outline" asChild>
                 <Link href="/signup?role=client">
-                  Client
+                  Hire Talent for Your Project
                 </Link>
               </Button>
             </div>
