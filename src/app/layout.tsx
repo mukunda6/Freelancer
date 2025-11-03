@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Freelancer Hub',
+  title: 'Linkfolio',
   description: 'A platform for freelancers and entrepreneurs.',
 };
 

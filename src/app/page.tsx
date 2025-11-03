@@ -11,7 +11,7 @@ export default function LandingPage() {
       <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto flex h-16 items-center px-4 md:px-6">
           <Logo />
-          <nav className="ml-auto hidden items-center gap-6 md:flex">
+          <nav className="ml-auto flex items-center gap-6">
             <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
               Features
             </Link>
@@ -124,7 +124,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer id="contact" className="bg-muted py-8">
         <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Freelancer Hub. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Linkfolio. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
              <Link href="#" className="text-sm text-muted-foreground hover:text-primary">
                 Privacy Policy

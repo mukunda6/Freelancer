@@ -7,7 +7,7 @@ export function Logo({ className }: { className?: string }) {
       <div className="bg-primary text-primary-foreground p-2 rounded-lg">
         <Briefcase className="h-6 w-6" />
       </div>
-      <span className="text-2xl font-headline font-bold">Freelancer Hub</span>
+      <span className="text-2xl font-headline font-bold">Linkfolio</span>
     </div>
   );
 }
