@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -21,7 +20,8 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export default function ProjectDetailPage({ params }: { params: { id: string } }) {
+export default function ProjectDetailPage({ params: paramsProp }: { params: { id: string } }) {
+  const params = React.use(paramsProp);
   const projectId = params.id;
   const project = projects.find((p) => p.id === projectId);
 

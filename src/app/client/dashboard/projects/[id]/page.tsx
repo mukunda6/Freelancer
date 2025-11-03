@@ -16,8 +16,10 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, Clock, DollarSign, FileText, CheckCircle2, Wrench } from 'lucide-react';
 import { ProposalCard } from '@/components/client/proposal-card';
 import { Separator } from '@/components/ui/separator';
+import React from 'react';
 
-export default function ClientProjectDetailPage({ params }: { params: { id: string } }) {
+export default function ClientProjectDetailPage({ params: paramsProp }: { params: { id: string } }) {
+  const params = React.use(paramsProp);
   const projectId = params.id;
 
   const project = projects.find((p) => p.id === projectId);

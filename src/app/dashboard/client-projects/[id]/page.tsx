@@ -21,7 +21,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { ApplyProjectForm } from '@/components/freelancer/apply-project-form';
 import React from 'react';
 
-export default function ClientProjectDetailPage({ params }: { params: { id: string } }) {
+export default function ClientProjectDetailPage({ params: paramsProp }: { params: { id: string } }) {
+  const params = React.use(paramsProp);
   const projectId = params.id;
   const project = projects.find((p) => p.id === projectId);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
