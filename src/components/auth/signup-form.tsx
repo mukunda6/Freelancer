@@ -106,12 +106,6 @@ export function SignupForm() {
             </>
           )}
         </form>
-        <div className="mt-4 text-center text-sm">
-          Already have an account?{" "}
-          <Link href={role === 'client' ? '/client/login' : '/login'} className="font-semibold text-primary/80 hover:text-primary hover:underline">
-            Login
-          </Link>
-        </div>
       </CardContent>
     </Card>
   );
