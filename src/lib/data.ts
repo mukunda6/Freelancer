@@ -16,6 +16,7 @@ export type Project = {
   skills: string[];
   duration: string;
   videoUrl?: string;
+  rating: number;
 };
 
 export const projects: Project[] = [
@@ -33,7 +34,8 @@ export const projects: Project[] = [
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
     skills: ['UI/UX', 'Shopify', 'React', 'Design Systems'],
     duration: '6 Weeks',
-    videoUrl: 'https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link'
+    videoUrl: 'https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link',
+    rating: 4.9,
   },
   {
     id: '2',
@@ -48,7 +50,8 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageHint || '',
     skills: ['React Native', 'Firebase', 'UI/UX', 'Mobile Design'],
-    duration: '3 Months'
+    duration: '3 Months',
+    rating: 4.8,
   },
   {
     id: '3',
@@ -63,7 +66,8 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageHint || '',
     skills: ['Branding', 'Logo Design', 'Illustration', 'Style Guides'],
-    duration: '4 Weeks'
+    duration: '4 Weeks',
+    rating: 5.0,
   },
     {
     id: '4',
@@ -78,7 +82,8 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',
     skills: ['SEO', 'Content Strategy', 'Marketing', 'Keyword Research'],
-    duration: 'Ongoing'
+    duration: 'Ongoing',
+    rating: 4.7,
   },
   {
     id: '5',
@@ -93,7 +98,8 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageHint || '',
     skills: ['Genkit', 'AI/ML', 'Node.js', 'Customer Support'],
-    duration: '1 Month'
+    duration: '1 Month',
+    rating: 4.9,
   },
   {
     id: '6',
@@ -108,7 +114,8 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageHint || '',
     skills: ['Recharts', 'Firebase', 'Data Visualization', 'Next.js'],
-    duration: '2 Months'
+    duration: '2 Months',
+    rating: 5.0,
   }
 ];
 

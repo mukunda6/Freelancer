@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from 'next/link';
-import { ArrowRight, Building, DollarSign, Clock, Wrench } from "lucide-react";
+import { ArrowRight, Building, DollarSign, Clock, Wrench, Star } from "lucide-react";
 
 export function ProjectCard({ project, isClientView = false }: { project: Project, isClientView?: boolean }) {
   return (
@@ -21,9 +21,15 @@ export function ProjectCard({ project, isClientView = false }: { project: Projec
           />
         </div>
         <CardHeader>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Building className="h-4 w-4" />
-              <span>{project.postedBy}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Building className="h-4 w-4" />
+                <span>{project.postedBy}</span>
+            </div>
+             <div className="flex items-center gap-1">
+                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                <span className="text-sm font-semibold">{project.rating.toFixed(1)}</span>
+            </div>
           </div>
           <CardTitle className="font-headline text-lg pt-1 group-hover:text-primary transition-colors">{project.title}</CardTitle>
         </CardHeader>

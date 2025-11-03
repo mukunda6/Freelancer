@@ -17,7 +17,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload, Building } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload, Building, Star } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Input } from '@/components/ui/input';
@@ -214,7 +214,15 @@ export default function ProjectDetailPage() {
                       </div>
                   </div>
                 </div>
-
+                 <div className="space-y-2 pt-2 border-t">
+                    <h4 className="font-semibold text-muted-foreground">Client Rating</h4>
+                    <div className="flex items-center gap-1">
+                        {[...Array(5)].map((_, i) => (
+                            <Star key={i} className={`h-5 w-5 ${i < project.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'}`} />
+                        ))}
+                        <span className="ml-2 text-sm font-semibold text-foreground">{project.rating.toFixed(1)}</span>
+                    </div>
+                </div>
                  <Button className="w-full" asChild>
                     <Link href="#">
                       <Building className="mr-2" />
