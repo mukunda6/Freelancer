@@ -26,40 +26,34 @@ export function ClientNav() {
 
   return (
     <nav className="flex flex-col h-full">
-      <div className="flex-1">
-        <SidebarMenu>
-          {navItems.map((item) => (
-            <SidebarMenuItem key={item.href}>
-              <SidebarMenuButton
-                asChild
-                isActive={pathname === item.href}
-                className="justify-start"
-              >
-                <Link href={item.href}>
-                  <item.icon className="h-5 w-5 mr-3" />
-                  <span>{item.label}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </div>
-      <div className="mt-auto">
-        <SidebarMenu>
-          <SidebarMenuItem>
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            asChild
+            isActive={pathname === actionItem.href}
+            className="justify-start bg-accent text-accent-foreground hover:bg-accent/90 mb-2"
+          >
+            <Link href={actionItem.href}>
+              <actionItem.icon className="h-5 w-5 mr-3" />
+              <span>{actionItem.label}</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+        {navItems.map((item) => (
+          <SidebarMenuItem key={item.href}>
             <SidebarMenuButton
               asChild
-              isActive={pathname === actionItem.href}
-              className="justify-start bg-accent text-accent-foreground hover:bg-accent/90"
+              isActive={pathname === item.href}
+              className="justify-start"
             >
-              <Link href={actionItem.href}>
-                <actionItem.icon className="h-5 w-5 mr-3" />
-                <span>{actionItem.label}</span>
+              <Link href={item.href}>
+                <item.icon className="h-5 w-5 mr-3" />
+                <span>{item.label}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-        </SidebarMenu>
-      </div>
+        ))}
+      </SidebarMenu>
     </nav>
   );
 }
