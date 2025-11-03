@@ -19,7 +19,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload, Building, Star } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
@@ -43,7 +42,8 @@ export default function ProjectDetailPage() {
       const newVideoUrl = URL.createObjectURL(file);
       setVideoSrc(newVideoUrl);
 
-      // "Save" the video URL to the mock data
+      // In a real app, you'd upload this to a storage service and save the URL.
+      // For this demo, we'll just update the mock data object in memory.
       const projectIndex = projects.findIndex((p) => p.id === projectId);
       if (projectIndex !== -1) {
         projects[projectIndex].videoUrl = newVideoUrl;
@@ -74,7 +74,7 @@ export default function ProjectDetailPage() {
         <Button variant="ghost" asChild>
             <Link href="/dashboard/projects">
                 <ArrowLeft className="mr-2" />
-                Back to All Projects
+                Back to My Projects
             </Link>
         </Button>
        </div>
@@ -111,7 +111,7 @@ export default function ProjectDetailPage() {
                 <CardTitle className="font-headline">Project Demo Video</CardTitle>
               </div>
               <CardDescription>
-                Upload a video to showcase your project.
+                Upload a video to showcase your project. This helps clients understand the value you delivered.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -124,7 +124,7 @@ export default function ProjectDetailPage() {
                         />
                     </div>
                 ) : (
-                    <div className="relative aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
+                    <div className="relative aspect-video w-full bg-muted rounded-lg flex items-center justify-center border-2 border-dashed">
                         <p className="text-muted-foreground">No video uploaded.</p>
                     </div>
                 )}
@@ -145,10 +145,11 @@ export default function ProjectDetailPage() {
           </Card>
 
 
-          {/* Project Description */}
+          {/* Full Project Description */}
           <Card>
              <CardHeader>
-                <CardTitle className="font-headline">Project Details</CardTitle>
+                <CardTitle className="font-headline">Full Project Description</CardTitle>
+                 <CardDescription>A comprehensive breakdown of the project goals, execution, and outcomes.</CardDescription>
              </CardHeader>
             <CardContent className="space-y-6">
                 <div>
@@ -162,7 +163,7 @@ export default function ProjectDetailPage() {
                 </div>
                  <Separator />
                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Key Features</h3>
+                    <h3 className="font-semibold text-lg mb-2">Key Features Implemented</h3>
                     <ul className="space-y-2 text-muted-foreground">
                     {project.features.split('\n').map((feature, index) => (
                         <li key={index} className="flex items-start gap-2">
