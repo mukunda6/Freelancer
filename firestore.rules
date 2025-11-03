@@ -79,12 +79,13 @@ service cloud.firestore {
       function isOwner(freelancerUid) {
         return request.auth.uid == freelancerUid;
       }
-
-      function isExistingOwner(freelancerUid) {
-        return isOwner(freelancerUid) && exists(path(freelancerUid));
-      }
-
-      allow read, write: if isOwner(freelancerUid) && request.resource.data.freelancerUid == freelancerUid;
+      
+      // Allow the owner to list and get their own projects
+      allow list, get: if isOwner(freelancerUid);
+      
+      // Allow the owner to create, update, and delete if the data is valid
+      allow create: if isOwner(freelancerUid) && request.resource.data.freelancerUid == freelancerUid;
+      allow update, delete: if isOwner(freelancerUid) && resource.data.freelancerUid == freelancerUid;
     }
 
 
@@ -157,5 +158,3 @@ service cloud.firestore {
     }
   }
 }
-
-    
