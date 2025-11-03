@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { FilePlus } from "lucide-react";
 
 export default function ClientProjectsPage() {
-  // Assuming these are projects posted by the client
-  const clientProjects = projects.slice(0, 4);
+  // Filter to show projects posted by this client (e.g., 'Retail Co', 'FitLife Inc.', etc.)
+  const clientProjects = projects.filter(p => ["Retail Co", "FitLife Inc.", "Fintech Startup", "CloudCorp", "Supportify", "Metrics Inc."].includes(p.postedBy));
 
   return (
     <div className="space-y-6">
