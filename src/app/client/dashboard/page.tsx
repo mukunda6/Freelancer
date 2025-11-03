@@ -97,11 +97,6 @@ export default function ClientDashboardPage() {
               <CardTitle className="font-headline">Top Freelancers</CardTitle>
               <CardDescription>Discover top-rated talent for your next project.</CardDescription>
             </div>
-             <Button variant="link" asChild>
-                <Link href="/client/dashboard/freelancer-projects">
-                    Browse All <ArrowRight className="ml-2" />
-                </Link>
-            </Button>
           </div>
         </CardHeader>
         <CardContent>
