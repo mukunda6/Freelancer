@@ -193,7 +193,41 @@ export const projects: Project[] = [
     skills: ['React', 'Firebase', 'WebSockets', 'Canvas API'],
     duration: '2.5 Months',
     rating: 4.8
-  }
+  },
+  {
+    id: '11',
+    title: 'Automated Financial Reporting Tool',
+    description: 'FinCorp, a financial services company, needed to automate their weekly reporting process to save time and reduce manual errors.',
+    requirements: 'The project involved creating a Python-based script that would automatically pull data from multiple sources (SQL databases and CSV files), process the data, and generate a standardized PDF report. The tool needed to be run on a schedule and email the report to a list of stakeholders.',
+    features: '- Automated data extraction from multiple sources.\n- Data processing and cleaning with Pandas.\n- PDF report generation with visualizations.\n- Scheduled execution using a cron job.\n- Automated email delivery of reports.',
+    impact: 'The automation tool reduced the time spent on weekly reporting from 8 hours to just 10 minutes. This freed up the finance team to focus on more strategic analysis and completely eliminated manual data entry errors, leading to more reliable and trusted reports.',
+    budget: 4000,
+    category: 'Automation',
+    postedBy: 'FinCorp',
+    clientUid: 'FINCORP_UID',
+    imageUrl: 'https://picsum.photos/seed/financialreporting/600/400',
+    imageHint: 'financial report',
+    skills: ['Python', 'Pandas', 'SQL', 'Automation'],
+    duration: '1 Month',
+    rating: 4.9
+  },
+  {
+    id: '12',
+    title: 'Custom Wordpress Plugin',
+    description: 'Blogosphere Inc. wanted a custom WordPress plugin to create interactive polls and quizzes to increase reader engagement on their popular blog.',
+    requirements: 'The plugin needed to have an intuitive admin interface for creating and managing polls and quizzes. It had to be lightweight, secure, and compatible with the latest version of WordPress. The frontend needed to be customizable to match different blog themes.',
+    features: '- Admin interface for creating polls and quizzes.\n- Customizable frontend display.\n- Real-time results and user voting.\n- Shortcode for easy embedding in posts.\n- Social sharing options for quiz results.',
+    impact: 'The plugin was a huge success, increasing average time on page by 50% for articles that included a poll or quiz. The social sharing feature for quiz results also drove a significant amount of referral traffic back to the site, boosting their audience growth.',
+    budget: 2000,
+    category: 'Web Development',
+    postedBy: 'Blogosphere Inc.',
+    clientUid: 'BLOGOSPHERE_UID',
+    imageUrl: 'https://picsum.photos/seed/wordpressplugin/600/400',
+    imageHint: 'wordpress cms',
+    skills: ['WordPress', 'PHP', 'JavaScript', 'MySQL'],
+    duration: '3 Weeks',
+    rating: 4.8
+  },
 ];
 
 export type Milestone = {
@@ -428,17 +462,14 @@ export type Competitor = {
   rank: number;
   earnings: number;
   tags: string[];
+  tier: 'Gold' | 'Silver' | 'Bronze';
 };
 
 export const competitors: Competitor[] = [
-  { id: 'c1', name: 'Alex Ray', avatar: 'https://picsum.photos/seed/alexray/100/100', specialty: 'React & Node.js Expert', rank: 1, earnings: 120000, tags: ['Top Rated', 'Rising Talent'] },
-  { id: 'c2', name: 'Ben Carter', avatar: 'https://picsum.photos/seed/bencarter/100/100', specialty: 'UI/UX & Brand Designer', rank: 2, earnings: 115000, tags: ['Top Rated'] },
-  { id: 'c3', name: 'Casey Smith', avatar: 'https://picsum.photos/seed/caseysmith/100/100', specialty: 'Mobile App Developer (iOS & Android)', rank: 3, earnings: 110000, tags: ['Top Rated'] },
-  { id: 'c4', name: 'Drew Evans', avatar: 'https://picsum.photos/seed/drewevans/100/100', specialty: 'AI & Machine Learning Engineer', rank: 4, earnings: 105000, tags: ['Top Rated'] },
-  { id: 'c5', name: 'Eli Finch', avatar: 'https://picsum.photos/seed/elifinch/100/100', specialty: 'Content Strategy & SEO', rank: 5, earnings: 98000, tags: ['Rising Talent'] },
-  { id: 'c6', name: 'Frank Green', avatar: 'https://picsum.photos/seed/frankgreen/100/100', specialty: 'Data Scientist', rank: 6, earnings: 95000, tags: [] },
-  { id: 'c7', name: 'Grace Hill', avatar: 'https://picsum.photos/seed/gracehill/100-100', specialty: 'Shopify Developer', rank: 7, earnings: 92000, tags: ['Top Rated'] },
-  { id: 'c8', name: 'Henry Ives', avatar: 'https://picsum.photos/seed/henryives/100/100', specialty: 'Graphic Designer', rank: 8, earnings: 89000, tags: [] },
-  { id: 'c9', name: 'Ivy Jones', avatar: 'https://picsum.photos/seed/ivyjones/100/100', specialty: 'Full-Stack Developer', rank: 9, earnings: 88000, tags: ['Rising Talent'] },
-  { id: 'c10', name: 'Jack King', avatar: 'https://picsum.photos/seed/jackking/100/100', specialty: 'Marketing Automation Specialist', rank: 10, earnings: 85000, tags: [] },
+  { id: 'c1', name: 'Alex Ray', avatar: 'https://picsum.photos/seed/alexray/100/100', specialty: 'React & Node.js Expert', rank: 1, earnings: 120000, tags: ['Top Rated', 'Client Recommended'], tier: 'Gold' },
+  { id: 'c2', name: 'Ben Carter', avatar: 'https://picsum.photos/seed/bencarter/100/100', specialty: 'UI/UX & Brand Designer', rank: 2, earnings: 115000, tags: ['Top Rated'], tier: 'Gold' },
+  { id: 'c3', name: 'Casey Smith', avatar: 'https://picsum.photos/seed/caseysmith/100/100', specialty: 'Mobile App Developer (iOS & Android)', rank: 3, earnings: 110000, tags: ['Top Rated'], tier: 'Silver' },
+  { id: 'c4', name: 'Drew Evans', avatar: 'https://picsum.photos/seed/drewevans/100/100', specialty: 'AI & Machine Learning Engineer', rank: 4, earnings: 105000, tags: ['Top Rated'], tier: 'Silver' },
+  { id: 'c5', name: 'Eli Finch', avatar: 'https://picsum.photos/seed/elifinch/100/100', specialty: 'Content Strategy & SEO', rank: 5, earnings: 98000, tags: ['Rising Talent'], tier: 'Bronze' },
+  { id: 'c6', name: 'Frank Green', avatar: 'https://picsum.photos/seed/frankgreen/100/100', specialty: 'Data Scientist', rank: 6, earnings: 95000, tags: [], tier: 'Bronze' },
 ];

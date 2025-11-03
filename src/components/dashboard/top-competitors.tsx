@@ -26,8 +26,8 @@ export function TopCompetitors() {
                 {competitor.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
             </div>
             <p className="ml-auto font-medium text-right text-sm">
-                <span className="text-muted-foreground">Earnings: </span>
-                <span className="text-foreground">${competitor.earnings.toLocaleString()}</span>
+                <span className="text-muted-foreground">Tier: </span>
+                <span className="font-semibold text-foreground">{competitor.tier}</span>
             </p>
           </div>
         ))}

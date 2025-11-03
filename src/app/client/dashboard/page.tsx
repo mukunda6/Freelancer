@@ -9,11 +9,15 @@ import {
 } from "@/components/ui/card";
 import { Briefcase, FilePlus, Users, Trophy, ArrowRight } from "lucide-react";
 import Link from 'next/link';
-import { competitions } from "@/lib/data";
+import { competitions, competitors } from "@/lib/data";
 import { CompetitionCard } from "@/components/client/competition-card";
-import { TopCompetitors } from "@/components/dashboard/top-competitors";
+import { FreelancerTierCard } from "@/components/client/freelancer-tier-card";
 
 export default function ClientDashboardPage() {
+  const goldFreelancers = competitors.filter(c => c.tier === 'Gold');
+  const silverFreelancers = competitors.filter(c => c.tier === 'Silver');
+  const bronzeFreelancers = competitors.filter(c => c.tier === 'Bronze');
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -58,8 +62,41 @@ export default function ClientDashboardPage() {
           </CardContent>
         </Card>
       </div>
+      
+       <div className="space-y-8">
+        <div>
+          <h2 className="text-2xl font-headline font-bold">Top Freelancers</h2>
+          <p className="text-muted-foreground">Discover top-rated talent for your next project.</p>
+        </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="space-y-4">
+            <h3 className="text-lg font-semibold tracking-tight text-yellow-500">Gold Tier</h3>
+            <div className="grid gap-6 md:grid-cols-2">
+                {goldFreelancers.map(freelancer => (
+                    <FreelancerTierCard key={freelancer.id} freelancer={freelancer} />
+                ))}
+            </div>
+        </div>
+        <div className="space-y-4">
+            <h3 className="text-lg font-semibold tracking-tight text-slate-400">Silver Tier</h3>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {silverFreelancers.map(freelancer => (
+                    <FreelancerTierCard key={freelancer.id} freelancer={freelancer} />
+                ))}
+            </div>
+        </div>
+         <div className="space-y-4">
+            <h3 className="text-lg font-semibold tracking-tight text-amber-700">Bronze Tier</h3>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {bronzeFreelancers.map(freelancer => (
+                    <FreelancerTierCard key={freelancer.id} freelancer={freelancer} />
+                ))}
+            </div>
+        </div>
+      </div>
+
+
+      <div className="grid gap-6 lg:grid-cols-2 pt-8">
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
@@ -90,19 +127,6 @@ export default function ClientDashboardPage() {
         </Card>
       </div>
 
-       <Card>
-        <CardHeader>
-          <div className="flex justify-between items-center">
-            <div>
-              <CardTitle className="font-headline">Top Freelancers</CardTitle>
-              <CardDescription>Discover top-rated talent for your next project.</CardDescription>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <TopCompetitors />
-        </CardContent>
-      </Card>
     </div>
   );
 }
