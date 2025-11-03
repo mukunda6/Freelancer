@@ -4,7 +4,7 @@
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import { projects } from '@/lib/data';
 import {
   Card,
@@ -26,15 +26,30 @@ import { Label } from '@/components/ui/label';
 export default function ProjectDetailPage() {
   const params = useParams();
   const projectId = params.id as string;
-  const [videoSrc, setVideoSrc] = useState<string | null>("https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link");
-
   const project = projects.find((p) => p.id === projectId);
+
+  const [videoSrc, setVideoSrc] = useState<string | null>(project?.videoUrl || null);
+
+  useEffect(() => {
+    // Initialize videoSrc from project data when component mounts
+    if (project && project.videoUrl) {
+      setVideoSrc(project.videoUrl);
+    }
+  }, [project]);
+
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
 
   const handleVideoUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      setVideoSrc(URL.createObjectURL(file));
+      const newVideoUrl = URL.createObjectURL(file);
+      setVideoSrc(newVideoUrl);
+
+      // "Save" the video URL to the mock data
+      const projectIndex = projects.findIndex((p) => p.id === projectId);
+      if (projectIndex !== -1) {
+        projects[projectIndex].videoUrl = newVideoUrl;
+      }
     }
   };
 
@@ -211,3 +226,5 @@ export default function ProjectDetailPage() {
     </div>
   );
 }
+
+    

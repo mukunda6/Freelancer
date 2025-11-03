@@ -15,6 +15,7 @@ export type Project = {
   imageHint: string;
   skills: string[];
   duration: string;
+  videoUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -31,7 +32,8 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
     skills: ['UI/UX', 'Shopify', 'React', 'Design Systems'],
-    duration: '6 Weeks'
+    duration: '6 Weeks',
+    videoUrl: 'https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link'
   },
   {
     id: '2',
@@ -340,6 +342,8 @@ export const competitors: Competitor[] = [
   { id: 'c9', name: 'Ivy Jones', avatar: 'https://picsum.photos/seed/ivyjones/100/100', specialty: 'Full-Stack Developer', rank: 9, earnings: 88000, tags: ['Rising Talent'] },
   { id: 'c10', name: 'Jack King', avatar: 'https://picsum.photos/seed/jackking/100/100', specialty: 'Marketing Automation Specialist', rank: 10, earnings: 85000, tags: [] },
 ];
+    
+
     
 
     
