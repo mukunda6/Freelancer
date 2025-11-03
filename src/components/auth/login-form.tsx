@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { Users, Building } from "lucide-react";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useToast } from "@/hooks/use-toast";
 
 export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
@@ -21,54 +20,22 @@ export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    const auth = getAuth();
-    const email = (e.currentTarget.elements.namedItem('email') as HTMLInputElement).value;
-    const password = (e.currentTarget.elements.namedItem('password') as HTMLInputElement).value;
+    
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    try {
-      // First, try to sign in the user
-      await signInWithEmailAndPassword(auth, email, password);
-      toast({
-        title: "Login Successful",
-        description: "Welcome back!",
-      });
-      if (userType === 'client') {
-        router.push("/client/dashboard");
-      } else {
-        router.push("/dashboard");
-      }
-    } catch (error: any) {
-      // If sign-in fails because the user doesn't exist, create a new account
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-        try {
-          await createUserWithEmailAndPassword(auth, email, password);
-          toast({
-            title: "Account Created!",
-            description: "Welcome! Your new account has been created successfully.",
-          });
-          if (userType === 'client') {
-            router.push("/client/dashboard");
-          } else {
-            router.push("/dashboard");
-          }
-        } catch (creationError: any) {
-          toast({
-            variant: "destructive",
-            title: "Signup Failed",
-            description: creationError.message || "An error occurred during signup.",
-          });
-        }
-      } else {
-        // Handle other errors (e.g., wrong password, network issues)
-        toast({
-          variant: "destructive",
-          title: "Login Failed",
-          description: error.message || "An unexpected error occurred.",
-        });
-      }
-    } finally {
-        setIsLoading(false);
+    toast({
+      title: "Login Successful",
+      description: "Welcome back!",
+    });
+
+    if (userType === 'client') {
+      router.push("/client/dashboard");
+    } else {
+      router.push("/dashboard");
     }
+    
+    setIsLoading(false);
   };
 
   const isClient = userType === 'client';
@@ -83,7 +50,7 @@ export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
           {isClient ? 'Client Login' : 'Freelancer Login'}
         </CardTitle>
         <CardDescription>
-          Welcome! Please enter your details to continue.
+          Enter your credentials to access your account.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -118,13 +85,13 @@ export function LoginForm({ userType }: { userType: 'freelancer' | 'client' }) {
             <Input id="password" name="password" type="password" required defaultValue="password" />
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? 'Processing...' : 'Login or Sign Up'}
+            {isLoading ? 'Signing In...' : 'Login'}
           </Button>
         </form>
         <div className="mt-4 text-center text-sm">
-          No account? No problem.{" "}
+          Don't have an account?{" "}
           <Link href={`/signup?role=${userType}`} className="font-semibold text-primary/80 hover:text-primary hover:underline">
-            Go to full signup
+            Sign up
           </Link>
         </div>
       </CardContent>
