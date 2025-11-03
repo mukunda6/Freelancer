@@ -15,7 +15,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload, Building, Star } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload, Building, Star, DollarSign, Wrench } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -194,27 +194,31 @@ export default function ProjectDetailPage({ params: paramsProp }: { params: { id
                 <CardDescription>Client</CardDescription>
              </CardHeader>
             <CardContent className="space-y-4 text-sm">
-                <div className="space-y-2">
-                    <h4 className="font-semibold text-muted-foreground">Project Summary</h4>
-                    <p className="text-sm text-foreground">
-                      This {project.duration} project was completed within a budget of ${project.budget.toLocaleString()} and delivered key features for their {project.category.toLowerCase()} needs.
-                    </p>
+                
+                <div className="mt-6 pt-6 border-t grid grid-cols-2 gap-4 text-sm">
+                 <div className="flex items-center gap-2">
+                    <DollarSign className="h-5 w-5 text-primary" />
+                    <div>
+                        <p className="text-muted-foreground">Budget</p>
+                        <p className="font-semibold text-foreground">${project.budget.toLocaleString()}</p>
+                    </div>
                 </div>
-                <div className="flex items-center justify-between text-sm">
-                  <div className="space-y-2">
-                      <h4 className="font-semibold text-muted-foreground">Category</h4>
-                      <Badge variant="secondary">{project.category}</Badge>
-                  </div>
-                  <div className="space-y-2 text-right">
-                      <h4 className="font-semibold text-muted-foreground">Duration</h4>
-                      <div className="flex items-center gap-1.5 justify-end">
-                        <Clock className="h-4 w-4" />
-                        <span>{project.duration}</span>
-                      </div>
-                  </div>
+                 <div className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-primary" />
+                    <div>
+                        <p className="text-muted-foreground">Duration</p>
+                        <p className="font-semibold text-foreground">{project.duration}</p>
+                    </div>
                 </div>
-                 <div className="space-y-2 pt-2 border-t">
-                    <h4 className="font-semibold text-muted-foreground">Client Rating</h4>
+                 <div className="flex items-center gap-2 col-span-2">
+                    <Wrench className="h-5 w-5 text-primary" />
+                    <div>
+                        <p className="text-muted-foreground">Skills</p>
+                        <p className="font-semibold text-foreground">{project.skills.join(', ')}</p>
+                    </div>
+                </div>
+                 <div className="space-y-2 pt-4 border-t col-span-2">
+                    <h4 className="font-semibold text-muted-foreground">My Rating</h4>
                     <div className="flex items-center gap-1">
                         {[...Array(5)].map((_, i) => (
                             <Star key={i} className={`h-5 w-5 ${i < project.rating ? 'text-yellow-400 fill-yellow-400' : 'text-muted-foreground'}`} />
@@ -222,6 +226,7 @@ export default function ProjectDetailPage({ params: paramsProp }: { params: { id
                         <span className="ml-2 text-sm font-semibold text-foreground">{project.rating.toFixed(1)}</span>
                     </div>
                 </div>
+              </div>
             </CardContent>
           </Card>
         </div>
