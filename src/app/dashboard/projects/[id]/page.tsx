@@ -4,7 +4,7 @@
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { projects } from '@/lib/data';
 import {
   Card,
@@ -17,16 +17,26 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Clock, Mail, CheckCircle2, Video, PlayCircle } from 'lucide-react';
+import { ArrowLeft, Clock, Mail, CheckCircle2, Video, Upload } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function ProjectDetailPage() {
   const params = useParams();
   const projectId = params.id as string;
+  const [videoSrc, setVideoSrc] = useState<string | null>("https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link");
 
   const project = projects.find((p) => p.id === projectId);
   const userAvatar = PlaceHolderImages.find(p => p.id === 'user-avatar');
+
+  const handleVideoUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setVideoSrc(URL.createObjectURL(file));
+    }
+  };
 
   if (!project) {
     return (
@@ -86,18 +96,37 @@ export default function ProjectDetailPage() {
                 <CardTitle className="font-headline">Project Demo Video</CardTitle>
               </div>
               <CardDescription>
-                A video walkthrough of the project's features and impact.
+                Upload a video to showcase your project.
               </CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="relative aspect-video w-full bg-slate-900 rounded-lg overflow-hidden">
-                   <video
-                    className="w-full h-full"
-                    controls
-                    src="https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link"
-                    />
-                </div>
+                {videoSrc ? (
+                    <div className="relative aspect-video w-full bg-slate-900 rounded-lg overflow-hidden">
+                        <video
+                            className="w-full h-full"
+                            controls
+                            src={videoSrc}
+                        />
+                    </div>
+                ) : (
+                    <div className="relative aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
+                        <p className="text-muted-foreground">No video uploaded.</p>
+                    </div>
+                )}
             </CardContent>
+            <CardFooter>
+                 <div className="grid w-full max-w-sm items-center gap-1.5">
+                    <Label htmlFor="video-upload" className="cursor-pointer">
+                        <Button asChild variant="outline">
+                           <div>
+                             <Upload className="mr-2" />
+                             {videoSrc ? 'Change Video' : 'Upload Video'}
+                           </div>
+                        </Button>
+                    </Label>
+                    <Input id="video-upload" type="file" accept="video/*" onChange={handleVideoUpload} className="hidden" />
+                </div>
+            </CardFooter>
           </Card>
 
 
