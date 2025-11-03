@@ -3,8 +3,9 @@ import type { Project } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import Link from 'next/link';
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, isClientView = false }: { project: Project, isClientView?: boolean }) {
   return (
     <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
       <div className="relative aspect-video w-full">
@@ -27,7 +28,13 @@ export function ProjectCard({ project }: { project: Project }) {
       </CardContent>
       <CardFooter className="pt-0 flex justify-between items-center bg-secondary/30 p-4">
         <div className="text-xl font-bold text-primary">${project.budget.toLocaleString()}</div>
-        <Button>Apply Now</Button>
+        {isClientView ? (
+           <Button variant="outline" asChild>
+             <Link href="/client/dashboard/proposals">View Proposals</Link>
+           </Button>
+        ) : (
+          <Button>Apply Now</Button>
+        )}
       </CardFooter>
     </Card>
   );

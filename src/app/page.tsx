@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Briefcase, Users, FileText } from 'lucide-react';
+import { ArrowRight, Briefcase, Users, FileText, Building } from 'lucide-react';
 import { Logo } from '@/components/logo';
 
 export default function LandingPage() {
@@ -23,11 +23,11 @@ export default function LandingPage() {
           </nav>
           <div className="flex items-center gap-4">
             <Button variant="ghost" asChild>
-              <Link href="/login">Log In</Link>
+              <Link href="/login">Freelancer Login</Link>
             </Button>
             <Button asChild>
               <Link href="/signup">
-                Sign Up <ArrowRight className="ml-2" />
+                Get Started <ArrowRight className="ml-2" />
               </Link>
             </Button>
           </div>
@@ -48,19 +48,21 @@ export default function LandingPage() {
           />
           <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
             <h1 className="text-4xl font-headline font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-              Your Freelance Career, Supercharged.
+              Find Talent. Find Work.
             </h1>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-6">
-              Freelancer Hub is the all-in-one platform to find projects, manage clients, and grow your independent business.
+              The premier platform connecting innovative companies with top-tier freelance talent.
             </p>
-            <div className="mt-8 flex justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
               <Button size="lg" asChild>
-                <Link href="/signup">
-                  Get Started for Free <ArrowRight className="ml-2" />
+                <Link href="/signup?role=freelancer">
+                  Find Work as a Freelancer <ArrowRight className="ml-2" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline">
-                <Link href="#features">Learn More</Link>
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/signup?role=client">
+                  Hire Talent for Your Project
+                </Link>
               </Button>
             </div>
           </div>
@@ -70,44 +72,35 @@ export default function LandingPage() {
         <section id="features" className="w-full py-20 md:py-32 bg-background">
           <div className="container mx-auto px-4 md:px-6">
             <div className="text-center">
-              <h2 className="text-3xl font-headline font-bold tracking-tight sm:text-4xl">Why Freelancer Hub?</h2>
+              <h2 className="text-3xl font-headline font-bold tracking-tight sm:text-4xl">The Ultimate Freelance Ecosystem</h2>
               <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
-                Everything you need to succeed as a freelancer, all in one place.
+                Whether you're hiring or looking for your next project, we have you covered.
               </p>
             </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-12 mt-12 sm:grid-cols-2 md:grid-cols-3">
-              <div className="grid gap-2 text-center">
-                <div className="flex justify-center items-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                     <Briefcase className="w-8 h-8 text-primary" />
-                  </div>
-                </div>
-                <h3 className="text-lg font-bold font-headline">Find Projects</h3>
-                <p className="text-sm text-muted-foreground">
-                  Access a curated list of high-quality projects from trusted clients.
-                </p>
-              </div>
-              <div className="grid gap-2 text-center">
-                <div className="flex justify-center items-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Users className="w-8 h-8 text-primary" />
-                  </div>
-                </div>
-                <h3 className="text-lg font-bold font-headline">Manage Clients</h3>
-                <p className="text-sm text-muted-foreground">
-                  Keep track of all your client communications, milestones, and invoices seamlessly.
-                </p>
-              </div>
-              <div className="grid gap-2 text-center">
+            <div className="mx-auto grid max-w-5xl items-start gap-12 mt-12 sm:grid-cols-2 md:grid-cols-2">
+              <div className="grid gap-4 text-center p-6 rounded-lg border bg-card">
                  <div className="flex justify-center items-center">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <FileText className="w-8 h-8 text-primary" />
+                     <Users className="w-8 h-8 text-primary" />
                   </div>
                 </div>
-                <h3 className="text-lg font-bold font-headline">Effortless Invoicing</h3>
+                <h3 className="text-xl font-bold font-headline">For Freelancers</h3>
                 <p className="text-sm text-muted-foreground">
-                  Create and send professional invoices in minutes and get paid on time.
+                  Access curated projects, manage clients seamlessly, and get paid on time, every time. Your entire freelance business, organized in one place.
                 </p>
+                 <Button variant="link" asChild><Link href="/signup?role=freelancer">Find Your Next Project <ArrowRight className="ml-2" /></Link></Button>
+              </div>
+              <div className="grid gap-4 text-center p-6 rounded-lg border bg-card">
+                <div className="flex justify-center items-center">
+                  <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Building className="w-8 h-8 text-accent" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold font-headline">For Clients</h3>
+                <p className="text-sm text-muted-foreground">
+                  Post projects, review proposals from top talent, and manage your freelance workforce with powerful and intuitive tools.
+                </p>
+                 <Button variant="link" className="text-accent" asChild><Link href="/signup?role=client">Hire Top Talent <ArrowRight className="ml-2" /></Link></Button>
               </div>
             </div>
           </div>
@@ -117,9 +110,9 @@ export default function LandingPage() {
         <section className="w-full py-20 md:py-24 bg-secondary/50">
           <div className="container mx-auto grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <h2 className="text-3xl font-headline font-bold tracking-tight sm:text-4xl">
-              Ready to Take Control of Your Freelance Career?
+              Join the Future of Work
             </h2>
-            <p className="text-muted-foreground">Join thousands of successful freelancers on our platform.</p>
+            <p className="text-muted-foreground">Sign up today and connect with a world of opportunity.</p>
             <Button asChild size="lg" className="mx-auto mt-4">
               <Link href="/signup">
                 Sign Up Now <ArrowRight className="ml-2" />

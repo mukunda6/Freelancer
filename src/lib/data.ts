@@ -52,6 +52,26 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',
   },
+  {
+    id: '5',
+    title: 'AI-Powered Chatbot Integration',
+    description: 'Integrate a Genkit-based AI chatbot into our existing customer support portal to handle common queries.',
+    budget: 4500,
+    category: 'AI/ML',
+    postedBy: 'Supportify',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-image-5')?.imageHint || '',
+  },
+  {
+    id: '6',
+    title: 'Data Visualization Dashboard',
+    description: 'Build a real-time dashboard using Recharts to visualize our sales and marketing data from a Firestore database.',
+    budget: 6000,
+    category: 'Data Analytics',
+    postedBy: 'Metrics Inc.',
+    imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageUrl || '',
+    imageHint: PlaceHolderImages.find(p => p.id === 'project-image-6')?.imageHint || '',
+  }
 ];
 
 export type Milestone = {
@@ -131,4 +151,49 @@ export const referrals: Referral[] = [
     clientAvatar: PlaceHolderImages.find(p => p.id === 'client-avatar-3')?.imageUrl || '', 
     projectDescription: 'A small graphic design job for some social media assets.', 
     status: 'Declined', date: '2024-06-10' },
+];
+
+
+export type Proposal = {
+    id: string;
+    freelancerName: string;
+    freelancerAvatar: string;
+    projectName: string;
+    bid: number;
+    coverLetter: string;
+    status: 'Pending' | 'Accepted' | 'Declined';
+    date: string;
+};
+
+export const proposals: Proposal[] = [
+    {
+        id: 'prop1',
+        freelancerName: 'Jane Doe',
+        freelancerAvatar: PlaceHolderImages.find(p => p.id === 'user-avatar')?.imageUrl || '',
+        projectName: 'E-commerce Platform Redesign',
+        bid: 4800,
+        coverLetter: "I've redesigned over 20 Shopify stores, consistently boosting conversion rates by 15% or more. My focus on mobile-first UX and clean design aligns perfectly with your goals.",
+        status: 'Pending',
+        date: '2024-07-18'
+    },
+    {
+        id: 'prop2',
+        freelancerName: 'John Smith',
+        freelancerAvatar: 'https://picsum.photos/seed/johnsmith/100/100',
+        projectName: 'E-commerce Platform Redesign',
+        bid: 5200,
+        coverLetter: 'As a full-stack developer with deep expertise in Shopify Liquid and headless commerce, I can deliver a high-performance, scalable, and beautiful storefront for Retail Co.',
+        status: 'Pending',
+        date: '2024-07-17'
+    },
+    {
+        id: 'prop3',
+        freelancerName: 'Emily White',
+        freelancerAvatar: 'https://picsum.photos/seed/emilywhite/100/100',
+        projectName: 'Mobile App for Fitness Tracking',
+        bid: 7500,
+        coverLetter: 'I am a React Native specialist and a fitness enthusiast. I have built three successful fitness apps and I\'m excited by the opportunity to work on this project for FitLife Inc.',
+        status: 'Accepted',
+        date: '2024-07-15'
+    }
 ];
