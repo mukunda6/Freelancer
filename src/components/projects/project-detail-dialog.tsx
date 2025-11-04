@@ -13,7 +13,8 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Clock, DollarSign, CheckCircle2, Wrench } from 'lucide-react';
+import { Clock, DollarSign, CheckCircle2, Wrench, Video } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './card';
 
 export function ProjectDetailDialog({ project, open, onOpenChange }: { project: Project; open: boolean; onOpenChange: (open: boolean) => void; }) {
   if (!project) return null;
@@ -38,6 +39,33 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: { project: 
                 />
             </div>
           </div>
+
+           {/* Demo Video Card */}
+           {project.videoUrl && (
+            <Card className='mb-6'>
+                <CardHeader>
+                <div className="flex items-center gap-3">
+                    <Video className="w-6 h-6 text-primary" />
+                    <CardTitle className="font-headline">Project Demo</CardTitle>
+                </div>
+                </CardHeader>
+                <CardContent>
+                    <div className="relative aspect-video w-full bg-slate-900 rounded-lg overflow-hidden">
+                        <video
+                            key={project.videoUrl}
+                            className="w-full h-full"
+                            controls
+                            autoPlay
+                            muted
+                            playsInline
+                        >
+                        <source src={project.videoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </CardContent>
+            </Card>
+           )}
           
           <div className="space-y-6">
             <div>
@@ -96,4 +124,3 @@ export function ProjectDetailDialog({ project, open, onOpenChange }: { project: 
     </Dialog>
   );
 }
-
