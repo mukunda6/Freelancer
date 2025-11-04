@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { projects } from '@/lib/data';
 import {
   Card,
@@ -25,16 +25,9 @@ export default function ProjectDetailPage({ params: paramsProp }: { params: { id
   const projectId = params.id;
   const project = projects.find((p) => p.id === projectId);
 
+  // We use a state to manage the video source to allow for uploads,
+  // but we initialize it directly from the project data.
   const [videoSrc, setVideoSrc] = useState<string | null>(project?.videoUrl || null);
-
-  useEffect(() => {
-    // Sync state if project data changes
-    if (project && project.videoUrl) {
-      setVideoSrc(project.videoUrl);
-    } else {
-      setVideoSrc(null);
-    }
-  }, [project]);
 
   const handleVideoUpload = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -43,7 +36,6 @@ export default function ProjectDetailPage({ params: paramsProp }: { params: { id
       setVideoSrc(newVideoUrl);
 
       // In a real app, you'd upload this to a storage service and save the URL.
-      // For this demo, we'll just update the mock data object in memory.
       const projectIndex = projects.findIndex((p) => p.id === projectId);
       if (projectIndex !== -1) {
         projects[projectIndex].videoUrl = newVideoUrl;

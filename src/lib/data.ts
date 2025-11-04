@@ -177,7 +177,8 @@ export const projects: Project[] = [
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-9')?.imageHint || '',
     skills: ['Unity', 'C#', 'VR', '3D Modeling'],
     duration: '4 Months',
-    rating: 4.9
+    rating: 4.9,
+    videoUrl: 'https://hailuoai.video/share/ai-video/pwR4J1pmR00W?source-scene=shared&source-media=shared_link',
   },
   {
     id: '10',
@@ -366,7 +367,7 @@ export type Proposal = {
     bid: number;
     coverLetter: string;
     status: 'Pending' | 'Accepted' | 'Declined';
-    submittedAt: Date;
+    submittedAt: Date | Timestamp;
 };
 
 // This is now used for seeding and as a fallback.
