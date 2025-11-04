@@ -40,6 +40,7 @@ export default function FreelancerProfilePage() {
 
   const freelancerProjects = React.useMemo(() => {
     if (!freelancer) return [];
+    // Correctly filter for portfolio projects owned by the freelancer
     return projects.filter(p => p.postedBy === freelancer.name);
   }, [freelancer]);
   
@@ -100,7 +101,7 @@ export default function FreelancerProfilePage() {
                     <DollarSign className="h-5 w-5 text-primary" />
                     <div>
                         <p className="text-muted-foreground">Earned</p>
-                        <p className="font-semibold text-foreground">${freelancer.earnings.toLocaleString()}</p>
+                        <p className="font-semibold text-foreground">${freelancer.earnings.toLocaleString('en-US')}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">

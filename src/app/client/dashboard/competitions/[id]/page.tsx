@@ -71,7 +71,7 @@ export default function CompetitionSubmissionsPage() {
                     <Award className="h-6 w-6 text-primary" />
                     <div>
                         <p className="text-muted-foreground">Prize</p>
-                        <p className="font-bold text-lg">${competition.prize.toLocaleString()}</p>
+                        <p className="font-bold text-lg">${competition.prize.toLocaleString('en-US')}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3 rounded-md border p-4">

@@ -12,17 +12,28 @@ import type { Timestamp } from 'firebase/firestore';
 // Helper function to format the deadline
 function formatDeadline(deadline: string | Date | Timestamp): string {
     if (!deadline) return 'N/A';
+    
+    let date: Date;
     if (typeof deadline === 'string') {
-        return deadline;
+        date = new Date(deadline);
+    } else if (deadline instanceof Date) {
+        date = deadline;
+    } else if (deadline && typeof deadline === 'object' && 'toDate' in deadline) {
+        date = (deadline as Timestamp).toDate();
+    } else {
+        return 'N/A';
     }
-    if (deadline instanceof Date) {
-        return deadline.toLocaleDateString();
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+        return 'N/A';
     }
-    // Check if it's a Firestore Timestamp-like object
-    if (deadline && typeof deadline === 'object' && 'toDate' in deadline) {
-        return deadline.toDate().toLocaleDateString();
-    }
-    return 'N/A';
+
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
 }
 
 export function CompetitionCard({ competition }: { competition: Competition }) {
@@ -55,7 +66,7 @@ export function CompetitionCard({ competition }: { competition: Competition }) {
                     <Award className="h-5 w-5 text-accent" />
                     <div>
                         <p className="text-muted-foreground">Prize</p>
-                        <p className="font-bold text-lg text-foreground">${competition.prize.toLocaleString()}</p>
+                        <p className="font-bold text-lg text-foreground">${competition.prize.toLocaleString('en-US')}</p>
                     </div>
                 </div>
                  <div className="flex items-center gap-2">

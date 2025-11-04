@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Competitor } from "@/lib/data";
@@ -60,7 +61,7 @@ export function FreelancerTierCard({ freelancer }: { freelancer: Competitor }) {
             ))}
         </div>
         <p className="text-sm text-muted-foreground pt-2 border-t">
-            <span className="font-semibold text-foreground">Total Earnings:</span> ${freelancer.earnings.toLocaleString()}
+            <span className="font-semibold text-foreground">Total Earnings:</span> ${freelancer.earnings.toLocaleString('en-US')}
         </p>
       </CardContent>
       <CardFooter className="flex justify-end gap-2 p-4 bg-background/50">

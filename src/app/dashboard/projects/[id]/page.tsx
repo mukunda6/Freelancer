@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -200,7 +201,7 @@ export default function ProjectDetailPage({ params: paramsProp }: { params: { id
                     <DollarSign className="h-5 w-5 text-primary" />
                     <div>
                         <p className="text-muted-foreground">Budget</p>
-                        <p className="font-semibold text-foreground">${project.budget.toLocaleString()}</p>
+                        <p className="font-semibold text-foreground">${project.budget.toLocaleString('en-US')}</p>
                     </div>
                 </div>
                  <div className="flex items-center gap-2">

@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Competition } from "@/lib/data";
@@ -12,6 +13,33 @@ import { badgeVariants } from '../ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { ApplyCompetitionForm } from "./apply-competition-form";
 import React from "react";
+import type { Timestamp } from "firebase/firestore";
+
+
+function formatDeadline(deadline: string | Date | Timestamp): string {
+    if (!deadline) return 'N/A';
+    
+    let date: Date;
+    if (typeof deadline === 'string') {
+        date = new Date(deadline);
+    } else if (deadline instanceof Date) {
+        date = deadline;
+    } else if (deadline && typeof deadline === 'object' && 'toDate' in deadline) {
+        date = (deadline as Timestamp).toDate();
+    } else {
+        return 'N/A';
+    }
+
+    if (isNaN(date.getTime())) {
+        return 'N/A';
+    }
+
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+}
 
 export function CompetitionCard({ competition, onApplicationSubmit }: { competition: Competition, onApplicationSubmit: () => void }) {
     const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -51,7 +79,7 @@ export function CompetitionCard({ competition, onApplicationSubmit }: { competit
                     <Award className="h-5 w-5 text-accent" />
                     <div>
                         <p className="text-muted-foreground">Prize</p>
-                        <p className="font-bold text-lg text-foreground">${competition.prize.toLocaleString()}</p>
+                        <p className="font-bold text-lg text-foreground">${competition.prize.toLocaleString('en-US')}</p>
                     </div>
                 </div>
                  <div className="flex items-center gap-2">
@@ -64,7 +92,7 @@ export function CompetitionCard({ competition, onApplicationSubmit }: { competit
             </div>
             <div className="text-sm text-muted-foreground flex items-center gap-2 pt-2 border-t">
                 <Calendar className="h-4 w-4" />
-                <span>Deadline: {competition.deadline}</span>
+                <span>Deadline: {formatDeadline(competition.deadline)}</span>
             </div>
         </CardContent>
         <CardFooter className="pt-4 bg-secondary/30 p-4">
