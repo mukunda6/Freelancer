@@ -20,7 +20,7 @@ export type Project = {
   rating: number;
 };
 
-// IMPORTANT: The 'postedBy' field is used for display. 
+// IMPORTANT: The 'postedBy' field is for display. 
 // The 'clientUid' is the actual author ID for database queries.
 // In a real app, you would fetch user details based on the UID.
 export const projects: Project[] = [
@@ -33,8 +33,8 @@ export const projects: Project[] = [
     impact: "The redesigned platform was a massive success, boosting conversion rates by 40% in the first quarter. The mobile-first design and improved navigation reduced the bounce rate by 25%, and the client reported a significant increase in customer satisfaction and repeat business.",
     budget: 5000,
     category: 'Web Development',
-    postedBy: 'Jane Doe', // Display name
-    clientUid: 'RETAIL_CO_UID', // Simulated UID for the client
+    postedBy: 'Retail Co', 
+    clientUid: 'RETAIL_CO_UID', 
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-1')?.imageHint || '',
     skills: ['UI/UX', 'Shopify', 'React', 'Design Systems'],
@@ -51,8 +51,8 @@ export const projects: Project[] = [
     impact: "The app was an instant hit, achieving over 50,000 downloads in the first three months with a 4.8-star rating. The intuitive UI and personalized features led to high user retention. The social sharing feature created a viral loop, driving organic downloads and building a strong user community.",
     budget: 8000,
     category: 'Mobile Development',
-    postedBy: 'Jane Doe', // Display name
-    clientUid: 'FITLIFE_INC_UID', // Simulated UID for the client
+    postedBy: 'FitLife Inc.', 
+    clientUid: 'FITLIFE_INC_UID', 
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-2')?.imageHint || '',
     skills: ['React Native', 'Firebase', 'UI/UX', 'Mobile Design'],
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     impact: "The professional brand identity was crucial in the client's successful pre-launch marketing. It helped them build credibility and played a significant role in their pitch decks, contributing to them securing their first round of seed funding within two months of the brand launch.",
     budget: 2500,
     category: 'Design',
-    postedBy: 'Jane Doe',
+    postedBy: 'Fintech Startup',
     clientUid: 'FINTECH_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-3')?.imageHint || '',
@@ -85,7 +85,7 @@ export const projects: Project[] = [
     impact: "The data-driven content strategy yielded exceptional results. Organic search traffic to the blog increased by 150% over six months. The targeted content resonated with their audience, generating over 200 new marketing qualified leads (MQLs) and significantly boosting their sales pipeline.",
     budget: 3000,
     category: 'Marketing',
-    postedBy: 'Jane Doe',
+    postedBy: 'CloudCorp',
     clientUid: 'CLOUDCORP_UID',
     imageUrl: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageUrl || '',
     imageHint: PlaceHolderImages.find(p => p.id === 'project-image-4')?.imageHint || '',

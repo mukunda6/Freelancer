@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview Firestore Security Rules for Freelancer Hub.
  *
@@ -136,11 +137,12 @@ service cloud.firestore {
       }
       
       function isProjectClient() {
-        return request.auth.uid == resource.data.clientUid;
+        // Check both existing data and incoming data for the client UID.
+        return request.auth.uid == resource.data.clientUid || request.auth.uid == request.resource.data.clientUid;
       }
       
       function isOwnerOrClient() {
-        return request.auth.uid == resource.data.freelancerUid || request.auth.uid == resource.data.clientUid;
+        return request.auth.uid == resource.data.freelancerUid || isProjectClient();
       }
       
       function isClientUpdatingStatus() {
