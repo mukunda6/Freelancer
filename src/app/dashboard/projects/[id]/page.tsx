@@ -25,12 +25,14 @@ export default function ProjectDetailPage({ params: paramsProp }: { params: { id
   const projectId = params.id;
   const project = projects.find((p) => p.id === projectId);
 
-  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const [videoSrc, setVideoSrc] = useState<string | null>(project?.videoUrl || null);
 
   useEffect(() => {
-    // Initialize videoSrc from project data when component mounts
+    // Sync state if project data changes
     if (project && project.videoUrl) {
       setVideoSrc(project.videoUrl);
+    } else {
+      setVideoSrc(null);
     }
   }, [project]);
 
@@ -116,10 +118,16 @@ export default function ProjectDetailPage({ params: paramsProp }: { params: { id
                 {videoSrc ? (
                     <div className="relative aspect-video w-full bg-slate-900 rounded-lg overflow-hidden">
                         <video
+                            key={videoSrc} // Add key to force re-render when src changes
                             className="w-full h-full"
                             controls
-                            src={videoSrc}
-                        />
+                            autoPlay
+                            muted
+                            playsInline
+                        >
+                          <source src={videoSrc} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
                     </div>
                 ) : (
                     <div className="relative aspect-video w-full bg-muted rounded-lg flex items-center justify-center border-2 border-dashed">
