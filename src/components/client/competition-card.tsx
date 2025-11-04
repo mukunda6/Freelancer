@@ -8,6 +8,22 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { VariantProps } from 'class-variance-authority';
 import { badgeVariants } from '../ui/badge';
+import type { Timestamp } from 'firebase/firestore';
+
+// Helper function to format the deadline
+function formatDeadline(deadline: string | Date | Timestamp): string {
+    if (typeof deadline === 'string') {
+        return deadline;
+    }
+    if (deadline instanceof Date) {
+        return deadline.toLocaleDateString();
+    }
+    // Check if it's a Firestore Timestamp-like object
+    if (deadline && typeof deadline === 'object' && 'toDate' in deadline) {
+        return deadline.toDate().toLocaleDateString();
+    }
+    return 'N/A';
+}
 
 export function CompetitionCard({ competition }: { competition: Competition }) {
     
@@ -52,7 +68,7 @@ export function CompetitionCard({ competition }: { competition: Competition }) {
             </div>
             <div className="text-sm text-muted-foreground flex items-center gap-2 pt-2 border-t">
                 <Calendar className="h-4 w-4" />
-                <span>Deadline: {competition.deadline}</span>
+                <span>Deadline: {formatDeadline(competition.deadline)}</span>
             </div>
         </CardContent>
         <CardFooter className="pt-4 bg-secondary/30 p-4">

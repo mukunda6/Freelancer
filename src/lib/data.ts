@@ -1,5 +1,6 @@
 
 import { PlaceHolderImages } from "./placeholder-images";
+import type { Timestamp } from 'firebase/firestore';
 
 export type Project = {
   id: string;
@@ -451,7 +452,7 @@ export type Competition = {
   id: string;
   title: string;
   prize: number;
-  deadline: string;
+  deadline: string | Timestamp | Date;
   entries: number;
   status: 'Live' | 'Judging' | 'Completed';
   clientUid: string; // The UID of the client who posted it
