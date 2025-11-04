@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Proposal } from "@/lib/data";
@@ -9,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useFirebase } from "@/firebase/provider";
 import { updateDocumentNonBlocking } from "@/firebase/non-blocking-updates";
-import { doc } from "firebase/firestore";
+import { doc, Timestamp } from "firebase/firestore";
 
 export function ProposalCard({ proposal }: { proposal: Proposal & { id: string } }) {
   const { toast } = useToast();
@@ -28,6 +29,17 @@ export function ProposalCard({ proposal }: { proposal: Proposal & { id: string }
     });
   };
 
+  const getSubmissionDate = () => {
+    if (!proposal.submittedAt) return '';
+    if (proposal.submittedAt instanceof Timestamp) {
+      return proposal.submittedAt.toDate().toLocaleDateString();
+    }
+    if (proposal.submittedAt instanceof Date) {
+      return proposal.submittedAt.toLocaleDateString();
+    }
+    return String(proposal.submittedAt);
+  }
+
 
   return (
     <Card className="shadow-md">
@@ -41,6 +53,7 @@ export function ProposalCard({ proposal }: { proposal: Proposal & { id: string }
             {proposal.freelancerName}
           </CardTitle>
           <CardDescription>Applied for: {proposal.projectName}</CardDescription>
+           <p className="text-xs text-muted-foreground pt-1">Submitted: {getSubmissionDate()}</p>
         </div>
         <div className="text-right">
             <div className="text-xl font-bold text-primary">${proposal.bid.toLocaleString()}</div>

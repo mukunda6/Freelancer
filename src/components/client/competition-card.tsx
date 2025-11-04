@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Award, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import type { VariantProps } from 'class-variance-authority';
 import { badgeVariants } from '../ui/badge';
 import type { Timestamp } from 'firebase/firestore';
 
 // Helper function to format the deadline
 function formatDeadline(deadline: string | Date | Timestamp): string {
+    if (!deadline) return 'N/A';
     if (typeof deadline === 'string') {
         return deadline;
     }
@@ -73,7 +73,7 @@ export function CompetitionCard({ competition }: { competition: Competition }) {
         </CardContent>
         <CardFooter className="pt-4 bg-secondary/30 p-4">
            <Button variant="link" className="text-accent p-0 h-auto" asChild>
-                <Link href="#">
+                <Link href={`/client/dashboard/competitions/${competition.id}`}>
                     View Submissions <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
            </Button>
