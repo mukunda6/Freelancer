@@ -3,7 +3,7 @@ git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/pranav1-rock/Freelance.git
+git remote add origin https://github.com/mukunda6/Freelancer.git
 git push -u origin main# Firebase Studio
 
 This is a NextJS starter in Firebase Studio.
