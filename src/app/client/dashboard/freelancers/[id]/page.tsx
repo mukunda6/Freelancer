@@ -35,8 +35,10 @@ export default function FreelancerProfilePage() {
     return competitors.find((c) => c.id === freelancerId)
   }, [freelancerId]);
 
+  // Correctly filter for projects posted by the freelancer for their portfolio
   const freelancerProjects = React.useMemo(() => {
     if (!freelancer) return [];
+    // This logic ensures we only show the freelancer's own portfolio projects
     return projects.filter(p => p.postedBy === freelancer.name);
   }, [freelancer]);
   
