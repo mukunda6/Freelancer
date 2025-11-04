@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -15,28 +16,40 @@ import { Trophy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { competitions } from "@/lib/data";
+import { useFirebase } from "@/firebase/provider";
+import { addDocumentNonBlocking } from "@/firebase/non-blocking-updates";
+import { collection, serverTimestamp } from "firebase/firestore";
 
 export default function ProjectCompetitionPage() {
   const { toast } = useToast();
   const router = useRouter();
+  const { firestore, user } = useFirebase();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+     if (!firestore || !user) {
+      toast({ title: "Error", description: "You must be logged in to create a competition.", variant: "destructive" });
+      return;
+    }
+
     const form = e.currentTarget;
     const competitionTitle = (form.elements.namedItem('competition-title') as HTMLInputElement)?.value;
+    const competitionDescription = (form.elements.namedItem('competition-description') as HTMLTextAreaElement)?.value;
     const prizeAmount = (form.elements.namedItem('prize-amount') as HTMLInputElement)?.value;
     const deadline = (form.elements.namedItem('deadline') as HTMLInputElement)?.value;
 
-    // This is a simulation. In a real app, this would be an API call.
-    competitions.unshift({
-        id: `comp${Date.now()}`,
-        title: competitionTitle,
-        prize: parseInt(prizeAmount, 10),
-        deadline: new Date(deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-        entries: 0,
-        status: 'Live'
-    });
+    const newCompetition = {
+      clientUid: user.uid,
+      title: competitionTitle,
+      description: competitionDescription,
+      prize: parseInt(prizeAmount, 10),
+      deadline: serverTimestamp(), // Using server timestamp for consistency
+      status: 'Live' as const,
+      entries: 0,
+    };
+    
+    const competitionsRef = collection(firestore, 'competitions');
+    addDocumentNonBlocking(competitionsRef, newCompetition);
 
     toast({
       title: "Competition Launched! 🚀",
@@ -75,7 +88,7 @@ export default function ProjectCompetitionPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="competition-description">Brief & Requirements</Label>
-              <Textarea id="competition-description" placeholder="Describe the project, goals, and what you expect freelancers to deliver." className="min-h-[150px]" required/>
+              <Textarea id="competition-description" name="competition-description" placeholder="Describe the project, goals, and what you expect freelancers to deliver." className="min-h-[150px]" required/>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">

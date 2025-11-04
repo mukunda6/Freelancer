@@ -253,6 +253,49 @@
         "status",
         "submittedAt"
       ]
+    },
+    "Competition": {
+      "title": "Competition",
+      "type": "object",
+      "description": "A project competition posted by a client.",
+      "properties": {
+        "clientUid": {
+          "type": "string",
+          "description": "The UID of the client who posted the competition."
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "prize": {
+          "type": "number"
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "Live",
+            "Judging",
+            "Completed"
+          ]
+        },
+        "entries": {
+            "type": "number"
+        }
+      },
+      "required": [
+        "clientUid",
+        "title",
+        "description",
+        "prize",
+        "deadline",
+        "status"
+      ]
     }
   },
   "auth": {
@@ -374,10 +417,24 @@
             }
           ]
         }
+      },
+      {
+        "path": "/competitions/{competitionId}",
+        "definition": {
+          "entityName": "Competition",
+          "schema": {
+            "$ref": "#/backend/entities/Competition"
+          },
+          "description": "Stores project competitions posted by clients.",
+          "params": [
+            {
+              "name": "competitionId",
+              "description": "The unique ID for the competition."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "This Firestore structure is designed to support the Freelancer Hub platform, focusing on user, client, project, referral and proposal management. It prioritizes authorization independence, clarity, and scalability. User data is stored in `/users/{uid}`, client data in `/users/{freelancerUid}/clients/{clientId}`, project data in `/users/{freelancerUid}/clients/{clientId}/projects/{projectId}`, referral data in `/referrals/{referralId}`, and proposal data in `/proposals/{proposalId}`. Each entity is placed in separate collections to simplify security rules and avoid complex filtering.  Authorization independence is achieved by ensuring that each document contains all the information needed for authorization, eliminating the need for `get()` calls. For instance, the `Client` and `Project` collections are nested under the user's document to implicitly enforce ownership and simplify access control. The referral and proposal collections will contain the necessary UIDs to ensure each document stores the necessary information for authorization, enabling atomic operations and avoiding dependency on parent documents for access control. Segregation of data into separate collections based on ownership simplifies security rules and improves query performance. All paths follow a consistent naming convention for clarity and maintainability."
+    "reasoning": "This Firestore structure is designed to support the Freelancer Hub platform, focusing on user, client, project, referral, proposal, and competition management. It prioritizes authorization independence, clarity, and scalability. User data is stored in `/users/{uid}`, client data in `/users/{freelancerUid}/clients/{clientId}`, project data in `/users/{freelancerUid}/clients/{clientId}/projects/{projectId}`, referral data in `/referrals/{referralId}`, proposal data in `/proposals/{proposalId}`, and competition data in `/competitions/{competitionId}`. Each entity is placed in separate collections to simplify security rules and avoid complex filtering.  Authorization independence is achieved by ensuring that each document contains all the information needed for authorization, eliminating the need for `get()` calls. For instance, the `Client` and `Project` collections are nested under the user's document to implicitly enforce ownership and simplify access control. The referral, proposal, and competition collections will contain the necessary UIDs to ensure each document stores the necessary information for authorization, enabling atomic operations and avoiding dependency on parent documents for access control. Segregation of data into separate collections based on ownership simplifies security rules and improves query performance. All paths follow a consistent naming convention for clarity and maintainability."
   }
 }
-
-    

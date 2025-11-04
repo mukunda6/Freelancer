@@ -1,4 +1,6 @@
 
+'use client';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,14 +11,26 @@ import {
 } from "@/components/ui/card";
 import { Briefcase, FilePlus, Users, Trophy, ArrowRight } from "lucide-react";
 import Link from 'next/link';
-import { competitions, competitors } from "@/lib/data";
+import { competitors, type Competition } from "@/lib/data";
 import { CompetitionCard } from "@/components/client/competition-card";
 import { FreelancerTierCard } from "@/components/client/freelancer-tier-card";
+import { useFirebase, useCollection, useMemoFirebase } from "@/firebase";
+import { collection, query, where, orderBy } from "firebase/firestore";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ClientDashboardPage() {
   const goldFreelancers = competitors.filter(c => c.tier === 'Gold');
   const silverFreelancers = competitors.filter(c => c.tier === 'Silver');
   const bronzeFreelancers = competitors.filter(c => c.tier === 'Bronze');
+  const { firestore } = useFirebase();
+
+  const competitionsQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return query(collection(firestore, 'competitions'), orderBy('deadline', 'desc'));
+  }, [firestore]);
+
+  const { data: competitions, isLoading } = useCollection<Competition>(competitionsQuery);
+
 
   return (
     <div className="space-y-6">
@@ -108,9 +122,18 @@ export default function ClientDashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-1">
-            {competitions.map((competition) => (
+             {isLoading && (
+              <>
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+              </>
+             )}
+            {competitions && competitions.map((competition) => (
               <CompetitionCard key={competition.id} competition={competition} />
             ))}
+             {!isLoading && competitions?.length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-8">You haven't posted any competitions yet.</p>
+              )}
           </CardContent>
         </Card>
 

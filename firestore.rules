@@ -7,6 +7,7 @@
  * Users can only create, read, update, and delete their own data.
  * Referrals have separate read and write rules based on the client and freelancer involved.
  * Proposals have rules based on the submitting freelancer and the client who owns the project.
+ * Competitions can be created by any authenticated user (client) and read by anyone.
  *
  * Data Structure:
  * - /users/{userId}: Stores user profiles, accessible only by the user.
@@ -15,16 +16,18 @@
  * - /users/{userId}/portfolioProjects/{projectId}: Stores a freelancer's portfolio projects.
  * - /referrals/{referralId}: Stores referral data.
  * - /proposals/{proposalId}: Stores proposal data.
+ * - /competitions/{competitionId}: Stores competition data.
  *
  * Key Security Decisions:
  * - User listing is disabled for privacy.
  * - Clients and projects are nested under user documents to enforce ownership.
  * - Referral access is based on the referred freelancer and the referring client.
  * - Proposal access is based on the submitting freelancer and the project's client.
+ * - Competition creation is restricted to authenticated users.
  *
  * Denormalization for Authorization:
  * The Client and Project documents contain the freelancerUid, removing the need for get() calls
- * to the user document when checking permissions. The referral and proposal documents contain necessary UIDs
+ * to the user document when checking permissions. The referral, proposal, and competition documents contain necessary UIDs
  * for similar reasons.
  */
 rules_version = '2';
@@ -157,6 +160,22 @@ service cloud.firestore {
       
       allow update: if isClientUpdatingStatus();
       allow delete: if false;
+    }
+
+    /**
+     * @description Secure competitions. Authenticated users (clients) can create. Anyone can read.
+     * @path /competitions/{competitionId}
+     */
+    match /competitions/{competitionId} {
+      function isClientOwner() {
+        return request.auth.uid == request.resource.data.clientUid;
+      }
+
+      allow read: if true;
+
+      allow create: if request.auth != null && isClientOwner();
+      allow update: if request.auth.uid == resource.data.clientUid;
+      allow delete: if request.auth.uid == resource.data.clientUid;
     }
   }
 }
