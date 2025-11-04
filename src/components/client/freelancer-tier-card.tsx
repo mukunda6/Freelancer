@@ -1,3 +1,4 @@
+'use client';
 
 import type { Competitor } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -63,9 +64,11 @@ export function FreelancerTierCard({ freelancer }: { freelancer: Competitor }) {
         </p>
       </CardContent>
       <CardFooter className="flex justify-end gap-2 p-4 bg-background/50">
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" asChild>
+          <Link href={`/client/dashboard/freelancers/${freelancer.id}`}>
             <User className="mr-2" />
             View Profile
+          </Link>
         </Button>
         <Button size="sm">
             <Mail className="mr-2" />
