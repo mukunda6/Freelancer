@@ -30,10 +30,17 @@ export async function chatbot(input: ChatbotInput): Promise<ChatbotOutput> {
         role: m.role as 'user' | 'model',
         content: m.content as Part[]
     }));
+    
+    // Extract the latest user message to use as the prompt, and the rest as history
+    const latestMessage = history.pop();
+    if (!latestMessage || latestMessage.role !== 'user') {
+        return "Sorry, I can only respond to user messages.";
+    }
 
     const { text } = await ai.generate({
-        prompt: `You are a helpful assistant for Linkfolio, a platform for freelancers and clients. Keep your answers concise.`,
-        history: history,
+        prompt: latestMessage.content[0]!.text, // Use the last message as the main prompt
+        history: history, // Use the rest of the conversation as history
+        system: `You are a helpful assistant for Linkfolio, a platform for freelancers and clients. Keep your answers concise.`,
         config: {
             temperature: 0.5,
         }
