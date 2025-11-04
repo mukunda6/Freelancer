@@ -12,6 +12,7 @@ import { Logo } from '@/components/logo';
 import { ClientNav } from '@/components/client/client-nav';
 import { UserNav } from '@/components/user-nav';
 import { Chatbot } from '@/components/chatbot/chatbot';
+import { GlobalSearch } from '@/components/global-search';
 
 export default function ClientDashboardLayout({ children }: { children: ReactNode }) {
   return (
@@ -29,7 +30,7 @@ export default function ClientDashboardLayout({ children }: { children: ReactNod
           <header className="flex h-14 items-center gap-4 border-b bg-card px-4 lg:h-[60px] lg:px-6 sticky top-0 z-30">
             <SidebarTrigger className="flex md:hidden" />
             <div className="w-full flex-1">
-               {/* Search can be added here */}
+               <GlobalSearch />
             </div>
             <UserNav />
           </header>
