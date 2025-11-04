@@ -1,13 +1,24 @@
 
+'use client';
+
 import Image from "next/image";
 import type { Project } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from 'next/link';
 import { ArrowRight, Building, DollarSign, Clock, Wrench, Star } from "lucide-react";
 
-export function ProjectCard({ project, isClientView = false, isBrowseView = false }: { project: Project, isClientView?: boolean, isBrowseView?: boolean }) {
+export function ProjectCard({ 
+  project, 
+  isClientView = false, 
+  isBrowseView = false, 
+  onCardClick 
+}: { 
+  project: Project, 
+  isClientView?: boolean, 
+  isBrowseView?: boolean,
+  onCardClick?: (project: Project) => void 
+}) {
   
   const getProjectUrl = () => {
     if (isClientView) {
@@ -18,10 +29,16 @@ export function ProjectCard({ project, isClientView = false, isBrowseView = fals
     }
     return `/dashboard/projects/${project.id}`;
   }
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if (onCardClick) {
+      e.preventDefault();
+      onCardClick(project);
+    }
+  }
   
-  return (
-    <Link href={getProjectUrl()} className="flex group">
-      <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 w-full hover:border-primary">
+  const cardContent = (
+      <Card className="flex flex-col overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 w-full hover:border-primary h-full">
         <div className="relative aspect-video w-full overflow-hidden">
           <Image
             src={project.imageUrl}
@@ -55,13 +72,26 @@ export function ProjectCard({ project, isClientView = false, isBrowseView = fals
                 </div>
             </div>
         </CardContent>
-        <CardFooter className="pt-4 flex justify-between items-center bg-secondary/30 p-4">
+        <CardFooter className="pt-4 flex justify-between items-center bg-secondary/30 p-4 mt-auto">
            <Badge variant="secondary" className="w-fit">{project.category}</Badge>
            <div className="text-sm font-semibold text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
              View Project <ArrowRight className="h-4 w-4" />
            </div>
         </CardFooter>
       </Card>
+  );
+
+  if (onCardClick) {
+    return (
+      <div onClick={handleCardClick} className="flex group cursor-pointer h-full">
+        {cardContent}
+      </div>
+    );
+  }
+  
+  return (
+    <Link href={getProjectUrl()} className="flex group h-full">
+      {cardContent}
     </Link>
   );
 }

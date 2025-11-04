@@ -2,7 +2,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { competitors, projects } from '@/lib/data';
+import { competitors, projects, type Project } from '@/lib/data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { ProjectCard } from '@/components/projects/project-card';
 import React from 'react';
 import { Separator } from '@/components/ui/separator';
+import { ProjectDetailDialog } from '@/components/projects/project-detail-dialog';
 
 const tierConfig = {
   Gold: {
@@ -31,14 +32,14 @@ const tierConfig = {
 export default function FreelancerProfilePage() {
   const params = useParams();
   const freelancerId = params.id as string;
+  const [selectedProject, setSelectedProject] = React.useState<Project | null>(null);
+
   const freelancer = React.useMemo(() => {
     return competitors.find((c) => c.id === freelancerId)
   }, [freelancerId]);
 
-  // Correctly filter for projects posted by the freelancer for their portfolio
   const freelancerProjects = React.useMemo(() => {
     if (!freelancer) return [];
-    // This logic ensures we only show the freelancer's own portfolio projects
     return projects.filter(p => p.postedBy === freelancer.name);
   }, [freelancer]);
   
@@ -61,6 +62,7 @@ export default function FreelancerProfilePage() {
   const Icon = config.icon;
 
   return (
+    <>
     <div className="space-y-8">
       <div className="flex justify-between items-start">
         <div>
@@ -141,7 +143,7 @@ export default function FreelancerProfilePage() {
               {freelancerProjects.length > 0 ? (
                 <div className="grid gap-6 md:grid-cols-1">
                   {freelancerProjects.map(project => (
-                    <ProjectCard key={project.id} project={project} isBrowseView={true}/>
+                    <ProjectCard key={project.id} project={project} onCardClick={() => setSelectedProject(project)} />
                   ))}
                 </div>
               ) : (
@@ -152,5 +154,17 @@ export default function FreelancerProfilePage() {
         </div>
       </div>
     </div>
+    {selectedProject && (
+        <ProjectDetailDialog
+            project={selectedProject}
+            open={!!selectedProject}
+            onOpenChange={(isOpen) => {
+                if (!isOpen) {
+                    setSelectedProject(null);
+                }
+            }}
+        />
+    )}
+    </>
   );
 }
