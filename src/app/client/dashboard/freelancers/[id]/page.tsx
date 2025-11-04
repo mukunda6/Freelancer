@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useParams } from 'next/navigation';
@@ -6,10 +7,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Briefcase, Crown, Award, Shield, DollarSign, Star, TrendingUp } from 'lucide-react';
+import { ArrowLeft, Briefcase, Crown, Award, Shield, DollarSign, Star, TrendingUp, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { ProjectCard } from '@/components/projects/project-card';
 import React from 'react';
+import { Separator } from '@/components/ui/separator';
 
 const tierConfig = {
   Gold: {
@@ -84,11 +86,11 @@ export default function FreelancerProfilePage() {
                 <Icon className={`w-6 h-6 ${config.textColor}`} />
                 <span className={`font-bold text-md ${config.textColor}`}>{freelancer.tier} Tier</span>
               </div>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm text-center">
-              <div className="flex flex-wrap justify-center gap-2">
+              <div className="flex flex-wrap justify-center gap-2 pt-4">
                 {freelancer.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
               </div>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm text-center">
               <div className="grid grid-cols-2 gap-4 pt-4 border-t text-left">
                   <div className="flex items-center gap-2">
                     <DollarSign className="h-5 w-5 text-primary" />
@@ -103,6 +105,20 @@ export default function FreelancerProfilePage() {
                         <p className="text-muted-foreground">Rank</p>
                         <p className="font-semibold text-foreground">#{freelancer.rank}</p>
                     </div>
+                  </div>
+              </div>
+              <Separator className="my-4" />
+              <div className="space-y-2">
+                  <h4 className="font-semibold text-left">Contact Information</h4>
+                  <div className="flex flex-col gap-2">
+                     <Button variant="outline" className="w-full justify-start">
+                        <Mail className="mr-2" />
+                        <span>Send Email</span>
+                     </Button>
+                      <Button variant="outline" className="w-full justify-start">
+                        <Phone className="mr-2" />
+                        <span>Call Now</span>
+                      </Button>
                   </div>
               </div>
             </CardContent>
